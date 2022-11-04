@@ -12,7 +12,7 @@ FROM maven:3-amazoncorretto-17 as backend
 COPY --from=frontend /app/frontend/dist /app/frontend/dist
 COPY backend/src /app/backend/src
 COPY backend/pom.xml /app/backend
-RUN mvn -f /app/backend/pom.xml clean package
+RUN mvn -f /app/backend/pom.xml clean package -P production
 
 FROM amazoncorretto:17-alpine
 

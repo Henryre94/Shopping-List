@@ -1,0 +1,24 @@
+version: '3.6'
+services:
+  db:
+    image: mariadb:latest
+    hostname: db
+  backend:
+    build:
+      dockerfile: Dockerfile
+    environment:
+      DB_HOSTNAME: host.docker.internal
+      DB_USERNAME: ${DB_USERNAME:-saadi}
+      DB_PASSWORD: ${DB_PASSWORD:-saadi}
+      DB_DATABASE: ${DB_DATABASE:-saadi}
+    ports:
+      - "8080:80"
+  mysql:
+    image: mysql:5.7
+    hostname: db
+    environment:
+      MYSQL_USER: ${DB_USERNAME:-saadi}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-saadi}
+      MYSQL_DATABASE: ${DB_DATABASE:-saadi}
+    ports:
+      - "3306:3306"

@@ -5,9 +5,25 @@ services:
     hostname: db
   backend:
     build:
-      context: ./backend
       dockerfile: Dockerfile
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
+    networks:
+      - default
+      - external
+    environment:
+      DB_HOSTNAME: db
+    expose:
+      - 80
+  mysql:
+    image: mysql:5.7
+    hostname: db
+    environment:
+      MYSQL_USER: ${DB_USER:-saadi}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-saadierp}
+      MYSQL_DATABASE: ${DB_DATABASE:-saadi}
+    expose:
+      - 3306
+
+networks:
+  proxy:
+    external:
+      name: reverse_proxy
