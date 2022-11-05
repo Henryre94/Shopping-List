@@ -16,7 +16,7 @@ services:
     environment:
       MYSQL_USER: ${DB_USER:-saadi}
       MYSQL_DATABASE: ${DB_DATABASE:-saadi}
-      MYSQL_RANDOM_ROOT_PASSWORD: true
+      MYSQL_RANDOM_ROOT_PASSWORD: "true"
     expose:
       - 3306
 
