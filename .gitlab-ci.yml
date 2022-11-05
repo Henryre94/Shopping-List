@@ -14,10 +14,8 @@ build_frontend:
   script:
     - (cd frontend && npm run build)
   only:
-    refs:
-      - branches:
-          - master
-          - develop
+    - master
+    - develop
 
 build_backend:
   image: maven:3-amazoncorretto-17
@@ -31,10 +29,8 @@ build_backend:
   script:
     - mvn -f $CI_PROJECT_DIR/backend/pom.xml clean package
   only:
-    refs:
-      - branches:
-          - master
-          - develop
+    - master
+    - develop
 
 deploy:
   stage: deploy
