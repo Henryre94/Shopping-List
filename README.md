@@ -1,5 +1,9 @@
 # Saadi ERP
 
+## Live-Umgebung
+
+// To be done
+
 ## Setup
 
 ### Backend
@@ -73,6 +77,22 @@ public UserDto createUser(@RequestBody() NewUserDto newUser) {
 }
 ```
 
-Für mehr Informationen: siehe [hier](https://restfulapi.net/)
+Für mehr Informationen zu allgemeinem API-Design siehe [hier](https://restfulapi.net/).
 
 ### Code
+
+Prinzipiell sollen alle Variablen sinnvoll benannt werden, sodass durch deren Namen klar ist, wofür diese Verwendet wird. Bei der Groß-/Kleinschreibung soll klassisches camelCase bei Variablen & Methoden und UpperCamelCase bei Klassen (und Components im Frontend) verwendet werden. 
+
+Bei Methoden und Funktionen soll durch deren Namen klar sein, was sie machen bzw. returnen.
+
+Die Kommunikation bei Controllern (Request-Body, Response, ...) soll immer mit DTOs stattfinden. Auch wenn jene DTOs teilweise die gleichen Properties wie die dazugehörigen Entities, ist es im Hinblick auf Bug-Vermeidung und Wartbarkeit sinnvoll. Damit kann man auch kontrollieren, welche Beziehungen mitgeladen werden. Bspw. braucht es bei einem Get auf `/api/stores` nicht bei allen Stores auch gleich alle Produkte, sondern erst bei einem Get auf `/api/stores/1` soll der Store mit der ID 1 und alle dessen Produkte geladen werden. Ohne DTOs ist das nicht umsetzbar.
+
+### Git Workflow
+
+Als Hauptbranch soll der "develop"-Branch dienen. In diesem soll auch immer eine lauffähige Version sein, die im Idealfall auch schon getestet ist. 
+
+Wenn man an einem Feature arbeitet, dann soll dies in einem eigenen Branch geschehen. Zwecks übersichtlichkeit ist dieser mit den eigenen Initialien geprefixed und einem Slash getrennt werden. Also bspw. `DS/implementLocationManagement`. Ist dieses Feature fertig entwickelt und funktionsfähig, dann wird zunächst lokal der develop-Branch in den Feature-Branch gemerged werden und anschließend der Feature-Branch in den develop-Branch. Dies verhindert, dass sich versehentlich Merge-Conflicts in den develop-Branch einschleichen können.
+
+Ist ein Meilenstein erreicht, dann ist ein Merge-Requests vom develop-Branch in den master-Branch über Gitlab zu erstellen. Rechte, um diesen zu mergen, haben der Sebi und David. Sobald der Merge-Request gemerged ist, wird der Stand automatisch auf den Live-Server gespielt und ist dann öffentlich aufrufbar.
+
+Für weitere Informationen zum Branching-Modell, siehe [hier](https://nvie.com/posts/a-successful-git-branching-model/).
