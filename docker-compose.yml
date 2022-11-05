@@ -3,11 +3,12 @@ services:
   backend:
     build:
       dockerfile: Dockerfile
+      context: ./
     networks:
       - default
-      - external
+      - proxy
     environment:
-      DB_HOSTNAME: db
+      DB_HOSTNAME: mysql
     expose:
       - 80
   mysql:

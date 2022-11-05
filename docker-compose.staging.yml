@@ -3,6 +3,7 @@ services:
   backend:
     build:
       dockerfile: Dockerfile
+      context: ./
     environment:
       DB_HOSTNAME: host.docker.internal
       DB_USERNAME: ${DB_USERNAME:-saadi}
@@ -16,6 +17,6 @@ services:
       MYSQL_USER: ${DB_USERNAME:-saadi}
       MYSQL_PASSWORD: ${DB_PASSWORD:-saadi}
       MYSQL_DATABASE: ${DB_DATABASE:-saadi}
-      MYSQL_RANDOM_ROOT_PASSWORD: true
+      MYSQL_RANDOM_ROOT_PASSWORD: "true"
     ports:
       - "3306:3306"

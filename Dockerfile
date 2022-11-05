@@ -18,4 +18,4 @@ FROM amazoncorretto:17-alpine
 
 COPY --from=backend /app/backend/target/backend-0.0.1-SNAPSHOT.jar /app/saadi-erp.jar
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "/app/saadi-erp.jar"]
+ENTRYPOINT ["java", "-Dspring.profiles.active=production", "-jar", "/app/saadi-erp.jar"]
