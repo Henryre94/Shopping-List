@@ -1,0 +1,60 @@
+stages:
+  - build
+  - deploy
+
+build_frontend:
+  image: node:18-alpine
+  stage: build
+  cache:
+    key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
+    paths:
+      - frontend/.npm
+  before_script:
+    - (cd frontend && npm ci --cache .npm --prefer-offline)
+  script:
+    - (cd frontend && npm run build)
+  only:
+    refs:
+      - branches:
+          - master
+          - develop
+
+build_backend:
+  image: maven:3-amazoncorretto-17
+  stage: build
+  cache:
+    key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
+    paths:
+      - backend/.m2/repository
+  variables:
+    MAVEN_OPTS: "-Dmaven.repo.local=$CI_PROJECT_DIR/backend/.m2/repository"
+  script:
+    - mvn -f $CI_PROJECT_DIR/backend/pom.xml clean package
+  only:
+    refs:
+      - branches:
+          - master
+          - develop
+
+deploy:
+  stage: deploy
+  image: ubuntu
+  only:
+    - master
+  when: manual
+  before_script:
+    - which ssh-agent || (apt-get update -qq && apt-get install -qq openssh-client)
+    - eval $(ssh-agent -s)
+    - echo "$SERVER_SSH_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+  script:
+    - >
+      ssh ${SERVER_TARGET} -p ${SERVER_PORT}
+      "
+      cd /srv/asw/kunden/saadi/erp &&
+      git checkout master &&
+      git pull &&
+      git checkout ${CI_COMMIT_SHA} &&
+      ./deploy.sh
+      "
