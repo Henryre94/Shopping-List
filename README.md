@@ -48,10 +48,10 @@ Folgende Beispiele:
 | /api/stores/1                | Get     | Gibt den Store mit der ID 1 zurück. Gibt es keinen Store mit der ID 1, dann wird ein Error 404 returned                              |
 | /api/stores/1                | Put     | Ändert den Store mit der ID 1. Put erwartet als Body das gesamte Store-Object inkl. Daten, die sich nicht geändert haben             |
 | /api/stores/1                | Patch   | Ändert den Store mit der ID 1. Patch erwartet als Body nur jene Informationen, die geändert werden sollen                            |
-| /api/stores/1                | Delete | Löscht den Store mti der ID 1                                                                                                        |
-| /api/stores/1/products       | Get | Gibt alle Products zurück, welche der Store mit der ID 1 hat                                                                         |
-| ~~/api/stores/1/products~~   | Get | Sofern Produkte keinen zusammengesetzten Primary-Key haben, die abhängig von der Store-ID wären, ist `/api/products` zu bevorzugen                                                                         |
-| ~~/api/stores/1/products/1~~ | Get | Sofern Produkte keinen zusammengesetzten Primary-Key haben, die abhängig von der Store-ID wären, ist `/api/products/1` zu bevorzugen |
+| /api/stores/1                | Delete  | Löscht den Store mti der ID 1                                                                                                        |
+| /api/stores/1/products       | Get     | Gibt alle Products zurück, welche der Store mit der ID 1 hat                                                                         |
+| ~~/api/stores/1/products~~   | Post    | Sofern Produkte keinen zusammengesetzten Primary-Key haben, die abhängig von der Store-ID wären, ist `/api/products` zu bevorzugen                                                                         |
+| ~~/api/stores/1/products/1~~ | Get     | Sofern Produkte keinen zusammengesetzten Primary-Key haben, die abhängig von der Store-ID wären, ist `/api/products/1` zu bevorzugen |
 
 Für mehr Informationen zum Unterschied zwischen Put/Patch, siehe [hier](https://www.baeldung.com/http-put-patch-difference-spring). Wann die gesamte Ressource zu ersetzen ist oder nur teilweise Änderungen geschickt werden, ist in Absprache im Team, insb. zwischen Frontend/Backend zu klären. Meistens wird Put bevorzugt, da es den Aufwand sowohl im Backend als auch im Frontend reduziert. Patch wird dagegen eher verwendet, wenn es um sensible Themen wie Passwörter geht, oder Berechnungen im Backend angestoßen werden sollen ("erhöhe etwas vom Wert, den es aktuell hat" anstatt "setze etwas auf Wert x").
 
@@ -86,6 +86,22 @@ Prinzipiell sollen alle Variablen sinnvoll benannt werden, sodass durch deren Na
 Bei Methoden und Funktionen soll durch deren Namen klar sein, was sie machen bzw. returnen.
 
 Die Kommunikation bei Controllern (Request-Body, Response, ...) soll immer mit DTOs stattfinden. Auch wenn jene DTOs teilweise die gleichen Properties wie die dazugehörigen Entities, ist es im Hinblick auf Bug-Vermeidung und Wartbarkeit sinnvoll. Damit kann man auch kontrollieren, welche Beziehungen mitgeladen werden. Bspw. braucht es bei einem Get auf `/api/stores` nicht bei allen Stores auch gleich alle Produkte, sondern erst bei einem Get auf `/api/stores/1` soll der Store mit der ID 1 und alle dessen Produkte geladen werden. Ohne DTOs ist das nicht umsetzbar.
+
+Bestmöglich darauf schauen, dass einzelne Zeilen nicht länger als 120 Zeichen lang sind. Das erhöht die Lesbarkeit, speziell bei Laptops oder kleineren Bildschirmen.
+
+```java
+// statt
+new UserDto(userEntity.getUserId(), userEntity.getFirstName(), userEntity.getLastName(), userEntity.getEmail(), ...);
+
+// lieber
+new UserDto(
+    userEntity.getUserId(),
+    userEntity.getFirstName(),
+    userEntity.getLastName(),
+    userEntity.getEmail(),
+    ...    
+);
+```
 
 ### Git Workflow
 
