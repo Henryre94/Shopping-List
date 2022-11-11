@@ -1,18 +1,26 @@
 package at.aschowurscht.dev.saadi.erp.backend.demands;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import at.aschowurscht.dev.saadi.erp.backend.products.Product;
+import at.aschowurscht.dev.saadi.erp.backend.pubs.Pub;
+
+import javax.persistence.*;
 
 @Entity
+@Table(name= "product_demand")
+@IdClass(DemandID.class)
 public class Demand {
-    private Long demandId;
-
-    public void setDemandId(Long demandId) {
-        this.demandId = demandId;
-    }
 
     @Id
-    public Long getDemandId() {
-        return demandId;
-    }
+    @ManyToOne
+    @JoinColumn(name = "product_id", referencedColumnName = "proId")
+    private Product product;
+
+    @Id
+    @ManyToOne
+    @JoinColumn(name = "pub_id", referencedColumnName = "pubId")
+    private Pub pub;
+
+    @Column(name = "quantity")
+    private int quantity;
+
 }
