@@ -3,7 +3,7 @@ package at.aschowurscht.dev.saadi.erp.backend.products;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.UUID;
+
 
 @Entity
 @Getter
