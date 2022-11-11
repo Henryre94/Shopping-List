@@ -1,18 +1,25 @@
 package at.aschowurscht.dev.saadi.erp.backend.products;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import lombok.*;
+
+import javax.persistence.*;
+import java.util.UUID;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Product {
-    private Long productId;
-
-    public void setProductId(Long productId) {
-        this.productId = productId;
-    }
 
     @Id
-    public Long getProductId() {
-        return productId;
-    }
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int proId;
+
+    @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = false)
+    private String unit;
+
 }

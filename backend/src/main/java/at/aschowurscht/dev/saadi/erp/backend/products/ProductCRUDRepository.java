@@ -1,4 +1,10 @@
 package at.aschowurscht.dev.saadi.erp.backend.products;
 
-public interface ProductCRUDRepository {
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.UUID;
+
+@Repository
+public interface ProductCRUDRepository extends CrudRepository<Product, UUID> {
 }
