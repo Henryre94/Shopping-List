@@ -1,24 +1,28 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import axios from "axios";
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-        demoText: ''
+        products: [],
+        suppliers: [],
     },
+    
     getters: {},
-    mutations: {
-        setDemoText(state, text) {
-            state.demoText = text
-        }
+
+    mutations: { 
+        addProducts(state, payload) {
+            state.products = state.products.concat(payload.data)
+        },
+        addSuppliers(state, payload) {
+            state.suppliers = state.suppliers.concat(payload.data)
+        }    
     },
+
     actions: {
-        async loadDemoText(store) {
-            const response = await axios.get('/api/demo')
-            store.commit('setDemoText', response.data)
-        }
+       
     },
+
     modules: {}
 })

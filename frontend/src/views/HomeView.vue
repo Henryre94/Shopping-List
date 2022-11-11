@@ -1,14 +1,22 @@
 <template>
-  <div class="home">
-    <h1>Cafe Saadi</h1>
-   
-  </div>
+  <v-container>
+
+    <TheHeader />
+    <router-link to="/product">Produkte</router-link> |
+    <router-link to="/supplier">Lieferanten</router-link> |
+    <!--<router-link to="/pub">Lokale</router-link> -->
+
+  </v-container>
 </template>
 
 <script>
 // @ is an alias to /src
+import TheHeader from '@/components/TheHeader.vue';
 
 export default {
-  name: 'HomeView'
+  name: 'HomeView',
+  components: {
+    TheHeader,
+  }
 }
 </script>
