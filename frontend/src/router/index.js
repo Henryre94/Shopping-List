@@ -1,8 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import ProductListView from '../views/ProductListView.vue'
-import SupplierListView from '../views/SupplierListView.vue'
+import VendorsView from '../views/VendorsView.vue'
+import Pub1090View from "@/views/Pub1090View.vue";
+import Pub1160View from "@/views/Pub1160View.vue";
+import ProductView from "@/views/ProductView.vue";
 
 Vue.use(VueRouter)
 
@@ -15,18 +17,23 @@ const routes = [
   {
     path: '/product',
     name: 'product',
-    component: ProductListView
+    component: ProductView
   },
   {
-    path: '/supplier',
-    name: 'supplier',
-    component: SupplierListView
+    path: '/vendor',
+    name: 'vendor',
+    component: VendorsView
   },
-  //{
-  //  path: '/pub',
-  //  name: 'pub',
-  //  component: PubView
-  //},
+  {
+      path: '/pub1090',
+    name: 'pub1090',
+    component: Pub1090View
+  },
+    {
+        path: '/pub1160',
+        name: 'pub1160',
+        component: Pub1160View
+    },
 ]
 
 const router = new VueRouter({

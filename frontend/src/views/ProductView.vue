@@ -1,17 +1,17 @@
 <template>
     <v-container>
         <router-link to="/">Home</router-link>
-        <SupplierList />
+        <ProductAdd />
     </v-container>
-
 </template>
+
 <script>
-import SupplierList from '@/components/SupplierList.vue';
+import ProductAdd from '@/components/ProductAdd.vue';
 
 export default {
-    name: 'SupplierListView',
+    name: 'ProductView',
     components: {
-        SupplierList,
+        ProductAdd,
     }
 }
 </script>
