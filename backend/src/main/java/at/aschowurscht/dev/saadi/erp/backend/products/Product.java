@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -27,11 +28,12 @@ public class Product {
     private String unit;
 
     @OneToMany(mappedBy = "product")
-    private List<Demand> pubAssoc;
+    private List<Demand> pubAssoc = new ArrayList<Demand>();
 
     @ManyToOne
     @JsonBackReference
     @JoinColumn(name = "vendorId")
     private Vendor vendor;
+
 
 }

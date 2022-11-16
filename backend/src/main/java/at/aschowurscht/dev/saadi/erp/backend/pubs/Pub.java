@@ -7,7 +7,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
+
 
 
 @Entity
@@ -25,6 +27,6 @@ public class Pub {
     private String name;
 
     @OneToMany(mappedBy = "pub")
-    private List<Demand> productAssoc;
+    private List<Demand> productAssoc = new ArrayList<Demand>();
 
 }
