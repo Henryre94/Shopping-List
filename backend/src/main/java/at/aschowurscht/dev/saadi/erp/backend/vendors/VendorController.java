@@ -27,11 +27,11 @@ public class VendorController {
         return pubList;
     }
     @CrossOrigin
-    @PutMapping("/api/vendors/{pubId}")
-    public void put(@PathVariable int pubId){
-        vendorService.put(pubId);
+    @PutMapping("/api/vendors")
+    public void put(@RequestBody Vendor vendor){
+        vendorService.put(vendor);
     }
     @CrossOrigin
-    @DeleteMapping("/vendors/{venId}")
+    @DeleteMapping("api/vendors/{venId}")
     public void delete(@PathVariable int venId) {vendorService.delete(venId);}
 }

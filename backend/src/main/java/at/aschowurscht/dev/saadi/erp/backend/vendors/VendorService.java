@@ -22,8 +22,8 @@ public class VendorService {
     public List<Vendor> get(){
         return ((List<Vendor>) vendorCRUDRepository.findAll());
     }
-    public void put(int venId){
-        vendorCRUDRepository.findById(venId);
+    public void put(Vendor vendor){
+        vendorCRUDRepository.save(vendor);
     }
     public void delete(int venId){
         vendorCRUDRepository.deleteById(venId);

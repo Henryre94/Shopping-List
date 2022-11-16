@@ -1,6 +1,7 @@
 package at.aschowurscht.dev.saadi.erp.backend.pubs;
 
 import at.aschowurscht.dev.saadi.erp.backend.products.Product;
+import at.aschowurscht.dev.saadi.erp.backend.vendors.Vendor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,11 +28,11 @@ public class PubController {
         return pubList;
     }
     @CrossOrigin
-    @PutMapping("/api/pubs/{pubId}")
-    public void put(@PathVariable int pubId){
-        pubService.put(pubId);
+    @PutMapping("/api/pubs")
+    public void put(@RequestBody Pub pub){
+        pubService.put(pub);
     }
     @CrossOrigin
-    @DeleteMapping("/pubs/{pubId}")
+    @DeleteMapping("api/pubs/{pubId}")
     public void delete(@PathVariable int pubId) {pubService.delete(pubId);}
 }

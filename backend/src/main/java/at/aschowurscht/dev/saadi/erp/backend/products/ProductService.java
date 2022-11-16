@@ -20,8 +20,8 @@ public class ProductService {
     public List<Product> get(){
         return ((List<Product>) productCRUDRepository.findAll());
     }
-    public void put(int proId){
-        productCRUDRepository.findById(proId);
+    public void put(Product product){
+        productCRUDRepository.save(product);
     }
     public void delete(int proId){
         productCRUDRepository.deleteById(proId);

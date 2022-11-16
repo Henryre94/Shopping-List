@@ -21,8 +21,8 @@ public class PubService {
     public List<Pub> get(){
         return ((List<Pub>) pubCRUDRepository.findAll());
     }
-    public void put(int pubId){
-        pubCRUDRepository.findById(pubId);
+    public void put(Pub pub){
+        pubCRUDRepository.save(pub);
     }
     public void delete(int pubId){
         pubCRUDRepository.deleteById(pubId);

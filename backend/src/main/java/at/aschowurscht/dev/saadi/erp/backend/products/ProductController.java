@@ -7,10 +7,8 @@ import java.util.List;
 
 @RestController
 public class ProductController {
-
     @Autowired
     ProductService productService;
-
     @CrossOrigin
     @PostMapping("/api/products")
     public void postProduct(@RequestBody Product product){
@@ -29,11 +27,11 @@ public class ProductController {
         return productList;
     }
     @CrossOrigin
-    @PutMapping("/api/products/{proId}")
-    public void put(@PathVariable int proId){
-        productService.put(proId);
+    @PutMapping("/api/products")
+    public void put(@RequestBody Product product){
+        productService.put(product);
     }
     @CrossOrigin
-    @DeleteMapping("/products/{proId}")
+    @DeleteMapping("api/products/{proId}")
     public void delete(@PathVariable int proId) {productService.delete(proId);}
 }
