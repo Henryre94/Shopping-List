@@ -14,7 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
+
 public class Product {
 
     @Id
@@ -35,5 +35,8 @@ public class Product {
     @JoinColumn(name = "vendorId")
     private Vendor vendor;
 
-
+    public Product(String name, String unit) {
+        this.name = name;
+        this.unit = unit;
+    }
 }

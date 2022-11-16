@@ -2,7 +2,6 @@ package at.aschowurscht.dev.saadi.erp.backend.vendors;
 
 import at.aschowurscht.dev.saadi.erp.backend.products.Product;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,7 +14,6 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Vendor {
 
     @Id
@@ -32,6 +30,8 @@ public class Vendor {
     @JsonManagedReference
     private List<Product> productsList;
 
-
-
+    public Vendor(String name, String address) {
+        this.name = name;
+        this.address = address;
+    }
 }

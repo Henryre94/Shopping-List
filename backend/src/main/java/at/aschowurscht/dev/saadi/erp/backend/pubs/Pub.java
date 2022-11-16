@@ -16,7 +16,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
+
 public class Pub {
 
     @Id
@@ -29,4 +29,7 @@ public class Pub {
     @OneToMany(mappedBy = "pub")
     private List<Demand> productAssoc = new ArrayList<Demand>();
 
+    public Pub(String name) {
+        this.name = name;
+    }
 }
