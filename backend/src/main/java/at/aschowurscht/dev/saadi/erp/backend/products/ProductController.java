@@ -1,11 +1,39 @@
 package at.aschowurscht.dev.saadi.erp.backend.products;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class ProductController {
 
     @Autowired
     ProductService productService;
+
+    @CrossOrigin
+    @PostMapping("/api/products")
+    public void postProduct(@RequestBody Product product){
+        productService.post(product);
+    }
+    @CrossOrigin
+    @GetMapping("/api/products/{proId}")
+    public Product getById(@PathVariable int proId){
+        return productService.getById(proId);
+    }
+    @CrossOrigin
+    @GetMapping("/api/products")
+    public List<Product> get(){
+        List<Product> productList = productService.get();
+
+        return productList;
+    }
+    @CrossOrigin
+    @PutMapping("/api/products/{proId}")
+    public void put(@PathVariable int proId){
+        productService.put(proId);
+    }
+    @CrossOrigin
+    @DeleteMapping("/products/{proId}")
+    public void delete(@PathVariable int proId) {productService.delete(proId);}
 }
