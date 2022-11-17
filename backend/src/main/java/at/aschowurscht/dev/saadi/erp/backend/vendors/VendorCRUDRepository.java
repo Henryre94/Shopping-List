@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 import java.util.UUID;
 
 @Repository
-public interface VendorCRUDRepository extends CrudRepository<Vendor, UUID> {
+public interface VendorCRUDRepository extends CrudRepository<Vendor, Integer> {
 }
