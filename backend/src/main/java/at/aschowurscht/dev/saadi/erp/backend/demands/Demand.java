@@ -8,23 +8,28 @@ import java.io.Serializable;
 
 @Entity
 @Table(name= "product_demand")
-public class Demand implements Serializable {
-
-    @EmbeddedId
-    private DemandID id;
-
+@IdClass(DemandID.class)
+public class Demand{
+    @Id
     @ManyToOne
-    @MapsId("proId")
     @JoinColumn(name = "product_id", referencedColumnName = "proId")
     private Product product;
 
-
+    @Id
     @ManyToOne
-    @MapsId("pubId")
     @JoinColumn(name = "pub_id", referencedColumnName = "pubId")
     private Pub pub;
 
     @Column(name = "quantity")
     private int quantity;
+
+    public Product getProduct() {
+        return product;
+    }
+    public void setProduct(Product product) {this.product = product;}
+    public Pub getPub() {
+        return pub;
+    }
+    public void setPub(Pub pub) {this.pub = pub;}
 
 }
