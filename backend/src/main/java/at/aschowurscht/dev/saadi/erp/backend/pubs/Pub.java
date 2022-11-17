@@ -27,7 +27,7 @@ public class Pub {
     private String name;
 
     @OneToMany(mappedBy = "pub")
-    private List<Demand> productAssoc = new ArrayList<Demand>();
+    private List<Demand> productAssoc = new ArrayList<>();
 
     public Pub(String name) {
         this.name = name;
