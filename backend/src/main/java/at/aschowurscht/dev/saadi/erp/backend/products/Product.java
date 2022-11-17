@@ -28,7 +28,7 @@ public class Product {
     private String unit;
 
     @OneToMany(mappedBy = "product")
-    private List<Demand> pubAssoc = new ArrayList<Demand>();
+    private List<Demand> pubAssoc = new ArrayList<>();
 
     @ManyToOne
     @JsonBackReference
@@ -39,4 +39,10 @@ public class Product {
         this.name = name;
         this.unit = unit;
     }
+
+    public Vendor getVendor(){
+        return vendor;
+    }
+
+    public void setVendor(Vendor vendor){this.vendor = vendor;}
 }

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -28,7 +29,7 @@ public class Vendor {
 
     @OneToMany(mappedBy = "vendor")
     @JsonManagedReference
-    private List<Product> productsList;
+    private List<Product> productsList = new ArrayList<>();
 
     public Vendor(String name, String address) {
         this.name = name;

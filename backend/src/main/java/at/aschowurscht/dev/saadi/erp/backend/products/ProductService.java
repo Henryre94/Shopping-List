@@ -1,5 +1,7 @@
 package at.aschowurscht.dev.saadi.erp.backend.products;
 
+import at.aschowurscht.dev.saadi.erp.backend.vendors.Vendor;
+import at.aschowurscht.dev.saadi.erp.backend.vendors.VendorCRUDRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +12,12 @@ public class ProductService {
     @Autowired
     ProductCRUDRepository productCRUDRepository;
 
-    public void post(Product product){
+    @Autowired
+    VendorCRUDRepository vendorCRUDRepository;
+
+    public void post(Product product, int venId){
+        Vendor vendor = vendorCRUDRepository.findById(venId).get();
+        product.setVendor(vendor);
         productCRUDRepository.save(product);
     }
     public Product getById(int proId){

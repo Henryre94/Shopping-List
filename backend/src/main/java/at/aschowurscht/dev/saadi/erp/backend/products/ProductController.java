@@ -10,9 +10,9 @@ public class ProductController {
     @Autowired
     ProductService productService;
     @CrossOrigin
-    @PostMapping("/api/products")
-    public void postProduct(@RequestBody Product product){
-        productService.post(product);
+    @PostMapping("/api/products/{venId}")
+    public void postProduct(@RequestBody Product product, @PathVariable int venId){
+        productService.post(product,venId);
     }
     @CrossOrigin
     @GetMapping("/api/products/{proId}")
