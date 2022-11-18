@@ -1,5 +1,6 @@
 package at.aschowurscht.dev.saadi.erp.backend.vendors;
 
+import at.aschowurscht.dev.saadi.erp.backend.products.Product;
 import at.aschowurscht.dev.saadi.erp.backend.pubs.Pub;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,12 @@ public class VendorController {
     @GetMapping("/api/vendors/{venId}")
     public Vendor getById(@PathVariable int venId){
         return vendorService.getById(venId);
+    }
+    @CrossOrigin
+    @GetMapping("/api/vendors/{venId}/products")
+    public List<Product> productsFromVendor(@PathVariable int venId){
+        List<Product> productList = vendorService.productsFromVendor(venId);
+        return productList;
     }
     @CrossOrigin
     @GetMapping("/api/vendors")
