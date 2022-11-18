@@ -1,12 +1,14 @@
 <template>
     <div>
+        <v-container>
+            <h1>Händler</h1>
+
+        </v-container>
         <v-data-table
                 :headers="headers"
-                :items="products"
-                sort-by="product"
+                :items="vendors"
+                sort-by="vendor"
                 item-key="name"
-                show-select
-                select-all
                 :search="search"
                 class="elevation-1">
             <template v-slot:top>
@@ -18,8 +20,8 @@
                     <v-spacer></v-spacer>
                     <v-dialog v-model="dialog" max-width="500px">
                         <template v-slot:activator="{ on, attrs }">
-                            <v-btn color="red" dark class="mb-6 mt-9" v-bind="attrs" v-on="on">
-                                Neues Produkt
+                            <v-btn color="red" dark class="mb-6 mt-9" v-bind="attrs" v-on="on" >
+                                +
                             </v-btn>
                         </template>
                         <v-card>
@@ -31,19 +33,9 @@
                                 <v-container>
                                     <v-row>
                                         <v-col cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem.product" label="Produkt name"></v-text-field>
+                                            <v-text-field v-model="editedItem.vendor" label="Händler name"></v-text-field>
                                         </v-col>
-                                        <v-col cols="12" sm="6" md="4">
 
-                                            <v-text-field v-model="editedItem.unit" label="Stückzahl"></v-text-field>
-                                        </v-col>
-                                        <v-col cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem.category" label="Kategorie"></v-text-field>
-                                        </v-col>
-                                        <v-text-field v-model="editedItem.vendor" label="Händler"></v-text-field>
-
-                                        <v-col cols="12" sm="6" md="4">
-                                        </v-col>
                                     </v-row>
                                 </v-container>
                             </v-card-text>
@@ -61,7 +53,7 @@
                     </v-dialog>
                     <v-dialog v-model="dialogDelete" max-width="500px">
                         <v-card>
-                            <v-card-title class="text-h5">Achtung! Das Produkt wird gelöscht</v-card-title>
+                            <v-card-title class="text-h5">Achtung! Der Händler wird gelöscht</v-card-title>
                             <v-card-actions>
                                 <v-spacer></v-spacer>
                                 <v-btn color="blue darken-1" text @click="closeDelete">Abbrechen</v-btn>
@@ -72,7 +64,7 @@
                     </v-dialog>
                 </v-toolbar>
             </template>
-            <template v-slot:item.actions="{ item }">
+            <template #item.actions="{ item }">
                 <v-icon small class="mr-2" @click="editItem(item)">
                     mdi-pencil
                 </v-icon>
@@ -80,16 +72,9 @@
                     mdi-delete
                 </v-icon>
             </template>
-            <template v-slot:no-data>
-                <v-btn color="primary" @click="initialize">
 
-                    Reset
-                </v-btn>
-
-            </template>
 
         </v-data-table>
-        <v-btn color="red" @click="deleteItem" dark class="mx-4 mt-9">Löschen</v-btn>
     </div>
 </template>
 
@@ -104,36 +89,30 @@ export default {
         selected: [],
         headers: [
             {
-                text: 'Produkt',
+                text: 'Händler',
                 align: 'start',
                 sortable: true,
-                value: 'product',
+                value: 'vendor',
             },
 
-            { text: 'Stückzahl', value: 'unit' },
-            { text: 'Kategorie', value: 'category' },
-            { text: 'Händler', value: 'vendor' },
-            { text: 'Bearbeiten', value: 'actions', sortable: false }, ,
+
+            { text: '', value: 'actions', sortable: false },
         ],
-        products: [],
+        vendors: [],
         editedIndex: -1,
         editedItem: {
-            product: '',
-            unit: 0,
-            category: '',
             vendor: '',
+
         },
         defaultItem: {
-            product: '',
-            unit: 0,
-            category: '',
             vendor: '',
+
         },
     }),
 
     computed: {
         formTitle() {
-            return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
+            return this.editedIndex === -1 ? 'Neuer Händler' : 'Edit Item'
         },
     },
 
@@ -153,85 +132,27 @@ export default {
     methods: {
 
         initialize() {
-            this.products = [
+            this.vendors = [
 
-                {
-                    product: 'Tomaten',
-                    unit: 4,
-                    category: 'Gemüse',
-                    vendor: 'Metro'
-                },
-                {
-                    product: 'Rindfleisch',
-                    unit: 4,
-                    category: 'Fleisch',
-                    vendor: 'Metro'
-                },
-                {
-                    product: 'Vodka',
-                    unit: 12,
-                    category: 'Alkohol',
-                    vendor: 'Metro'
-                },
-                {
-                    product: 'Bier',
-                    unit: 8,
-                    category: "Alkohol",
-                    vendor: 'Metro'
-                },
-                {
-                    product: 'Lammkotlett',
-                    unit: 4,
-                    category: 'Fleisch',
-                    vendor: 'Metro'
-                },
-                {
-                    product: 'Karotten',
-                    unit: 6,
-                    category: 'Gemüse',
-                    vendor: 'Metro'
-                },
-                {
-                    product: 'Milch',
-                    unit: 7,
-                    category: 'Milchprodukte',
-                    vendor: 'Metro'
-                },
-                {
-                    product: 'Käse',
-                    unit: 2,
-                    category: 'Milchprodukte',
-                    vendor: 'Metro'
-                },
-                {
-                    product: 'Kopfsalat',
-                    unit: 4,
-                    category: 'Gemüse',
-                    vendor: 'Metro'
-                },
-                {
-                    product: 'Fisch',
-                    unit: 2,
-                    category: 'Fleisch',
-                    vendor: 'Metro'
-                },
+
+
             ]
         },
 
         editItem(item) {
-            this.editedIndex = this.products.indexOf(item)
+            this.editedIndex = this.vendors.indexOf(item)
             this.editedItem = Object.assign({}, item)
             this.dialog = true
         },
 
         deleteItem(item) {
-            this.editedIndex = this.products.indexOf(item)
+            this.editedIndex = this.vendors.indexOf(item)
             this.editedItem = Object.assign({}, item)
             this.dialogDelete = true
         },
 
         deleteItemConfirm() {
-            this.products.splice(this.editedIndex, 1)
+            this.vendors.splice(this.editedIndex, 1)
             this.closeDelete()
         },
 
@@ -253,9 +174,9 @@ export default {
 
         save() {
             if (this.editedIndex > -1) {
-                Object.assign(this.products[this.editedIndex], this.editedItem)
+                Object.assign(this.vendors[this.editedIndex], this.editedItem)
             } else {
-                this.products.push(this.editedItem)
+                this.vendors.push(this.editedItem)
             }
             this.close()
         },
