@@ -13,10 +13,10 @@ public class DemandService {
     @Autowired
     ProductCRUDRepository productCRUDRepository;
 
-    public void post(Demand demand, int proId){
-        Demand newDemand = new Demand();
-        Product product = productCRUDRepository.findById(proId).get();
-        newDemand.setProduct(product);
-        demandCRUDRepository.save(newDemand);
-    }
+//    public void post(Demand demand, int proId){
+//        Demand newDemand = new Demand();
+//        Product product = productCRUDRepository.findById(proId).get();
+//        newDemand.setProduct(product);
+//        demandCRUDRepository.save(newDemand);
+//    }
 }

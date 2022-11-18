@@ -8,10 +8,10 @@ public class DemandController {
     @Autowired
     DemandService demandService;
 
-    @CrossOrigin
-    @PostMapping("/api/demands/{proId}")
-    public void post(@RequestBody Demand demand, @PathVariable int proId){
-        demandService.post(demand, proId);
-    }
+//    @CrossOrigin
+//    @PostMapping("/api/demands/{proId}")
+//    public void post(@RequestBody Demand demand, @PathVariable int proId){
+//        demandService.post(demand, proId);
+//    }
 
 }
