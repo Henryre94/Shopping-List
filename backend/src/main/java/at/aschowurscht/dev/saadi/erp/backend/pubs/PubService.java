@@ -1,6 +1,5 @@
 package at.aschowurscht.dev.saadi.erp.backend.pubs;
 
-import at.aschowurscht.dev.saadi.erp.backend.products.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +9,6 @@ import java.util.List;
 public class PubService {
     @Autowired
     PubCRUDRepository pubCRUDRepository;
-
     public void post(Pub pub){
         pubCRUDRepository.save(pub);
     }

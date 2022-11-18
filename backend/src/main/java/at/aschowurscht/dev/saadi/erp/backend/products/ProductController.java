@@ -11,7 +11,7 @@ public class ProductController {
     ProductService productService;
     @CrossOrigin
     @PostMapping("/api/products/{venId}")
-    public void postProduct(@RequestBody Product product, @PathVariable int venId){
+    public void post(@RequestBody Product product, @PathVariable int venId){
         productService.post(product,venId);
     }
     @CrossOrigin
@@ -19,6 +19,7 @@ public class ProductController {
     public Product getById(@PathVariable int proId){
         return productService.getById(proId);
     }
+
     @CrossOrigin
     @GetMapping("/api/products")
     public List<Product> get(){
