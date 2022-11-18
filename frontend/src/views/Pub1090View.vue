@@ -2,22 +2,23 @@
     <v-container>
         <h1>Cafe Saadi 1090</h1>
         <router-link to="/">Home</router-link>
-
         <div>
             <input type="text" id="searchValue" placeholder="Search" v-model="searchValue"/>
         </div>
-
         <div>
             <div v-for="(product, index) in filteredProducts" :key="index">
                 {{ product.product }}
 
-                <v-btn class="mx-2" fab dark small color="primary" type="button"  @click="addToCart(product.product)">
+                <v-btn class="mx-2" fab dark small color="primary" type="button" @click="addToCart(product.product)">
                     <v-icon dark>
                         +
                     </v-icon>
                 </v-btn>
+                <div v-for="item in cart" :key="item.product">
+                    {{ item.product}}
 
-                {{ cart }}
+                </div>
+                {{ cart}}
             </div>
         </div>
     </v-container>
@@ -43,11 +44,14 @@ export default {
             return this.products.filter((product) => product.product.toLowerCase().includes(this.searchValue.toLowerCase()));
         },
         cart() {
-            return this.$store.state.cart;
+           return this.$store.state.cart;
         },
+        loadCart(){
+            return this.$store.getters.getCart
+        }
         // cart() {
-        //     return this.$store.state.cart.filter(cartItem => cartItem.pubId === this.pubId);
-        //  }
+       //     return this.$store.state.cart.filter(cartItem => cartItem.pubId === this.pubId);
+       //  }
     },
 };
 </script>

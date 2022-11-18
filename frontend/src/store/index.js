@@ -8,7 +8,8 @@ export default new Vuex.Store({
         products: [],
         vendors: [],
         cart: [
-          /* {
+            /*
+           {
                 demandId: 0,
                 productName: 'Äpfel',
                 pubId: 1
@@ -31,8 +32,10 @@ export default new Vuex.Store({
             const allProducts = state.products;
             return allProducts;
         },
-        getCart(state) {
+        getCart(state ) {
             const cart = state.cart;
+            console.log(cart)
+            console.log(state.cart)
             return cart;
         }
     },
