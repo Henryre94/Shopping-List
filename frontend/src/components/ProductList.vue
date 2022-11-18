@@ -34,10 +34,10 @@ export default {
     },
     computed: {
         products() {
-            return this.$store.state.products;
+            return this.$store.state.productsModule.products;
         },
         cart() {
-            return this.$store.state.cart.filter(cartItem => cartItem.pubId === this.pubId);
+            return this.$store.state.demandsModule.cart.filter(cartItem => cartItem.pubId === this.pubId);
         }
     }
 }
