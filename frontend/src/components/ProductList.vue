@@ -17,21 +17,21 @@ export default {
     data: () => ({
 
     }),
-    //  methods: {
-    //     addToCart(product) {
-    //         this.$store.commit('addToCart', product);
-    //     },
-    // },
+    methods: {
+        addToCart(product) {
+            this.$store.commit('addToCart', product);
+        }
+    },
     props: {
         pubId: Number
     },
     computed: {
         products() {
-            return this.$store.state.products;
+            return this.$store.state.productsModule.products;
         },
-       // cart() {
-       //     return this.$store.state.cart.filter(cartItem => cartItem.pubId === this.pubId);
-       //   }
+        cart() {
+            return this.$store.state.demandsModule.cart.filter(cartItem => cartItem.pubId === this.pubId);
+        }
     }
 }
 </script>
