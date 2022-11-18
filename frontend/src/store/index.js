@@ -8,7 +8,7 @@ export default new Vuex.Store({
         products: [],
         vendors: [],
         cart: [
-            {
+          /* {
                 demandId: 0,
                 productName: 'Äpfel',
                 pubId: 1
@@ -23,16 +23,19 @@ export default new Vuex.Store({
                 productName: 'Orangen',
                 pubId: 0
             }
-        ]
+            */
+       ]
     },
-    
     getters: {
         getAllProducts(state) {
             const allProducts = state.products;
             return allProducts;
+        },
+        getCart(state) {
+            const cart = state.cart;
+            return cart;
         }
     },
-
     mutations: { 
         addProducts(state, payload) {
             state.products = state.products.concat(payload.data)
@@ -41,17 +44,15 @@ export default new Vuex.Store({
             state.vendors = state.vendors.concat(payload.data)
         },
         addToCart(state, product) {
-            if(!(product in state.cart)) {
+           if(!(product in state.cart)) {
                 Vue.set(state.cart, product, 1);
-            } else {
-                Vue.set(state.cart, product, state.cart[product]+1);
-            }
+           } else {
+               Vue.set(state.cart, product, state.cart[product]+1);
+           }
+            console.log(state.cart[product])
         }
     },
-
     actions: {
-       
     },
-
     modules: {}
 })

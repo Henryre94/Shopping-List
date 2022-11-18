@@ -3,20 +3,24 @@
         <v-main>
             <form @submit.prevent="addProducts">
                 <h2>Produkte hinzufügen</h2>
-                <input type="text" id="product" v-model="product" required />
-                <v-btn class="mx-2" fab dark color="indigo" type="submit">
-                 <v-icon dark>
-                     add
-                </v-icon>
-                 </v-btn>
+                <input type="text" id="product" v-model="product" required/>
+
+                <v-btn class="mx-2" fab dark small color="primary" type="submit"
+                >
+                    <v-icon dark>
+                        +
+                    </v-icon>
+                </v-btn>
+
             </form>
-            <ProductList />
+            <ProductList/>
         </v-main>
     </v-container>
 </template>
 
 <script>
 import ProductList from "@/components/ProductList.vue";
+
 export default {
     name: 'ProductAdd',
     components: {
@@ -29,14 +33,14 @@ export default {
     },
     methods: {
         addProducts() {
-            this.$store.commit("addProducts",  {
+            this.$store.commit("addProducts", {
                 data: {
                     product: this.product
                 },
             });
             console.log(this.product);
             this.product = '';
-        },      
+        },
     }
 };
 </script>

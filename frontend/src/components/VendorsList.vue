@@ -2,6 +2,7 @@
     <v-container>
         <h2>Händlerliste</h2>
         <ul>
+            <!-- <li v-for="(vendor, index) in $store.state.vendors" :key="index"> -->
             <li v-for="(vendor, index) in $store.state.vendors" :key="index">
                 <span>{{ index }} - {{ vendor.vendor }} </span>
             </li>

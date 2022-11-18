@@ -9,37 +9,36 @@ import ProductView from "@/views/ProductView.vue";
 Vue.use(VueRouter)
 
 const routes = [
-  {
-    path: '/',
-    name: 'home',
-    component: HomeView
-  },
-  {
-    path: '/product',
-    name: 'product',
-    component: ProductView
-  },
-  {
-    path: '/vendor',
-    name: 'vendor',
-    component: VendorsView
-  },
-  {
-      path: '/pub1090',
-    name: 'pub1090',
-    component: Pub1090View
-  },
+    {
+        path: '/',
+        name: 'home',
+        component: HomeView
+    },
+    {
+        path: '/product',
+        name: 'product',
+        component: ProductView
+    },
+    {
+        path: '/vendor',
+        name: 'vendor',
+        component: VendorsView
+    },
+    {
+        path: '/pub1090',
+        name: 'pub1090',
+        component: Pub1090View
+    },
     {
         path: '/pub1160',
         name: 'pub1160',
         component: Pub1160View
     },
 ]
-
 const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes
+    mode: 'history',
+    base: process.env.BASE_URL,
+    routes
 })
 
 export default router
