@@ -39,20 +39,24 @@ export default new Vuex.Store({
             return cart;
         }
     },
-    mutations: { 
+    mutations: {
         addProducts(state, payload) {
             state.products = state.products.concat(payload.data)
         },
         addVendors(state, payload) {
             state.vendors = state.vendors.concat(payload.data)
         },
-        addToCart(state, product) {
-           if(!(product in state.cart)) {
-                Vue.set(state.cart, product, 1);
-           } else {
-               Vue.set(state.cart, product, state.cart[product]+1);
-           }
-            console.log(state.cart[product])
+        // addToCart(state, product) {
+        //   if(!(product in state.cart)) {
+        //         Vue.set(state.cart, product, 1);
+        //    } else {
+        //        Vue.set(state.cart, product, state.cart[product]+1);
+        //   }
+        //    console.log(state.cart[product])
+        // }
+        // },
+        addToCart(state, item) {
+            state.cart.push(item)
         }
     },
     actions: {
