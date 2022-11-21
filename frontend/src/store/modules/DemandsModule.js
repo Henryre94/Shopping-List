@@ -3,7 +3,7 @@ import Vue from "vue";
 export const DemandsModule = {
     state: {
         // TODO: cart zu demands umbenennen
-        cart: [
+        demands: [
             {
                 demandId: 0,
                 productName: 'Äpfel',
@@ -22,12 +22,18 @@ export const DemandsModule = {
         ]
     },
     mutations: {
-        addToCart(state, product) {
-            if(!(product in state.cart)) {
-                Vue.set(state.cart, product, 1);
+        addToDemands(state, product) {
+            if(!(product in state.demands)) {
+                Vue.set(state.demands, product, 1);
             } else {
-                Vue.set(state.cart, product, state.cart[product]+1);
+                Vue.set(state.demands, product, state.demands[product]+1);
             }
         }
-    }
+    },
+    getters: {
+        demands(state) {
+            const demands = state.demands;
+            return demands;
+        }
+    },
 }

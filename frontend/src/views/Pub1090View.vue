@@ -9,16 +9,18 @@
             <div v-for="(product, index) in filteredProducts" :key="index">
                 {{ product.product }}
 
-              <v-btn class="mx-2" fab dark small color="primary" type="button" @click="addToCart(product.product)">
-              <!--      <v-btn class="mx-2" fab dark small color="primary" type="button" @click="addToCart()">  -->
+              <v-btn class="mx-2" fab dark small color="primary" type="button" @click="addToDemands(product.product)">
                     <v-icon dark>
                         +
                     </v-icon>
                 </v-btn>
 
-                {{ cart}}
             </div>
         </div>
+        <p>
+            {{ demands }}
+        </p>
+
     </v-container>
 </template>
 
@@ -29,31 +31,26 @@ export default {
     data: () => ({
         searchValue: "",
     }),
+
     methods: {
-        addToCart(product) {
-            this.$store.commit('addToCart', product);
+        addToDemands(product) {
+            this.$store.state.demandsModule.commit('addToDemands', product);
        },
     },
-  //  methods: {
-   //     addToCart() {
-        //         this.$store.commit('addToCart', this.product)
-  //      },
- //   },
+
     computed: {
         products() {
-            return this.$store.state.products;
+            return this.$store.state.productsModule.products;
         },
         filteredProducts() {
             return this.products.filter((product) => product.product.toLowerCase().includes(this.searchValue.toLowerCase()));
         },
-        cart() {
-           return this.$store.state.cart;
+        demands() {
+           return this.$store.state.demandsModule.demands;
         },
-       // loadCart(){
-       //     return this.$store.getters.getCart
-      //  }
-        // cart() {
-       //     return this.$store.state.cart.filter(cartItem => cartItem.pubId === this.pubId);
+
+       //  demands() {
+       //    return this.$store.state.demands.filter(demandItem => demandItem.pubId === this.pubId);
        //  }
     },
 };
