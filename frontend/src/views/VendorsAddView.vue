@@ -5,6 +5,7 @@
 
         </v-container>
         <v-data-table
+                @click:row="handleClick"
                 :headers="headers"
                 :items="vendors"
                 sort-by="vendor"
@@ -16,7 +17,7 @@
 
                     <v-text-field v-model="search" clearable flat solo-inverted label="Suche" class="mt-9"></v-text-field>
 
-                    <v-divider class="mx-4" inset vertical></v-divider>
+
                     <v-spacer></v-spacer>
                     <v-dialog v-model="dialog" max-width="500px">
                         <template v-slot:activator="{ on, attrs }">
@@ -33,7 +34,7 @@
                                 <v-container>
                                     <v-row>
                                         <v-col cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem.vendor" label="Händler name"></v-text-field>
+                                            <v-text-field class="newVend" v-model="editedItem.vendor" label="Händler name"></v-text-field>
                                         </v-col>
 
                                     </v-row>
@@ -137,6 +138,10 @@ export default {
 
 
             ]
+        },
+        handleClick(){
+
+            console.log("row clicked")
         },
 
         editItem(item) {
