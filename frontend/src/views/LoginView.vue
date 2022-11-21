@@ -1,6 +1,6 @@
 <template>
 
-    <v-app id="inspire">
+
         <v-content>
             <v-container fluid fill-height class="back">
                 <v-layout align-end justify-center>
@@ -9,7 +9,7 @@
 
                         <v-card-text>
                             <v-form class="log">
-                                <v-text-field outlined class="benutzer" dark color="white" name="login" label="Benutzername"
+                                <v-text-field outlined class="username" dark color="white" name="login" label="Benutzername"
                                               type="text" :rules="[rules.required]"></v-text-field>
                                 <v-text-field outlined dark :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
                                               :rules="[rules.required, rules.min]" :type="show ? 'text' : 'password'" name="input-10-2"
@@ -28,7 +28,7 @@
                 </v-layout>
             </v-container>
         </v-content>
-    </v-app>
+
 </template>
 
 <script>
@@ -47,6 +47,7 @@ export default {
             },
         }
     },
+
 };
 </script>
 
@@ -56,12 +57,11 @@ export default {
     background-size: cover;
     background-position: center;
     background-position-y: -178px;
-
-
-
+    background-repeat: repeat-y;
 }
 
 .log {
     margin-bottom: 60%;
 }
+
 </style>
