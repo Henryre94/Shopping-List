@@ -35,4 +35,10 @@ public class ProductController {
     @CrossOrigin
     @DeleteMapping("api/products/{proId}")
     public void delete(@PathVariable int proId) {productService.delete(proId);}
+
+    @CrossOrigin
+    @PostMapping("/api/products/{proId}/pubs/{pubId}")
+    public void post(@PathVariable int proId, @PathVariable int pubId){
+        productService.post(proId,pubId);
+    }
 }
