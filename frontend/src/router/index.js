@@ -5,6 +5,7 @@ import VendorsView from '../views/VendorsView.vue'
 import Pub1090View from "@/views/Pub1090View.vue";
 import Pub1160View from "@/views/Pub1160View.vue";
 import ProductView from "@/views/ProductView.vue";
+import AdminDemandView from "@/views/AdminDemandView";
 
 Vue.use(VueRouter)
 
@@ -34,6 +35,11 @@ const routes = [
         name: 'pub1160',
         component: Pub1160View
     },
+    {
+        path: '/einkaufsliste',
+        name: 'shopping',
+        component: AdminDemandView
+    }
 ]
 
 const router = new VueRouter({
