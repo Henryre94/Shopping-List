@@ -32,4 +32,11 @@ public class Demand{
     }
     public void setPub(Pub pub) {this.pub = pub;}
 
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 }
