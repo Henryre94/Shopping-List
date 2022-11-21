@@ -61,7 +61,7 @@ export default {
 }
 
 .log {
-    margin-bottom: 60%;
+    margin-bottom: 40%;
 }
 
 </style>
