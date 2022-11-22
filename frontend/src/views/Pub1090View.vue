@@ -10,17 +10,16 @@
                 <ProductDemand :product="product"/>
             </div>
         </div>
-        <br />
-        {{ demands }}
+        <br/>
         <p>
-
+            {{ demands }}
         </p>
-
     </v-container>
 </template>
 
 <script>
 import ProductDemand from "@/components/ProductDemand";
+
 export default {
     name: "Pub1090View",
     components: {ProductDemand},
@@ -43,9 +42,9 @@ export default {
         // return this.$store.state.demands.filter(product => product.quantity > 0 );
         //     }
 
-       //  demands() {
-       //    return this.$store.state.demands.filter(demandItem => demandItem.pubId === this.pubId);
-       //  }
+        //  demands() {
+        //    return this.$store.state.demands.filter(demandItem => demandItem.pubId === this.pubId);
+        //  }
     },
 };
 </script>

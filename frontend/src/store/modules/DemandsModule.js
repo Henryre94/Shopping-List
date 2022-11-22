@@ -28,7 +28,7 @@ export const DemandsModule = {
 
         addToDemands(state, productId) {
             const product = state.demands.find(prod => prod.proId === productId)
-            if(product) {
+            if (product) {
                 product.quantity++
             } else {
                 state.demands.push({
@@ -36,14 +36,21 @@ export const DemandsModule = {
                     quantity: 1
                 })
             }
-            /*if(!(product in state.demands)) {
-                Vue.set(state.demands, product);
-                product.quantity = 1;
-                console.log(product);
-          } else {
-               Vue.set(state.demands, product,state.demands[product.quantity]+1);
-           }*/
+        },
+        subFromDemands(state, productId) {
+            const product = state.demands.find(prod => prod.proId === productId)
+            if (product) {
+                product.quantity--
+            }
         }
+
+        /*if(!(product in state.demands)) {
+            Vue.set(state.demands, product);
+            product.quantity = 1;
+            console.log(product);
+      } else {
+           Vue.set(state.demands, product,state.demands[product.quantity]+1);
+       }*/
     },
     getters: {
         demands(state) {

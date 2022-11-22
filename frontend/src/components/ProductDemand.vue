@@ -1,20 +1,20 @@
 <template>
     <div>
-    {{ product.name }}
+        {{ product.name }}
 
-    <v-btn class="mx-2" fab dark small color="primary" type="button" @click="addToDemands">
-        <v-icon dark>
-            +
-        </v-icon>
-    </v-btn>
-    <!--  button zum subtrahieren
-    <v-btn class="mx-2" fab dark small color="primary" type="button" @click="subFromDemands(product.quantity)">
-        <v-icon dark>
-            -
-        </v-icon>
-    </v-btn>
-    -->
-    <span class="quantity"> {{ quantity }} </span>
+        <v-btn class="mx-2" fab dark small color="primary" type="button" @click="addToDemands">
+            <v-icon dark>
+                +
+            </v-icon>
+        </v-btn>
+        <!--  button zum subtrahieren -->
+        <v-btn class="mx-2" fab dark small color="primary" type="button" @click="subFromDemands">
+            <v-icon dark>
+                -
+            </v-icon>
+        </v-btn>
+
+        <span class="quantity"> {{ quantity }} </span>
     </div>
 </template>
 
@@ -33,9 +33,9 @@ export default {
         addToDemands() {
             this.$store.commit('addToDemands', this.product.proId);
         },
-        // methode subtrahieren
-        //   subFromDemands() {
-        //   }
+        subFromDemands() {
+            this.$store.commit('subFromDemands', this.product.proId)
+        }
     }
 }
 </script>
