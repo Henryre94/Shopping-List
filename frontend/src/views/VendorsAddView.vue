@@ -130,6 +130,9 @@ export default {
     created() {
         this.initialize()
     },
+    mounted() {
+        this.$store.dispatch("getVendors")
+    },
 
     methods: {
 
