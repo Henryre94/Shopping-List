@@ -81,6 +81,7 @@
 
 
 <script>
+
 export default {
     data: () => ({
 
@@ -139,9 +140,10 @@ export default {
 
             ]
         },
-        handleClick(){
+        handleClick(value){
 
-            console.log("row clicked")
+            console.log("row clicked", value.vendor )
+            this.$router.push("/vendorProducts", value.VenId)
         },
 
         editItem(item) {

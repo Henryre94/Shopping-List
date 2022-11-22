@@ -38,7 +38,7 @@ const routes = [
         component: Pub1160View
     },
     {
-        path: '/admin',
+        path: '/vendorProducts',
         component: VendorsProductView
     },
     {
