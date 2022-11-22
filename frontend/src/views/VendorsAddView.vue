@@ -7,7 +7,7 @@
         <v-data-table
                 @click:row="handleClick"
                 :headers="headers"
-                :items="vendors"
+                :items="$store.state.vendorsModule.vendors"
                 sort-by="vendor"
                 item-key="name"
                 :search="search"
@@ -19,6 +19,7 @@
 
 
                     <v-spacer></v-spacer>
+
                     <v-dialog v-model="dialog" max-width="500px">
                         <template v-slot:activator="{ on, attrs }">
                             <v-btn color="red" dark class="mb-6 mt-9" v-bind="attrs" v-on="on" >
@@ -94,7 +95,7 @@ export default {
                 text: 'Händler',
                 align: 'start',
                 sortable: true,
-                value: 'vendor',
+                value: 'name',
             },
 
 
@@ -132,6 +133,7 @@ export default {
     },
     mounted() {
         this.$store.dispatch("getVendors")
+
     },
 
     methods: {
@@ -145,8 +147,8 @@ export default {
         },
         handleClick(value){
 
-            console.log("row clicked", value.vendor )
-            this.$router.push("/vendorProducts", value.vendor.venId)
+            console.log("row clicked", value.name )
+            this.$router.push("/vendorProducts", value.venId)
         },
 
         editItem(item) {
