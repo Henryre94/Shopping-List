@@ -1,7 +1,6 @@
 package at.aschowurscht.dev.saadi.erp.backend.products;
 
 import at.aschowurscht.dev.saadi.erp.backend.demands.Demand;
-import at.aschowurscht.dev.saadi.erp.backend.demands.DemandID;
 import at.aschowurscht.dev.saadi.erp.backend.vendors.Vendor;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;

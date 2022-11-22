@@ -38,18 +38,19 @@ public class ProductService {
         Pub pub = pubCRUDRepository.findById(pubId).get();
         Product product = productCRUDRepository.findById(proId).get();
         Demand demand = new Demand();
-                product.newDemand(demand);
-                demand.setProduct(product);
 
-                pub.newDemand(demand);
-                demand.setPub(pub);
+        product.newDemand(demand);
+        demand.setProduct(product);
 
-                demand.setQuantity(1);
+        pub.newDemand(demand);
+        demand.setPub(pub);
+        demand.setQuantity(1);
 
-                demandCRUDRepository.save(demand);
-                pubCRUDRepository.save(pub);
-                productCRUDRepository.save(product);
-            }
+        demandCRUDRepository.save(demand);
+        pubCRUDRepository.save(pub);
+        productCRUDRepository.save(product);
+
+    }
 
     public Product getById(int proId) {
         Product product = productCRUDRepository.findById(proId).get();
