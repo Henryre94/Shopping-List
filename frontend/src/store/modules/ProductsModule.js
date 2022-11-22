@@ -1,6 +1,10 @@
 export const ProductsModule = {
     state: {
-        products: []
+        products: [
+            {proId: 1, name: 'Äpfel'},
+            {proId: 2, name: 'Tomaten'},
+            {proId: 3, name: 'Orangen'},
+        ]
     },
     getters: {
         // TODO: das braucht man nicht
