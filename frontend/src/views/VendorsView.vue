@@ -1,7 +1,7 @@
 <template>
     <v-container>
         <router-link to="/">Home</router-link>
-        <VendorsAdd />
+        <VendorsAdd/>
     </v-container>
 </template>
 

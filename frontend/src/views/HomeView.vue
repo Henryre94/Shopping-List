@@ -1,13 +1,15 @@
 <template>
-  <v-container>
+    <v-container>
 
-    <TheHeader />
-    <router-link to="/product">Produkte</router-link> |
-    <router-link to="/vendor">Lieferanten</router-link> |
-    <router-link to="/pub1090">Cafe 1090</router-link> |
-      <router-link to="/pub1160">Cafe 1160</router-link>
+        <TheHeader/>
+        <router-link to="/product">Produkte</router-link>
+        |
+        <router-link to="/vendor">Lieferanten</router-link>
+        |
+        <router-link to="/pub1090">Cafe 1090</router-link>
 
-  </v-container>
+
+    </v-container>
 </template>
 
 <script>
@@ -15,9 +17,9 @@
 import TheHeader from '@/components/TheHeader.vue';
 
 export default {
-  name: 'HomeView',
-  components: {
-    TheHeader,
-  }
+    name: 'HomeView',
+    components: {
+        TheHeader,
+    }
 }
 </script>
