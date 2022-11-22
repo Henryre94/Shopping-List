@@ -1,13 +1,13 @@
 <template>
     <div>
         <v-container>
-            <h1>Händler Produkte</h1>
+            <h1>Einkaufsliste</h1>
 
         </v-container>
         <v-data-table
                 :headers="headers"
                 :items="products"
-                sort-by="product"
+                multi-sort
                 item-key="name"
                 :search="search"
                 class="elevation-1">
@@ -33,10 +33,10 @@
                                 <v-container>
                                     <v-row>
                                         <v-col cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem.product" label="Produkt name"></v-text-field>
+                                            <v-text-field v-model="editedItem.pub" label="Pub"></v-text-field>
                                         </v-col>
                                         <v-col cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem.pub" label="Pub"></v-text-field>
+                                            <v-text-field v-model="editedItem.product" label="Produkt name"></v-text-field>
                                         </v-col>
                                         <v-col cols="12" sm="6" md="4">
                                             <v-text-field v-model="editedItem.vendor" label="Händler"></v-text-field>
@@ -108,7 +108,7 @@ export default {
             {text: 'Händler', value: 'vendor'},
 
 
-            { text: 'Bearbeiten', value: 'actions', sortable: true},
+            { text: 'Bearbeiten', value: 'actions', sortable: false},
         ],
         products: [],
         editedIndex: -1,
