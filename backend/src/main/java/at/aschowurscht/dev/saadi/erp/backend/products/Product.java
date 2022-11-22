@@ -1,6 +1,7 @@
 package at.aschowurscht.dev.saadi.erp.backend.products;
 
 import at.aschowurscht.dev.saadi.erp.backend.demands.Demand;
+import at.aschowurscht.dev.saadi.erp.backend.demands.DemandID;
 import at.aschowurscht.dev.saadi.erp.backend.vendors.Vendor;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
@@ -45,4 +46,12 @@ public class Product {
     }
 
     public void setVendor(Vendor vendor){this.vendor = vendor;}
+
+
+    public void newDemand(Demand demand){
+        this.pubAssoc.add(demand);
+    }
+
+    public void removeDemand(Demand demand){this.pubAssoc.remove(demand);}
+
 }
