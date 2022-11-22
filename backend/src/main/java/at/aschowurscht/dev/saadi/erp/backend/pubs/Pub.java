@@ -32,4 +32,10 @@ public class Pub {
     public Pub(String name) {
         this.name = name;
     }
+    
+    public void newDemand(Demand demand){
+        this.productAssoc.add(demand);
+    }
+
+    public void removeDemand(Demand demand){this.productAssoc.remove(demand);}
 }

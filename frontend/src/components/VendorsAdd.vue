@@ -43,6 +43,6 @@ export default {
 
 <style>
 #vendor {
-    border: 0.5px solid black;
+    border: 1px solid black;
 }
 </style>
