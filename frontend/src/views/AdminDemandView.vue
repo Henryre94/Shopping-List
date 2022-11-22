@@ -16,7 +16,7 @@
 
                     <v-text-field v-model="search" clearable flat solo-inverted label="Suche" class="mt-9"></v-text-field>
 
-                    <v-divider class="mx-4" inset vertical></v-divider>
+
                     <v-spacer></v-spacer>
                     <v-dialog v-model="dialog" max-width="500px">
                         <template v-slot:activator="{ on, attrs }">
@@ -36,7 +36,13 @@
                                             <v-text-field v-model="editedItem.product" label="Produkt name"></v-text-field>
                                         </v-col>
                                         <v-col cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem.product" label="Pub"></v-text-field>
+                                            <v-text-field v-model="editedItem.pub" label="Pub"></v-text-field>
+                                        </v-col>
+                                        <v-col cols="12" sm="6" md="4">
+                                            <v-text-field v-model="editedItem.vendor" label="Händler"></v-text-field>
+                                        </v-col>
+                                        <v-col cols="12" sm="6" md="4">
+                                            <v-text-field v-model="editedItem.quantity" label="Stückzahl"></v-text-field>
                                         </v-col>
 
                                     </v-row>
@@ -101,16 +107,24 @@ export default {
             {text: 'Stückzahl', value: 'quantity'},
             {text: 'Händler', value: 'vendor'},
 
-            { text: 'Bearbeiten', value: 'actions', sortable: false },
+
+            { text: 'Bearbeiten', value: 'actions', sortable: true},
         ],
         products: [],
         editedIndex: -1,
         editedItem: {
             product: '',
+            pub: '',
+            quantity: '',
+            vendor: '',
+
 
         },
         defaultItem: {
             product: '',
+            pub: '',
+            quantity: '',
+            vendor: '',
 
         },
     }),
