@@ -143,7 +143,7 @@ export default {
         handleClick(value){
 
             console.log("row clicked", value.vendor )
-            this.$router.push("/vendorProducts", value.VenId)
+            this.$router.push("/vendorProducts", value.venId)
         },
 
         editItem(item) {
