@@ -1,6 +1,7 @@
 <template>
     <v-container>
         <h1>Cafe Saadi 1090</h1>
+        <!-- brauch ich das ? -->
         <router-link to="/">Home</router-link>
         <div>
             <input type="text" id="searchValue" placeholder="Search" v-model="searchValue"/>

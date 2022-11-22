@@ -25,7 +25,6 @@ export const DemandsModule = {
         ]
     },
     mutations: {
-
         addToDemands(state, productId) {
             const product = state.demands.find(prod => prod.proId === productId)
             if (product) {
@@ -39,7 +38,7 @@ export const DemandsModule = {
         },
         subFromDemands(state, productId) {
             const product = state.demands.find(prod => prod.proId === productId)
-            if (product) {
+            if (product && product.quantity > 0) {
                 product.quantity--
             }
         }

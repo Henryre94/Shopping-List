@@ -10,11 +10,11 @@
         <!--  button zum subtrahieren -->
         <v-btn class="mx-2" fab dark small color="primary" type="button" @click="subFromDemands">
             <v-icon dark>
-                -
+               min
             </v-icon>
         </v-btn>
 
-        <span class="quantity"> {{ quantity }} </span>
+        <span class="quantity"> Anzahl:  {{ quantity }} </span>
     </div>
 </template>
 
