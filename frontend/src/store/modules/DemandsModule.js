@@ -9,18 +9,6 @@ export const DemandsModule = {
                 pubId: 1,
                 quantity: ''
             },
-            {
-                demandId: 1,
-                productName: 'Tomaten',
-                pubId: 1,
-                quantity: ''
-            },
-            {
-                demandId: 2,
-                productName: 'Orangen',
-                pubId: 0,
-                quantity: ''
-            }
             */
         ]
     },
@@ -50,11 +38,5 @@ export const DemandsModule = {
       } else {
            Vue.set(state.demands, product,state.demands[product.quantity]+1);
        }*/
-    },
-    getters: {
-        demands(state) {
-            const demands = state.demands;
-            return demands;
-        }
     },
 }

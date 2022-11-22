@@ -10,10 +10,9 @@
         <!--  button zum subtrahieren -->
         <v-btn class="mx-2" fab dark small color="primary" type="button" @click="subFromDemands">
             <v-icon dark>
-               min
+                min
             </v-icon>
         </v-btn>
-
         <span class="quantity"> Anzahl:  {{ quantity }} </span>
     </div>
 </template>
@@ -26,7 +25,7 @@ export default {
     },
     computed: {
         quantity() {
-            return this.$store.state.demandsModule.demands.find(demand => demand.pubId === this.product.pubId)?.quantity || 0
+            return this.$store.state.demandsModule.demands.find(demand => demand.proId === this.product.proId)?.quantity || 0
         }
     },
     methods: {
