@@ -16,7 +16,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-
+@Table(name = "pubs")
 public class Pub {
 
     @Id

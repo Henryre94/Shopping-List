@@ -58,7 +58,11 @@ public class ProductService {
     }
 
     public List<Product> get() {
-        return ((List<Product>) productCRUDRepository.findAll());
+        return productCRUDRepository.findAll();
+    }
+
+    public List<Product> getAllProductsInDemand(int venId) {
+        return productCRUDRepository.findProductsInDemandFromVendor(venId);
     }
 
     public void put(Product product) {

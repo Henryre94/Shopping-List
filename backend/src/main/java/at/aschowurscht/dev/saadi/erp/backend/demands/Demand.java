@@ -7,17 +7,17 @@ import java.io.Serializable;
 
 
 @Entity
-@Table(name= "product_demand")
+@Table(name= "demands")
 @IdClass(DemandID.class)
 public class Demand{
     @Id
-    @ManyToOne
-    @JoinColumn(name = "product_id", referencedColumnName = "proId")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "proId", referencedColumnName = "proId")
     private Product product;
 
     @Id
-    @ManyToOne
-    @JoinColumn(name = "pub_id", referencedColumnName = "pubId")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "pubId", referencedColumnName = "pubId")
     private Pub pub;
 
     @Column(name = "quantity")

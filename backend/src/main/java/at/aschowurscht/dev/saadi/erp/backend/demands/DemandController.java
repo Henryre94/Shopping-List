@@ -1,7 +1,10 @@
 package at.aschowurscht.dev.saadi.erp.backend.demands;
 
+import at.aschowurscht.dev.saadi.erp.backend.products.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 
@@ -20,7 +23,5 @@ public class DemandController {
     public void decreaseQuantity(@PathVariable int proId, @PathVariable int pubId){
         demandService.decreaseQuantity(proId, pubId);
     }
-
-
 
 }

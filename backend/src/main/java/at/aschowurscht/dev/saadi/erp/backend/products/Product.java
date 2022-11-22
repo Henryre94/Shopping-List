@@ -14,7 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-
+@Table(name = "products")
 public class Product {
 
     @Id
@@ -30,9 +30,9 @@ public class Product {
     @OneToMany(mappedBy = "product")
     private List<Demand> pubAssoc = new ArrayList<>();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
-    @JoinColumn(name = "vendorId")
+    @JoinColumn(name = "venId")
     private Vendor vendor;
 
     public Product(String name, String unit) {

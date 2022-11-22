@@ -34,9 +34,6 @@ public class ErpApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         try {
-            productCRUDRepository.save(new Product("Tomaten","Kg"));
-            productCRUDRepository.save(new Product("Rindfleish","Tone"));
-            productCRUDRepository.save(new Product("Gurke","Stück"));
             pubCRUDRepository.save(new Pub("Cafe SAADI 1090"));
             pubCRUDRepository.save(new Pub("Cafe SAADI 1160"));
             vendorCRUDRepository.save(new Vendor("Metro","Gurkgasse"));

@@ -15,6 +15,11 @@ public class ProductController {
         productService.post(product,venId);
     }
     @CrossOrigin
+    @PostMapping("/api/products/{proId}/pubs/{pubId}")
+    public void post(@PathVariable int proId, @PathVariable int pubId){
+        productService.post(proId,pubId);
+    }
+    @CrossOrigin
     @GetMapping("/api/products/{proId}")
     public Product getById(@PathVariable int proId){
         return productService.getById(proId);
@@ -28,6 +33,13 @@ public class ProductController {
         return productList;
     }
     @CrossOrigin
+    @GetMapping("/api/products/{venId}/demands")
+    public List<Product> get(@PathVariable int venId){
+        List<Product> productList = productService.getAllProductsInDemand(venId);
+
+        return productList;
+    }
+    @CrossOrigin
     @PutMapping("/api/products")
     public void put(@RequestBody Product product){
         productService.put(product);
@@ -36,9 +48,4 @@ public class ProductController {
     @DeleteMapping("api/products/{proId}")
     public void delete(@PathVariable int proId) {productService.delete(proId);}
 
-    @CrossOrigin
-    @PostMapping("/api/products/{proId}/pubs/{pubId}")
-    public void post(@PathVariable int proId, @PathVariable int pubId){
-        productService.post(proId,pubId);
-    }
 }
