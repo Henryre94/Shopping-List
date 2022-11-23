@@ -13,8 +13,8 @@ public class ProductController {
     ProductService productService;
 
     @PostMapping("/{venId}")
-    public void post(@RequestBody Product product, @PathVariable int venId) {
-        productService.createProduct(product, venId);
+    public Product post(@RequestBody Product product, @PathVariable int venId) {
+        return productService.createProduct(product, venId);
     }
 
     @PostMapping("/{proId}/pubs/{pubId}")

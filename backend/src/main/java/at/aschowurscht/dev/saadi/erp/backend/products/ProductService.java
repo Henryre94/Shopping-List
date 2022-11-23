@@ -7,10 +7,13 @@ import at.aschowurscht.dev.saadi.erp.backend.pubs.PubCRUDRepository;
 import at.aschowurscht.dev.saadi.erp.backend.vendors.Vendor;
 import at.aschowurscht.dev.saadi.erp.backend.vendors.VendorCRUDRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -24,10 +27,11 @@ public class ProductService {
     @Autowired
     DemandCRUDRepository demandCRUDRepository;
 
-    public void createProduct(Product product, int venId) {
+    public Product createProduct(Product product, int venId) {
         Vendor vendor = vendorCRUDRepository.findById(venId).get();
         product.setVendor(vendor);
         productCRUDRepository.save(product);
+        return product;
     }
 
     public void createDemand(int proId, int pubId) {
@@ -48,8 +52,11 @@ public class ProductService {
     }
 
     public Product getProductById(int proId) {
-        Product product = productCRUDRepository.findById(proId).get();
-        return product;
+        Optional<Product> product = productCRUDRepository.findById(proId);
+        if (product.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        return product.get();
     }
 
     public List<Product> getAllProduct() {
