@@ -30,8 +30,11 @@ public class VendorService {
     }
 
     public List<Product> getAllProductsFromVendor(int venId) {
-        Vendor vendor = vendorCRUDRepository.findById(venId).get();
-        return vendor.getProductsList();
+        Optional<Vendor> vendor = vendorCRUDRepository.findById(venId);
+        if (vendor.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        return vendor.get().getProductsList();
     }
 
     public List<Vendor> getAllVendors() {
