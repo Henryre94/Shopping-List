@@ -8,7 +8,7 @@ export const VendorsModule = {
         addVendor(state, vendor) {
             state.vendors.push(vendor)
         },
-        setVendors(state, VendorArray) {
+        getVendors(state, VendorArray) {
             state.vendors = VendorArray
         },
         deleteVendor(state, venId) {
@@ -20,7 +20,7 @@ export const VendorsModule = {
     actions: {
         async getVendors(store) {
             const response = await axios.get("/api/vendors");
-            store.commit("setVendors", response.data)
+            store.commit("getVendors", response.data)
         },
         async addVendor(store, vendor) {
             const response = await axios.post("/api/vendors", vendor);
