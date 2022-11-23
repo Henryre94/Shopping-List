@@ -18,13 +18,10 @@ import java.util.List;
 public class ProductService {
     @Autowired
     ProductCRUDRepository productCRUDRepository;
-
     @Autowired
     VendorCRUDRepository vendorCRUDRepository;
-
     @Autowired
     PubCRUDRepository pubCRUDRepository;
-
     @Autowired
     DemandCRUDRepository demandCRUDRepository;
 
@@ -49,7 +46,6 @@ public class ProductService {
         demandCRUDRepository.save(demand);
         pubCRUDRepository.save(pub);
         productCRUDRepository.save(product);
-
     }
 
     public Product getById(int proId) {
@@ -59,10 +55,6 @@ public class ProductService {
 
     public List<Product> get() {
         return productCRUDRepository.findAll();
-    }
-
-    public List<Product> getAllProductsInDemand(int venId) {
-        return productCRUDRepository.findProductsInDemandFromVendor(venId);
     }
 
     public void put(Product product) {
