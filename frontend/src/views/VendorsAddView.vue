@@ -67,11 +67,14 @@
                 </v-toolbar>
             </template>
             <template #item.actions="{ item }">
-                <v-icon small class="mr-2" @click="editItem(item)">
+                <v-icon  class="mr-2" @click="editItem(item)">
                     mdi-pencil
                 </v-icon>
-                <v-icon small @click="deleteItem(item)">
+                <v-icon  @click="deleteItem(item)">
                     mdi-delete
+                </v-icon>
+                <v-icon  @click="shoppingList(item)">
+                    mdi-storefront
                 </v-icon>
             </template>
 
@@ -162,6 +165,9 @@ export default {
             this.editedIndex = this.vendors.indexOf(item)
             this.editedItem = Object.assign({}, item)
             this.dialogDelete = true
+        },
+        shoppingList(){
+
         },
 
         deleteItemConfirm() {
