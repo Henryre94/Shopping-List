@@ -1,6 +1,7 @@
 package at.aschowurscht.dev.saadi.erp.backend.vendors;
 
 import at.aschowurscht.dev.saadi.erp.backend.products.Product;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,6 +31,7 @@ public class Vendor {
 
     @OneToMany(mappedBy = "vendor")
     @JsonManagedReference
+    @JsonIgnore
     private List<Product> productsList = new ArrayList<>();
 
     public Vendor(String name, String address) {
