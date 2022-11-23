@@ -2,7 +2,6 @@ package at.aschowurscht.dev.saadi.erp.backend.products;
 
 import at.aschowurscht.dev.saadi.erp.backend.demands.Demand;
 import at.aschowurscht.dev.saadi.erp.backend.demands.DemandCRUDRepository;
-import at.aschowurscht.dev.saadi.erp.backend.demands.DemandID;
 import at.aschowurscht.dev.saadi.erp.backend.pubs.Pub;
 import at.aschowurscht.dev.saadi.erp.backend.pubs.PubCRUDRepository;
 import at.aschowurscht.dev.saadi.erp.backend.vendors.Vendor;
@@ -25,13 +24,13 @@ public class ProductService {
     @Autowired
     DemandCRUDRepository demandCRUDRepository;
 
-    public void post(Product product, int venId) {
+    public void createProduct(Product product, int venId) {
         Vendor vendor = vendorCRUDRepository.findById(venId).get();
         product.setVendor(vendor);
         productCRUDRepository.save(product);
     }
 
-    public void post(int proId, int pubId) {
+    public void createDemand(int proId, int pubId) {
         Pub pub = pubCRUDRepository.findById(pubId).get();
         Product product = productCRUDRepository.findById(proId).get();
         Demand demand = new Demand();
@@ -48,20 +47,20 @@ public class ProductService {
         productCRUDRepository.save(product);
     }
 
-    public Product getById(int proId) {
+    public Product getProductById(int proId) {
         Product product = productCRUDRepository.findById(proId).get();
         return product;
     }
 
-    public List<Product> get() {
+    public List<Product> getAllProduct() {
         return productCRUDRepository.findAll();
     }
 
-    public void put(Product product) {
+    public void updateProduct(Product product) {
         productCRUDRepository.save(product);
     }
 
-    public void delete(int proId) {
+    public void deleteProduct(int proId) {
         productCRUDRepository.deleteById(proId);
     }
 

@@ -14,32 +14,32 @@ public class ProductController {
 
     @PostMapping("/{venId}")
     public void post(@RequestBody Product product, @PathVariable int venId) {
-        productService.post(product, venId);
+        productService.createProduct(product, venId);
     }
 
     @PostMapping("/{proId}/pubs/{pubId}")
     public void post(@PathVariable int proId, @PathVariable int pubId) {
-        productService.post(proId, pubId);
+        productService.createDemand(proId, pubId);
     }
 
     @GetMapping("/{proId}")
     public Product getById(@PathVariable int proId) {
-        return productService.getById(proId);
+        return productService.getProductById(proId);
     }
 
     @GetMapping()
     public List<Product> get() {
-        return productService.get();
+        return productService.getAllProduct();
     }
 
     @PutMapping()
     public void put(@RequestBody Product product) {
-        productService.put(product);
+        productService.updateProduct(product);
     }
 
     @DeleteMapping("/{proId}")
     public void delete(@PathVariable int proId) {
-        productService.delete(proId);
+        productService.deleteProduct(proId);
     }
 
 }
