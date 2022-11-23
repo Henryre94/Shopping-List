@@ -7,39 +7,39 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/products")
+@CrossOrigin
 public class ProductController {
     @Autowired
     ProductService productService;
-    @CrossOrigin
+
     @PostMapping("/{venId}")
-    public void post(@RequestBody Product product, @PathVariable int venId){
-        productService.post(product,venId);
+    public void post(@RequestBody Product product, @PathVariable int venId) {
+        productService.post(product, venId);
     }
-    @CrossOrigin
+
     @PostMapping("/{proId}/pubs/{pubId}")
-    public void post(@PathVariable int proId, @PathVariable int pubId){
-        productService.post(proId,pubId);
+    public void post(@PathVariable int proId, @PathVariable int pubId) {
+        productService.post(proId, pubId);
     }
-    @CrossOrigin
+
     @GetMapping("/{proId}")
-    public Product getById(@PathVariable int proId){
+    public Product getById(@PathVariable int proId) {
         return productService.getById(proId);
     }
 
-    @CrossOrigin
     @GetMapping()
-    public List<Product> get(){
-        List<Product> productList = productService.get();
-
-        return productList;
+    public List<Product> get() {
+        return productService.get();
     }
-    @CrossOrigin
+
     @PutMapping()
-    public void put(@RequestBody Product product){
+    public void put(@RequestBody Product product) {
         productService.put(product);
     }
-    @CrossOrigin
+
     @DeleteMapping("/{proId}")
-    public void delete(@PathVariable int proId) {productService.delete(proId);}
+    public void delete(@PathVariable int proId) {
+        productService.delete(proId);
+    }
 
 }

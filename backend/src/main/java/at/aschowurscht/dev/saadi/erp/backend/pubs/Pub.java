@@ -1,7 +1,6 @@
 package at.aschowurscht.dev.saadi.erp.backend.pubs;
 
 import at.aschowurscht.dev.saadi.erp.backend.demands.Demand;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
