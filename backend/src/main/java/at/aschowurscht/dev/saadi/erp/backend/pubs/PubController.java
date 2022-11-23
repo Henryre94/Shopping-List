@@ -1,7 +1,5 @@
 package at.aschowurscht.dev.saadi.erp.backend.pubs;
 
-import at.aschowurscht.dev.saadi.erp.backend.products.Product;
-import at.aschowurscht.dev.saadi.erp.backend.vendors.Vendor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
