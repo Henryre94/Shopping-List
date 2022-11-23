@@ -12,23 +12,28 @@ import java.util.Optional;
 public class PubService {
     @Autowired
     PubCRUDRepository pubCRUDRepository;
-    public void post(Pub pub){
+
+    public void createPub(Pub pub) {
         pubCRUDRepository.save(pub);
     }
-    public Pub getById(int pubId){
+
+    public Pub getPubById(int pubId) {
         Optional<Pub> pub = pubCRUDRepository.findById(pubId);
         if (pub.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
         return pub.get();
     }
-    public List<Pub> get(){
+
+    public List<Pub> getAllPubs() {
         return ((List<Pub>) pubCRUDRepository.findAll());
     }
-    public void put(Pub pub){
+
+    public void updatePub(Pub pub) {
         pubCRUDRepository.save(pub);
     }
-    public void delete(int pubId){
+
+    public void deletePub(int pubId) {
         pubCRUDRepository.deleteById(pubId);
     }
 }
