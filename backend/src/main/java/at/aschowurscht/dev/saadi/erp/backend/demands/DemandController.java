@@ -6,28 +6,26 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Set;
 
 @RestController
-
+@RequestMapping("api/demands")
 public class DemandController {
     @Autowired
     DemandService demandService;
 
     @CrossOrigin
-    @PutMapping("api/demands/{proId}/{pubId}")
+    @PutMapping("/{proId}/{pubId}")
     public void increaseQuantity(@PathVariable int proId, @PathVariable int pubId){
         demandService.increaseQuantity(proId, pubId);
     }
 
     @CrossOrigin
-    @PutMapping("api/demands/{proId}/{pubId}/reduce")
+    @PutMapping("/{proId}/{pubId}/reduce")
     public void decreaseQuantity(@PathVariable int proId, @PathVariable int pubId){
         demandService.decreaseQuantity(proId, pubId);
     }
     @CrossOrigin
-    @GetMapping("api/demands/vendor/{venId}")
+    @GetMapping("/vendor/{venId}")
     @ResponseBody
     public Set<DemandDto> getDemandsFromVendor(@PathVariable int venId){
-        Set<DemandDto> demandDtoList = demandService.getAllDemandsFromVendor(venId);
-        return demandDtoList;
+        return demandService.getAllDemandsFromVendor(venId);
     }
-
 }

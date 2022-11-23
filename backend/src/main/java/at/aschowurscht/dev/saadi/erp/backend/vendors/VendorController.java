@@ -1,44 +1,44 @@
 package at.aschowurscht.dev.saadi.erp.backend.vendors;
 
 import at.aschowurscht.dev.saadi.erp.backend.products.Product;
-import at.aschowurscht.dev.saadi.erp.backend.pubs.Pub;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/vendors")
 public class VendorController {
     @Autowired
     VendorService vendorService;
     @CrossOrigin
-    @PostMapping("/api/vendors")
+    @PostMapping()
     public void postProduct(@RequestBody Vendor vendor){
         vendorService.post(vendor);
     }
     @CrossOrigin
-    @GetMapping("/api/vendors/{venId}")
+    @GetMapping("/{venId}")
     public Vendor getById(@PathVariable int venId){
         return vendorService.getById(venId);
     }
     @CrossOrigin
-    @GetMapping("/api/vendors/{venId}/products")
+    @GetMapping("/{venId}/products")
     public List<Product> productsFromVendor(@PathVariable int venId){
         List<Product> productList = vendorService.productsFromVendor(venId);
         return productList;
     }
     @CrossOrigin
-    @GetMapping("/api/vendors")
+    @GetMapping()
     public List<Vendor> get(){
         List<Vendor> pubList = vendorService.get();
         return pubList;
     }
     @CrossOrigin
-    @PutMapping("/api/vendors")
+    @PutMapping()
     public void put(@RequestBody Vendor vendor){
         vendorService.put(vendor);
     }
     @CrossOrigin
-    @DeleteMapping("api/vendors/{venId}")
+    @DeleteMapping("/{venId}")
     public void delete(@PathVariable int venId) {vendorService.delete(venId);}
 }

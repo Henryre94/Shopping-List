@@ -8,31 +8,32 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/pubs")
 public class PubController {
     @Autowired
     PubService pubService;
     @CrossOrigin
-    @PostMapping("/api/pubs")
+    @PostMapping()
     public void postProduct(@RequestBody Pub pub){
         pubService.post(pub);
     }
     @CrossOrigin
-    @GetMapping("/api/pubs/{pubId}")
+    @GetMapping("/{pubId}")
     public Pub getById(@PathVariable int pubId){
         return pubService.getById(pubId);
     }
     @CrossOrigin
-    @GetMapping("/api/pubs")
+    @GetMapping()
     public List<Pub> get(){
         List<Pub> pubList = pubService.get();
         return pubList;
     }
     @CrossOrigin
-    @PutMapping("/api/pubs")
+    @PutMapping()
     public void put(@RequestBody Pub pub){
         pubService.put(pub);
     }
     @CrossOrigin
-    @DeleteMapping("api/pubs/{pubId}")
+    @DeleteMapping("/{pubId}")
     public void delete(@PathVariable int pubId) {pubService.delete(pubId);}
 }
