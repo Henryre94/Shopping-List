@@ -1,10 +1,9 @@
 package at.aschowurscht.dev.saadi.erp.backend.demands;
-
-import at.aschowurscht.dev.saadi.erp.backend.products.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+
+import java.util.Set;
 
 @RestController
 
@@ -22,6 +21,13 @@ public class DemandController {
     @PutMapping("api/demands/{proId}/{pubId}/reduce")
     public void decreaseQuantity(@PathVariable int proId, @PathVariable int pubId){
         demandService.decreaseQuantity(proId, pubId);
+    }
+    @CrossOrigin
+    @GetMapping("api/demands/vendor/{venId}")
+    @ResponseBody
+    public Set<DemandDto> getDemandsFromVendor(@PathVariable int venId){
+        Set<DemandDto> demandDtoList = demandService.getAllDemandsFromVendor(venId);
+        return demandDtoList;
     }
 
 }
