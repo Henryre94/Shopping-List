@@ -8,37 +8,38 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/vendors")
+@CrossOrigin
 public class VendorController {
     @Autowired
     VendorService vendorService;
-    @CrossOrigin
+
     @PostMapping()
-    public void postProduct(@RequestBody Vendor vendor){
-        vendorService.post(vendor);
+    public void postProduct(@RequestBody Vendor vendor) {
+        vendorService.createVendor(vendor);
     }
-    @CrossOrigin
+
     @GetMapping("/{venId}")
-    public Vendor getById(@PathVariable int venId){
-        return vendorService.getById(venId);
+    public Vendor getById(@PathVariable int venId) {
+        return vendorService.getVendorById(venId);
     }
-    @CrossOrigin
+
     @GetMapping("/{venId}/products")
-    public List<Product> productsFromVendor(@PathVariable int venId){
-        List<Product> productList = vendorService.productsFromVendor(venId);
-        return productList;
+    public List<Product> productsFromVendor(@PathVariable int venId) {
+        return vendorService.getAllProductsFromVendor(venId);
     }
-    @CrossOrigin
+
     @GetMapping()
-    public List<Vendor> get(){
-        List<Vendor> pubList = vendorService.get();
-        return pubList;
+    public List<Vendor> get() {
+        return vendorService.getAllVendors();
     }
-    @CrossOrigin
+
     @PutMapping()
-    public void put(@RequestBody Vendor vendor){
-        vendorService.put(vendor);
+    public void put(@RequestBody Vendor vendor) {
+        vendorService.updateVendor(vendor);
     }
-    @CrossOrigin
+
     @DeleteMapping("/{venId}")
-    public void delete(@PathVariable int venId) {vendorService.delete(venId);}
+    public void delete(@PathVariable int venId) {
+        vendorService.deleteVendor(venId);
+    }
 }

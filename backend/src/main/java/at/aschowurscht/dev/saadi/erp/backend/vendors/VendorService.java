@@ -14,24 +14,29 @@ public class VendorService {
     @Autowired
     ProductCRUDRepository productCRUDRepository;
 
-    public void post(Vendor vendor) {
+    public void createVendor(Vendor vendor) {
         vendorCRUDRepository.save(vendor);
     }
-    public Vendor getById(int venId) {
+
+    public Vendor getVendorById(int venId) {
         Vendor vendor = vendorCRUDRepository.findById(venId).get();
         return vendor;
     }
-    public List<Product> productsFromVendor(int venId) {
+
+    public List<Product> getAllProductsFromVendor(int venId) {
         Vendor vendor = vendorCRUDRepository.findById(venId).get();
         return vendor.getProductsList();
     }
-    public List<Vendor> get() {
+
+    public List<Vendor> getAllVendors() {
         return ((List<Vendor>) vendorCRUDRepository.findAll());
     }
-    public void put(Vendor vendor) {
+
+    public void updateVendor(Vendor vendor) {
         vendorCRUDRepository.save(vendor);
     }
-    public void delete(int venId) {
+
+    public void deleteVendor(int venId) {
         vendorCRUDRepository.deleteById(venId);
     }
 }
