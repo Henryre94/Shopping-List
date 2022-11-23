@@ -33,13 +33,6 @@ public class ProductController {
         return productList;
     }
     @CrossOrigin
-    @GetMapping("/api/products/{venId}/demands")
-    public List<Product> get(@PathVariable int venId){
-        List<Product> productList = productService.getAllProductsInDemand(venId);
-
-        return productList;
-    }
-    @CrossOrigin
     @PutMapping("/api/products")
     public void put(@RequestBody Product product){
         productService.put(product);
