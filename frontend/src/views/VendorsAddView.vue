@@ -18,7 +18,7 @@
                     <v-text-field v-model="search" clearable flat solo-inverted label="Suche" class="mt-9"></v-text-field>
 
 
-                    <v-spacer></v-spacer>
+                    <v-spacer> </v-spacer>
 
                     <v-dialog v-model="dialog" max-width="500px">
                         <template v-slot:activator="{ on, attrs }">
@@ -133,6 +133,9 @@ export default {
     },
     mounted() {
         this.$store.dispatch("getVendors")
+        this.$store.dispatch("addVendor")
+        this.$store.dispatch("deleteVendor")
+
 
     },
 
@@ -140,8 +143,6 @@ export default {
 
         initialize() {
             this.vendors = [
-
-
 
             ]
         },
@@ -185,13 +186,13 @@ export default {
         },
 
         save() {
-            if (this.editedIndex > -1) {
-                Object.assign(this.vendors[this.editedIndex], this.editedItem)
-            } else {
-                this.vendors.push(this.editedItem)
+            this.$store.commit('addVendor', {name: this.editedItem});
+             {
+                this.vendors.push(this.editedItem,)
             }
             this.close()
         },
+
     },
 
 }
