@@ -26,13 +26,13 @@ public class Vendor {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
+
     private String address;
 
     @OneToMany(mappedBy = "vendor")
     @JsonManagedReference
     @JsonIgnore
-    private List<Product> productsList = new ArrayList<>();
+    private List<Product> products = new ArrayList<>();
 
     public Vendor(String name, String address) {
         this.name = name;
