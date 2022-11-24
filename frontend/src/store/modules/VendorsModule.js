@@ -24,7 +24,8 @@ export const VendorsModule = {
         },
         async addVendor(store, vendor) {
             const response = await axios.post("/api/vendors", vendor);
-            store.commit("addVendor", response.data)
+            vendor.id = response.data
+            store.commit("addVendor", vendor)
         },
         async deleteVendor(store, venId) {
             await axios.delete("api/vendors/{venId}" + venId)

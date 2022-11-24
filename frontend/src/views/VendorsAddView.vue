@@ -192,9 +192,9 @@ export default {
         },
 
         save() {
-            this.$store.commit('addVendor', {name: this.editedItem});
+            this.$store.dispatch('addVendor', {name: this.editedItem.vendor});
              {
-              //   this.vendors.push(this.editedItem)
+                 this.vendors.push(this.editedItem)
             }
             this.close()
         },
