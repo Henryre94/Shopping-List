@@ -4,7 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
-import java.util.Set;
+import java.util.List;
+
 
 @RestController
 @RequestMapping("api/demands")
@@ -25,7 +26,7 @@ public class DemandController {
 
     @GetMapping("/vendor/{venId}")
     @ResponseBody
-    public Set<DemandDto> getDemandsFromVendor(@PathVariable int venId) {
+    public List<DemandDto> getDemandsFromVendor(@PathVariable int venId) {
         return demandService.getAllDemandsFromVendor(venId);
     }
 }

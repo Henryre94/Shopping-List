@@ -5,8 +5,9 @@ import at.aschowurscht.dev.saadi.erp.backend.products.ProductCRUDRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
+
 
 
 @Service
@@ -34,12 +35,12 @@ public class DemandService {
             }
         }
     }
-
-    public Set<DemandDto> getAllDemandsFromVendor(int venId) {
+    //TODO Der letzte Produkt überschreibt alle Produkten gespeichert in der Liste
+    public List<DemandDto> getAllDemandsFromVendor(int venId) {
         DemandDto demandDto = new DemandDto();
-        Set<DemandDto> demandDtoList = new HashSet<>();
-        for (Demand demands : demandCRUDRepository.findAll()) {
-            for (Product products : productCRUDRepository.findProductByVendor(venId)) {
+        List<DemandDto> demandDtoList = new ArrayList<>();
+        for (Product products : productCRUDRepository.findProductByVendor(venId)) {
+            for (Demand demands : demandCRUDRepository.findAll()) {
                 if (demands.getProduct().getProId() == products.getProId()) {
                     demandDto.setName(products.getName());
                     demandDto.setQuantity(demandCRUDRepository.findAmountOfQuantity(demands.getProduct().getProId()));
