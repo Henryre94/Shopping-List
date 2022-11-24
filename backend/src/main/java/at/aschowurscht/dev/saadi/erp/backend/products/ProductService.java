@@ -2,18 +2,15 @@ package at.aschowurscht.dev.saadi.erp.backend.products;
 
 import at.aschowurscht.dev.saadi.erp.backend.demands.Demand;
 import at.aschowurscht.dev.saadi.erp.backend.demands.DemandCRUDRepository;
+import at.aschowurscht.dev.saadi.erp.backend.demands.DemandDto;
 import at.aschowurscht.dev.saadi.erp.backend.pubs.Pub;
 import at.aschowurscht.dev.saadi.erp.backend.pubs.PubCRUDRepository;
 import at.aschowurscht.dev.saadi.erp.backend.vendors.Vendor;
 import at.aschowurscht.dev.saadi.erp.backend.vendors.VendorCRUDRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -27,17 +24,21 @@ public class ProductService {
     @Autowired
     DemandCRUDRepository demandCRUDRepository;
 
-    public Product createProduct(Product product, int venId) {
-        Vendor vendor = vendorCRUDRepository.findById(venId).get();
+    public ProductDto createProduct(ProductDto productDto, int venId) {
+        Product product = new Product();
+        Vendor vendor = vendorCRUDRepository.findById(venId).orElseThrow(RuntimeException::new);
+        product.setName(productDto.name);
+        product.setUnit(productDto.unit);
         product.setVendor(vendor);
         productCRUDRepository.save(product);
-        return product;
+        return productDto;
     }
 
-    public void createDemand(int proId, int pubId) {
-        Pub pub = pubCRUDRepository.findById(pubId).get();
-        Product product = productCRUDRepository.findById(proId).get();
+    public DemandDto createDemand(int proId, int pubId) {
+        Pub pub = pubCRUDRepository.findById(pubId).orElseThrow(() -> new IllegalStateException("Pub ID nicht gefunden: "+pubId));
+        Product product = productCRUDRepository.findById(proId).orElseThrow(() -> new IllegalStateException("Produkt ID nicht gefunden: "+proId));
         Demand demand = new Demand();
+        DemandDto demandDto = new DemandDto();
 
         product.newDemand(demand);
         demand.setProduct(product);
@@ -49,22 +50,40 @@ public class ProductService {
         demandCRUDRepository.save(demand);
         pubCRUDRepository.save(pub);
         productCRUDRepository.save(product);
+
+        demandDto.setName(product.getName());
+        demandDto.setQuantity(demand.getQuantity());
+
+        return demandDto;
+    }
+    public ProductDto getProductById(int proId) {
+        Product product = productCRUDRepository.findById(proId).orElseThrow(() -> new IllegalStateException("Produkt ID nicht gefunden: "+proId));
+        ProductDto productDto = new ProductDto();
+        productDto.setName(product.getName());
+        productDto.setUnit(product.getUnit());
+        return productDto;
+    }
+    public List<ProductDto> getAllProduct() {
+        return ( productCRUDRepository
+                .findAll())
+                .stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
+    }
+    private ProductDto convertToDto(Product product){
+        ProductDto productDto = new ProductDto();
+        productDto.setName(product.getName());
+        productDto.setUnit(product.getUnit());
+        return productDto;
     }
 
-    public Product getProductById(int proId) {
-        Optional<Product> product = productCRUDRepository.findById(proId);
-        if (product.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
-        return product.get();
-    }
+    public ProductDto updateProduct(ProductDto productDto, int proId) {
+        Product updateProduct = productCRUDRepository.findById(proId).orElseThrow(() -> new IllegalStateException("Produkt ID nicht gefunden: "+proId));
+        updateProduct.setName(productDto.name);
+        updateProduct.setUnit(productDto.unit);
+        productCRUDRepository.save(updateProduct);
 
-    public List<Product> getAllProduct() {
-        return productCRUDRepository.findAll();
-    }
-
-    public void updateProduct(Product product) {
-        productCRUDRepository.save(product);
+        return productDto;
     }
 
     public void deleteProduct(int proId) {
