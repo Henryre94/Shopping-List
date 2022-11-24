@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+
 @Getter
 @Setter
 public class DemandID implements Serializable {
@@ -12,7 +13,7 @@ public class DemandID implements Serializable {
     private int pub;
 
     public int hashCode() {
-        return (int)(product + pub);
+        return (int) (product + pub);
     }
 
     public boolean equals(Object object) {

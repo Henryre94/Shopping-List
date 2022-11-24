@@ -1,9 +1,10 @@
 package at.aschowurscht.dev.saadi.erp.backend.products;
 
 import at.aschowurscht.dev.saadi.erp.backend.demands.Demand;
-import at.aschowurscht.dev.saadi.erp.backend.demands.DemandID;
 import at.aschowurscht.dev.saadi.erp.backend.vendors.Vendor;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -15,7 +16,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-
+@Table(name = "products")
 public class Product {
 
     @Id
@@ -25,15 +26,17 @@ public class Product {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
+
     private String unit;
 
     @OneToMany(mappedBy = "product")
+    @JsonManagedReference
+    @JsonIgnore
     private List<Demand> pubAssoc = new ArrayList<>();
 
     @ManyToOne
     @JsonBackReference
-    @JoinColumn(name = "vendorId")
+    @JoinColumn(name = "venId")
     private Vendor vendor;
 
     public Product(String name, String unit) {

@@ -1,38 +1,39 @@
 package at.aschowurscht.dev.saadi.erp.backend.pubs;
 
-import at.aschowurscht.dev.saadi.erp.backend.products.Product;
-import at.aschowurscht.dev.saadi.erp.backend.vendors.Vendor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/pubs")
+@CrossOrigin
 public class PubController {
     @Autowired
     PubService pubService;
-    @CrossOrigin
-    @PostMapping("/api/pubs")
-    public void postProduct(@RequestBody Pub pub){
-        pubService.post(pub);
+
+    @PostMapping()
+    public PubDto postProduct(@RequestBody PubDto pubDto) {
+       return pubService.createPub(pubDto);
     }
-    @CrossOrigin
-    @GetMapping("/api/pubs/{pubId}")
-    public Pub getById(@PathVariable int pubId){
-        return pubService.getById(pubId);
+
+    @GetMapping("/{pubId}")
+    public PubDto getById(@PathVariable int pubId) {
+        return pubService.getPubById(pubId);
     }
-    @CrossOrigin
-    @GetMapping("/api/pubs")
-    public List<Pub> get(){
-        List<Pub> pubList = pubService.get();
-        return pubList;
+
+    @GetMapping()
+    public List<PubDto> get() {
+        return pubService.getAllPubs();
+
     }
-    @CrossOrigin
-    @PutMapping("/api/pubs")
-    public void put(@RequestBody Pub pub){
-        pubService.put(pub);
+    @PutMapping("/{pubId}")
+    public PubDto put(@RequestBody PubDto pubDto,@PathVariable int pubId) {
+        return pubService.updatePub(pubDto, pubId);
     }
-    @CrossOrigin
-    @DeleteMapping("api/pubs/{pubId}")
-    public void delete(@PathVariable int pubId) {pubService.delete(pubId);}
+
+    @DeleteMapping("/{pubId}")
+    public void delete(@PathVariable int pubId) {
+        pubService.deletePub(pubId);
+    }
 }
