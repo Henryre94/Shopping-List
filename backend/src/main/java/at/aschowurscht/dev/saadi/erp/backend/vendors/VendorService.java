@@ -34,7 +34,7 @@ public class VendorService {
         if (vendor.isEmpty()){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-        return vendor.get().getProductsList();
+        return vendor.get().getProducts();
     }
 
     public List<Vendor> getAllVendors() {
