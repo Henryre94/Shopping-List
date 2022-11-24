@@ -14,6 +14,12 @@ export const VendorsModule = {
         deleteVendor(state, venId) {
             const vendorIndex = state.vendors.findIndex(vendor => vendor.id === venId)
             state.vendors.splice(vendorIndex, 1)
+        },
+        updateVendor(state, {venId,payload}){
+            const vendorUp = state.vendors.find(vendorUp => vendorUp.id === venId)
+            if(vendorUp){
+                vendorUp.vendors = payload.vendors
+            }
         }
 
     },
@@ -28,9 +34,13 @@ export const VendorsModule = {
             store.commit("addVendor", vendor)
         },
         async deleteVendor(store, venId) {
-            await axios.delete("api/vendors/{venId}" + venId)
+            await axios.delete("api/vendors/" + venId)
             store.commit('deleteVendor', venId);
         },
+        async updateVendor(store,{venId, payload}){
+            await axios.put("/api/vendors" + venId, payload)
+            store.commit('updateVendor',{venId, payload})
+        }
 
     }
 }

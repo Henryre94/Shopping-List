@@ -37,6 +37,9 @@
                                         <v-col cols="12" sm="6" md="4">
                                             <v-text-field class="newVend" v-model="editedItem.vendor" label="Händler name"></v-text-field>
                                         </v-col>
+                                        <v-col cols="12" sm="6" md="4">
+                                            <v-text-field class="newVend" v-model="editedItem.address" label="Adresse"></v-text-field>
+                                        </v-col>
 
                                     </v-row>
                                 </v-container>
@@ -55,7 +58,7 @@
                     </v-dialog>
                     <v-dialog v-model="dialogDelete" max-width="500px">
                         <v-card>
-                            <v-card-title class="text-h5">Achtung! Der Händler wird gelöscht</v-card-title>
+                            <v-card-title class="text-h5">Achtung! Der Händler wird gelöscht, alle Produkte des Händlers werden mitgelöscht!</v-card-title>
                             <v-card-actions>
                                 <v-spacer></v-spacer>
                                 <v-btn color="blue darken-1" text @click="closeDelete">Abbrechen</v-btn>
@@ -108,10 +111,14 @@ export default {
         editedIndex: -1,
         editedItem: {
             vendor: '',
+            address:'',
+            venId:'',
 
         },
         defaultItem: {
             vendor: '',
+            address:'',
+            venId:'',
 
         },
     }),
@@ -138,6 +145,7 @@ export default {
         this.$store.dispatch("getVendors")
         this.$store.dispatch("addVendor")
         this.$store.dispatch("deleteVendor")
+        this.$store.dispatch("updateVendor")
 
 
     },
@@ -155,16 +163,18 @@ export default {
             this.$router.push("/vendorProducts", value.venId)
         },
 
-        editItem(item) {
-            this.editedIndex = this.vendors.indexOf(item)
-            this.editedItem = Object.assign({}, item)
+        editItem(venId) {
+            this.editedIndex = this.vendors.indexOf(venId)
+            this.editedItem = Object.assign({}, venId)
             this.dialog = true
+            this.$store.commit("updateVendor", venId)
         },
 
-        deleteItem(item) {
-            this.editedIndex = this.vendors.indexOf(item)
-            this.editedItem = Object.assign({}, item)
+        deleteItem(venId) {
+            this.editedIndex = this.vendors.indexOf(venId)
+            this.editedItem = Object.assign({}, venId)
             this.dialogDelete = true
+            this.$store.commit('deleteVendor',venId)
         },
         shoppingList(){
 
@@ -192,7 +202,7 @@ export default {
         },
 
         save() {
-            this.$store.dispatch('addVendor', {name: this.editedItem.vendor});
+            this.$store.dispatch('addVendor', {name: this.editedItem.vendor , address: this.editedItem.address});
              {
                  this.vendors.push(this.editedItem)
             }
