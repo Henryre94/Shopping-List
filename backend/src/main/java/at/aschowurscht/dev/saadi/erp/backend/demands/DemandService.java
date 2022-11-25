@@ -35,12 +35,12 @@ public class DemandService {
             }
         }
     }
-    //TODO Der letzte Produkt überschreibt alle Produkten gespeichert in der Liste
+    //TODO: demandCrudRepository.findAl() groupByProId
     public List<DemandDto> getAllDemandsFromVendor(int venId) {
-        DemandDto demandDto = new DemandDto();
         List<DemandDto> demandDtoList = new ArrayList<>();
         for (Product products : productCRUDRepository.findProductByVendor(venId)) {
             for (Demand demands : demandCRUDRepository.findAll()) {
+                DemandDto demandDto = new DemandDto();
                 if (demands.getProduct().getProId() == products.getProId()) {
                     demandDto.setName(products.getName());
                     demandDto.setQuantity(demandCRUDRepository.findAmountOfQuantity(demands.getProduct().getProId()));
