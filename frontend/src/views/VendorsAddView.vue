@@ -141,21 +141,9 @@ export default {
     created() {
         this.initialize()
     },
-    mounted() {
-        this.$store.dispatch("getVendors")
-        this.$store.dispatch("addVendor")
-        this.$store.dispatch("deleteVendor")
-        this.$store.dispatch("updateVendor")
-
-
-    },
-
     methods: {
-
         initialize() {
-            this.vendors = [
-
-            ]
+            this.$store.dispatch("getVendors")
         },
         handleClick(value){
 
@@ -164,25 +152,27 @@ export default {
         },
 
         editItem(venId) {
+            this.$store.dispatch("editVendor", venId.vendors)
             this.editedIndex = this.vendors.indexOf(venId)
             this.editedItem = Object.assign({}, venId)
             this.dialog = true
-            this.$store.commit("updateVendor", venId)
+
         },
 
         deleteItem(venId) {
+            this.$store.dispatch('delVendor',venId)
             this.editedIndex = this.vendors.indexOf(venId)
             this.editedItem = Object.assign({}, venId)
             this.dialogDelete = true
-            this.$store.commit('deleteVendor',venId)
-        },
-        shoppingList(){
-
         },
 
         deleteItemConfirm() {
             this.vendors.splice(this.editedIndex, 1)
             this.closeDelete()
+        },
+
+        shoppingList(demand){
+            this.$router.push("/einkaufsliste", demand.venId)
         },
 
         close() {
@@ -201,11 +191,10 @@ export default {
             })
         },
 
-        save() {
-            this.$store.dispatch('addVendor', {name: this.editedItem.vendor , address: this.editedItem.address});
-             {
-                 this.vendors.push(this.editedItem)
-            }
+        async save() {
+            await this.$store.dispatch('addVendor', {name: this.editedItem.vendor , address: this.editedItem.address});
+            this.vendors.push(this.editedItem)
+            await this.$store.dispatch('getVendors')
             this.close()
         },
 
