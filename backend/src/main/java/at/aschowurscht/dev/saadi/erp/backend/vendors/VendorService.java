@@ -22,19 +22,15 @@ public class VendorService {
     }
 
     public Vendor getVendorById(int venId) {
-        Optional<Vendor> vendor = vendorCRUDRepository.findById(venId);
-        if (vendor.isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
-        return vendor.get();
+        Vendor vendor = vendorCRUDRepository.findById(venId).orElseThrow(() -> new IllegalStateException("Vendor ID nicht gefunden: "+venId));
+
+        return vendor;
     }
 
     public List<Product> getAllProductsFromVendor(int venId) {
-        Optional<Vendor> vendor = vendorCRUDRepository.findById(venId);
-        if (vendor.isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
-        return vendor.get().getProducts();
+        Vendor vendor = vendorCRUDRepository.findById(venId).orElseThrow(() -> new IllegalStateException("Vendor ID nicht gefunden: "+venId));;
+
+        return vendor.getProducts();
     }
 
     public List<Vendor> getAllVendors() {

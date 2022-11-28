@@ -47,14 +47,11 @@ public class Product {
     public Vendor getVendor(){
         return vendor;
     }
-
     public void setVendor(Vendor vendor){this.vendor = vendor;}
-
 
     public void newDemand(Demand demand){
         this.pubWithDemands.add(demand);
     }
-
     public void removeDemand(Demand demand){this.pubWithDemands.remove(demand);}
 
 }
