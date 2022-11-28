@@ -20,7 +20,24 @@ export const VendorsModule = {
             if (vendorUp) {
                 vendorUp.vendors = payload.vendors
             }
-        }
+        },
+        //HÄNDLER PRODUKTE
+        addVendorsProduct(state, product) {
+            state.products.push(product)
+        },
+        getVendorsProduct(state, ProductArray) {
+            state.vendors = ProductArray
+        },
+        deleteVendorsProduct(state, proId) {
+            const vendorIndex = state.products.findIndex(product => product.id === proId)
+            state.products.splice(vendorIndex, 1)
+        },
+        updateVendorsProduct(state, {id, payload}) {
+            const vendorUp = state.products.find(vendorUp => vendorUp.id === id)
+            if (vendorUp) {
+                vendorUp.products = payload.products
+            }
+        },
         },
     actions: {
         async getVendors(store) {
@@ -41,6 +58,21 @@ export const VendorsModule = {
             await axios.put("/api/vendors/", item)
             // store.commit('updateVendor', {venId, payload})
             await store.dispatch('getVendors');
+        },
+        //HÄNDLER PRODUKTE
+        async getVendorsProduct(store) {
+            const response = await axios.get("/api/products");
+            store.commit("getVendorsProduct", response.data)
+        },
+        async addVendorsProduct(store, product) {
+            await axios.post("/api/products/", product);
+            // vendor.id = response.data
+            // store.commit("addVendor", vendor)
+            await store.dispatch('getVendorsProduct');
+        },
+        async delVendorsProduct(store, product) {
+            await axios.delete("/api/products:venId" + product.proId)
+            store.commit('deleteVendorsProduct', product.proId);
         },
 
     }

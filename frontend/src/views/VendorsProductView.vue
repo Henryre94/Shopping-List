@@ -6,7 +6,7 @@
     </v-container>
     <v-data-table
             :headers="headers"
-            :items="products"
+            :items="$store.state.vendorsModule.products"
             sort-by="product"
             item-key="name"
             :search="search"
@@ -33,7 +33,7 @@
                             <v-container>
                                 <v-row>
                                     <v-col cols="12" sm="6" md="4">
-                                        <v-text-field v-model="editedItem.product" label="Produkt name"></v-text-field>
+                                        <v-text-field v-model="editedItem.products" label="Produkt name"></v-text-field>
                                     </v-col>
 
                                 </v-row>
@@ -42,12 +42,9 @@
 
                         <v-card-actions>
                             <v-spacer></v-spacer>
-                            <v-btn color="blue darken-1" text @click="close">
-                                Abbrechen
-                            </v-btn>
-                            <v-btn color="blue darken-1" text @click="save">
-                                Speichern
-                            </v-btn>
+                            <v-btn color="blue darken-1" text @click="close">Abbrechen</v-btn>
+                            <v-btn color="blue darken-1" text @click="create" v-if="editedItem.product == ''">Anlegen</v-btn>
+                            <v-btn color="blue darken-1" text @click="update" v-else>Speichern</v-btn>
                         </v-card-actions>
                     </v-card>
                 </v-dialog>
@@ -102,10 +99,13 @@ export default {
         editedIndex: -1,
         editedItem: {
             product: '',
-
+            id: '',
+            unit:''
         },
         defaultItem: {
             product: '',
+            id: '',
+            unit:''
 
         },
     }),
@@ -130,29 +130,30 @@ export default {
     },
 
     methods: {
-
         initialize() {
-            this.products = [
-
-
-
-            ]
+            console.log(this.$route.params.id);
+            this.$store.dispatch("getVendorsProduct")
         },
-
-        editItem(item) {
-            this.editedIndex = this.products.indexOf(item)
-            this.editedItem = Object.assign({}, item)
+        editItem(products) {
+            this.editedIndex = this.products.indexOf(products)
+            this.editedItem = Object.assign({}, products)
             this.dialog = true
+            console.log(this.editedItem);
+        },
+        update() {
+            this.$store.dispatch(("editVendorsProduct", this.products))
+            console.log(this.products)
+            this.close()
         },
 
-        deleteItem(item) {
-            this.editedIndex = this.products.indexOf(item)
-            this.editedItem = Object.assign({}, item)
+        deleteItem(id) {
+            this.editedIndex = this.products.indexOf(id)
+            this.editedItem = Object.assign({}, id)
             this.dialogDelete = true
         },
 
         deleteItemConfirm() {
-            this.products.splice(this.editedIndex, 1)
+           this.$store.dispatch('delVendorsProduct', this.editedItem)
             this.closeDelete()
         },
 
@@ -172,12 +173,9 @@ export default {
             })
         },
 
-        save() {
-            if (this.editedIndex > -1) {
-                Object.assign(this.products[this.editedIndex], this.editedItem)
-            } else {
-                this.products.push(this.editedItem)
-            }
+        create() {
+            this.$store.dispatch("addVendorsProduct",{product: this.editedItem.product})
+            console.log(this.products)
             this.close()
         },
     },
