@@ -35,7 +35,7 @@
                                 <v-container>
                                     <v-row>
                                         <v-col cols="12" sm="6" md="4">
-                                            <v-text-field class="newVend" v-model="editedItem.vendor" label="Händler name"></v-text-field>
+                                            <v-text-field class="newVend" v-model="editedItem.name" label="Händler name"></v-text-field>
                                         </v-col>
                                         <v-col cols="12" sm="6" md="4">
                                             <v-text-field class="newVend" v-model="editedItem.address" label="Adresse"></v-text-field>
@@ -50,9 +50,8 @@
                                 <v-btn color="blue darken-1" text @click="close">
                                     Abbrechen
                                 </v-btn>
-                                <v-btn color="blue darken-1" text @click="save">
-                                    Speichern
-                                </v-btn>
+                                <v-btn color="blue darken-1" text @click="create" v-if="editedItem.venId == ''">Anlegen</v-btn>
+                                <v-btn color="blue darken-1" text @click="update" v-else>Speichern</v-btn>
                             </v-card-actions>
                         </v-card>
                     </v-dialog>
@@ -70,7 +69,7 @@
                 </v-toolbar>
             </template>
             <template #item.actions="{ item }">
-                <v-icon  class="mr-2" @click="editItem(item)">
+                <v-icon  class="mr-2" @click.stop="editItem(item)">
                     mdi-pencil
                 </v-icon>
                 <v-icon  @click.stop="deleteItem(item)">
@@ -110,7 +109,7 @@ export default {
         vendors: [],
         editedIndex: -1,
         editedItem: {
-            vendor: '',
+            name: '',
             address:'',
             venId:'',
 
@@ -151,17 +150,18 @@ export default {
             this.$router.push("/vendorProducts", value.venId)
         },
 
-        editItem(venId) {
-            this.$store.dispatch("editVendor", venId.vendors)
-            this.editedIndex = this.vendors.indexOf(venId)
-            this.editedItem = Object.assign({}, venId)
+        editItem(vendors) {
+            this.editedIndex = this.vendors.indexOf(vendors)
+            this.editedItem = Object.assign({}, vendors)
             this.dialog = true
-
+            console.log(this.editedItem);
+        },
+        update() {
+            this.$store.dispatch("editVendor", this.editedItem)
+            this.close()
         },
 
         deleteItem(venId) {
-
-            // this.$store.dispatch('delVendor',venId)
             this.editedIndex = this.vendors.indexOf(venId)
             this.editedItem = Object.assign({}, venId)
             this.dialogDelete = true
@@ -192,10 +192,10 @@ export default {
             })
         },
 
-        async save() {
-            await this.$store.dispatch('addVendor', {name: this.editedItem.vendor , address: this.editedItem.address});
-            this.vendors.push(this.editedItem)
-            await this.$store.dispatch('getVendors')
+        create() {
+            this.$store.dispatch('addVendor', {name: this.editedItem.name , address: this.editedItem.address});
+            // this.vendors.push(this.editedItem)
+            // this.$store.dispatch('getVendors')
             this.close()
         },
 
