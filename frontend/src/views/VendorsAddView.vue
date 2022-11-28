@@ -73,7 +73,7 @@
                 <v-icon  class="mr-2" @click="editItem(item)">
                     mdi-pencil
                 </v-icon>
-                <v-icon  @click="deleteItem(item)">
+                <v-icon  @click.stop="deleteItem(item)">
                     mdi-delete
                 </v-icon>
                 <v-icon  @click="shoppingList(item)">
@@ -160,14 +160,15 @@ export default {
         },
 
         deleteItem(venId) {
-            this.$store.dispatch('delVendor',venId)
+
+            // this.$store.dispatch('delVendor',venId)
             this.editedIndex = this.vendors.indexOf(venId)
             this.editedItem = Object.assign({}, venId)
             this.dialogDelete = true
         },
 
         deleteItemConfirm() {
-            this.vendors.splice(this.editedIndex, 1)
+            this.$store.dispatch('delVendor', this.editedItem)
             this.closeDelete()
         },
 
