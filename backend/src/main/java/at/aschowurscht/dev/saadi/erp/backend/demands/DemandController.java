@@ -11,19 +11,19 @@ public class DemandController {
     @Autowired
     DemandService demandService;
 
-    @PutMapping("/{proId}/{pubId}")
+    @PutMapping("/{proId}/{pubId}/+")
     public void increaseQuantity(@PathVariable int proId, @PathVariable int pubId) {
         demandService.increaseQuantity(proId, pubId);
     }
 
-    @PutMapping("/{proId}/{pubId}/reduce")
+    @PutMapping("/{proId}/{pubId}/-")
     public void decreaseQuantity(@PathVariable int proId, @PathVariable int pubId) {
         demandService.decreaseQuantity(proId, pubId);
     }
 
     @GetMapping("/vendor/{venId}")
     @ResponseBody
-    public List<DemandDto> getDemandsFromVendor(@PathVariable int venId) {
+    public List<DemandDto> getAllDemandsFromVendor(@PathVariable int venId) {
         return demandService.getAllDemandsFromVendor(venId);
     }
 }

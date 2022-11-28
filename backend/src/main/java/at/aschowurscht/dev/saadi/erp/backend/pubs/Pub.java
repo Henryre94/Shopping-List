@@ -30,15 +30,15 @@ public class Pub {
     @OneToMany(mappedBy = "pub")
     @JsonManagedReference
     @JsonIgnore
-    private List<Demand> productAssoc = new ArrayList<>();
+    private List<Demand> productsOnDemand = new ArrayList<>();
 
     public Pub(String name) {
         this.name = name;
     }
     
     public void newDemand(Demand demand){
-        this.productAssoc.add(demand);
+        this.productsOnDemand.add(demand);
     }
 
-    public void removeDemand(Demand demand){this.productAssoc.remove(demand);}
+    public void removeDemand(Demand demand){this.productsOnDemand.remove(demand);}
 }

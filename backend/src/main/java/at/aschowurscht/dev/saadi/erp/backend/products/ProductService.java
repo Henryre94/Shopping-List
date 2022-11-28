@@ -24,6 +24,7 @@ public class ProductService {
     @Autowired
     DemandCRUDRepository demandCRUDRepository;
 
+    //Create a product and bind it to a vendor
     public ProductDto createProduct(ProductDto productDto, int venId) {
         Product product = new Product();
         Vendor vendor = vendorCRUDRepository.findById(venId).orElseThrow(RuntimeException::new);
@@ -33,7 +34,7 @@ public class ProductService {
         productCRUDRepository.save(product);
         return productDto;
     }
-
+    //Create a demand from a product and bind it to a Pub
     public DemandDto createDemand(int proId, int pubId) {
         Pub pub = pubCRUDRepository.findById(pubId).orElseThrow(() -> new IllegalStateException("Pub ID nicht gefunden: "+pubId));
         Product product = productCRUDRepository.findById(proId).orElseThrow(() -> new IllegalStateException("Produkt ID nicht gefunden: "+proId));

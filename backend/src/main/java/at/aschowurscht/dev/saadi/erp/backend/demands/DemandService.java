@@ -18,6 +18,7 @@ public class DemandService {
     @Autowired
     ProductCRUDRepository productCRUDRepository;
 
+    //Increase the Quantity of the product on demand
     public void increaseQuantity(int proId, int pubId) {
         for (Demand demands : demandCRUDRepository.findAll()) {
             if (demands.getProduct().getProId() == proId && demands.getPub().getPubId() == pubId) {
@@ -26,7 +27,7 @@ public class DemandService {
             }
         }
     }
-
+    //Decrease the Quantity of the product in demand
     public void decreaseQuantity(int proId, int pubId) {
         for (Demand demands : demandCRUDRepository.findAll()) {
             if (demands.getProduct().getProId() == proId && demands.getPub().getPubId() == pubId) {
@@ -36,6 +37,7 @@ public class DemandService {
         }
     }
     //TODO: demandCrudRepository.findAl() groupByProId
+    //Create a List of all Products in Demand from a Vendor
     public List<DemandDto> getAllDemandsFromVendor(int venId) {
         List<DemandDto> demandDtoList = new ArrayList<>();
         for (Product products : productCRUDRepository.findProductByVendor(venId)) {
