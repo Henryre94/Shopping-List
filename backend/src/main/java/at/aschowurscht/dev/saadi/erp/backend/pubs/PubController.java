@@ -13,27 +13,27 @@ public class PubController {
     PubService pubService;
 
     @PostMapping()
-    public PubDto postProduct(@RequestBody PubDto pubDto) {
+    public PubDto createPub(@RequestBody PubDto pubDto) {
        return pubService.createPub(pubDto);
     }
 
     @GetMapping("/{pubId}")
-    public PubDto getById(@PathVariable int pubId) {
+    public PubDto getPubById(@PathVariable int pubId) {
         return pubService.getPubById(pubId);
     }
 
     @GetMapping()
-    public List<PubDto> get() {
+    public List<PubDto> getAllPubs() {
         return pubService.getAllPubs();
 
     }
     @PutMapping("/{pubId}")
-    public PubDto put(@RequestBody PubDto pubDto,@PathVariable int pubId) {
+    public PubDto updatePub(@RequestBody PubDto pubDto,@PathVariable int pubId) {
         return pubService.updatePub(pubDto, pubId);
     }
 
     @DeleteMapping("/{pubId}")
-    public void delete(@PathVariable int pubId) {
+    public void deletePub(@PathVariable int pubId) {
         pubService.deletePub(pubId);
     }
 }

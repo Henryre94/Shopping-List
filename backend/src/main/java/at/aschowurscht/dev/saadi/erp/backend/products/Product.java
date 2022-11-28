@@ -26,13 +26,12 @@ public class Product {
     @Column(nullable = false)
     private String name;
 
-
     private String unit;
 
     @OneToMany(mappedBy = "product")
     @JsonManagedReference
     @JsonIgnore
-    private List<Demand> pubAssoc = new ArrayList<>();
+    private List<Demand> pubWithDemands = new ArrayList<>();
 
     @ManyToOne
     @JsonBackReference
@@ -42,19 +41,17 @@ public class Product {
     public Product(String name, String unit) {
         this.name = name;
         this.unit = unit;
+
     }
 
     public Vendor getVendor(){
         return vendor;
     }
-
     public void setVendor(Vendor vendor){this.vendor = vendor;}
 
-
     public void newDemand(Demand demand){
-        this.pubAssoc.add(demand);
+        this.pubWithDemands.add(demand);
     }
-
-    public void removeDemand(Demand demand){this.pubAssoc.remove(demand);}
+    public void removeDemand(Demand demand){this.pubWithDemands.remove(demand);}
 
 }

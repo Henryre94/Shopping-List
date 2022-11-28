@@ -14,32 +14,32 @@ public class VendorController {
     VendorService vendorService;
 
     @PostMapping()
-    public void postProduct(@RequestBody Vendor vendor) {
+    public void createVendor(@RequestBody Vendor vendor) {
         vendorService.createVendor(vendor);
     }
 
     @GetMapping("/{venId}")
-    public Vendor getById(@PathVariable int venId) {
+    public Vendor getVendorById(@PathVariable int venId) {
         return vendorService.getVendorById(venId);
     }
 
     @GetMapping("/{venId}/products")
-    public List<Product> productsFromVendor(@PathVariable int venId) {
+    public List<Product> getAllProductsFromVendor(@PathVariable int venId) {
         return vendorService.getAllProductsFromVendor(venId);
     }
 
     @GetMapping()
-    public List<Vendor> get() {
+    public List<Vendor> getAllVendors() {
         return vendorService.getAllVendors();
     }
 
     @PutMapping()
-    public void put(@RequestBody Vendor vendor) {
+    public void updateVendor(@RequestBody Vendor vendor) {
         vendorService.updateVendor(vendor);
     }
 
     @DeleteMapping("/{venId}")
-    public void delete(@PathVariable int venId) {
+    public void deleteVendor(@PathVariable int venId) {
         vendorService.deleteVendor(venId);
     }
 }
