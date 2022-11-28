@@ -15,32 +15,34 @@ export const VendorsModule = {
             const vendorIndex = state.vendors.findIndex(vendor => vendor.id === venId)
             state.vendors.splice(vendorIndex, 1)
         },
-        updateVendor(state, {venId,payload}){
+        updateVendor(state, {venId, payload}) {
             const vendorUp = state.vendors.find(vendorUp => vendorUp.id === venId)
-            if(vendorUp){
+            if (vendorUp) {
                 vendorUp.vendors = payload.vendors
             }
         }
-
-    },
+        },
     actions: {
         async getVendors(store) {
             const response = await axios.get("/api/vendors");
             store.commit("getVendors", response.data)
         },
         async addVendor(store, vendor) {
-            const response = await axios.post("/api/vendors", vendor);
-            vendor.id = response.data
-            store.commit("addVendor", vendor)
+            await axios.post("/api/vendors", vendor);
+            // vendor.id = response.data
+            // store.commit("addVendor", vendor)
+            await store.dispatch('getVendors');
         },
         async delVendor(store, vendor) {
             await axios.delete("api/vendors/" + vendor.venId)
             store.commit('deleteVendor', vendor.venId);
         },
-        async editVendor(store,{venId, payload}){
-            await axios.put("/api/vendors" + venId, payload)
-            store.commit('updateVendor',{venId, payload})
-        }
+        async editVendor(store, item) {
+            await axios.put("/api/vendors/", item)
+            // store.commit('updateVendor', {venId, payload})
+            await store.dispatch('getVendors');
+        },
 
     }
+
 }
