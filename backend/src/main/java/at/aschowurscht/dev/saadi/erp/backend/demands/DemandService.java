@@ -19,30 +19,44 @@ public class DemandService {
     ProductCRUDRepository productCRUDRepository;
 
     //Increase the Quantity of the product on demand
-    public void increaseQuantity(int proId, int pubId) {
+    public List<DemandDTO> increaseQuantity(int proId, int pubId) {
+        List<DemandDTO> demandDTOList = new ArrayList<>();
         for (Demand demands : demandCRUDRepository.findAll()) {
+            DemandDTO demandDTO = new DemandDTO();
             if (demands.getProduct().getProId() == proId && demands.getPub().getPubId() == pubId) {
                 demands.setQuantity(demands.getQuantity() + 1);
                 demandCRUDRepository.save(demands);
+                demandDTO.setQuantity(demands.getQuantity());
+                demandDTO.setName(demands.getProduct().getName());
+                demandDTO.setPubName(demands.getPub().getName());
+                demandDTOList.add(demandDTO);
             }
         }
+        return demandDTOList;
     }
     //Decrease the Quantity of the product in demand
-    public void decreaseQuantity(int proId, int pubId) {
+    public List<DemandDTO> decreaseQuantity(int proId, int pubId) {
+        List<DemandDTO> demandDTOList = new ArrayList<>();
         for (Demand demands : demandCRUDRepository.findAll()) {
+            DemandDTO demandDTO = new DemandDTO();
             if (demands.getProduct().getProId() == proId && demands.getPub().getPubId() == pubId) {
                 demands.setQuantity(demands.getQuantity() - 1);
                 demandCRUDRepository.save(demands);
+                demandDTO.setQuantity(demands.getQuantity());
+                demandDTO.setName(demands.getProduct().getName());
+                demandDTO.setPubName(demands.getPub().getName());
+                demandDTOList.add(demandDTO);
             }
         }
+        return demandDTOList;
     }
     //TODO: demandCrudRepository.findAl() groupByProId
     //Create a List of all Products in Demand from a Vendor
-    public List<DemandDto> getAllDemandsFromVendor(int venId) {
-        List<DemandDto> demandDtoList = new ArrayList<>();
+    public List<DemandDTO> getAllDemandsFromVendor(int venId) {
+        List<DemandDTO> demandDtoList = new ArrayList<>();
         for (Product products : productCRUDRepository.findProductByVendor(venId)) {
             for (Demand demands : demandCRUDRepository.findAll()) {
-                DemandDto demandDto = new DemandDto();
+                DemandDTO demandDto = new DemandDTO();
                 if (demands.getProduct().getProId() == products.getProId()) {
                     demandDto.setName(products.getName());
                     demandDto.setQuantity(demandCRUDRepository.findAmountOfQuantity(demands.getProduct().getProId()));
