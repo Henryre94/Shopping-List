@@ -141,14 +141,14 @@ export default {
             console.log(this.editedItem);
         },
         update() {
-            this.$store.dispatch(("editVendorsProduct", this.products))
+            this.$store.dispatch("editVendorsProduct")
             console.log(this.products)
             this.close()
         },
 
-        deleteItem(id) {
-            this.editedIndex = this.products.indexOf(id)
-            this.editedItem = Object.assign({}, id)
+        deleteItem(proId) {
+            this.editedIndex = this.products.indexOf(proId)
+            this.editedItem = Object.assign({}, proId)
             this.dialogDelete = true
         },
 

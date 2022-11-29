@@ -26,7 +26,8 @@ export const VendorsModule = {
             state.products.push(product)
         },
         getVendorsProduct(state, ProductArray) {
-            state.vendors = ProductArray
+            state.products = ProductArray
+
         },
         deleteVendorsProduct(state, proId) {
             const vendorIndex = state.products.findIndex(product => product.id === proId)
@@ -58,20 +59,25 @@ export const VendorsModule = {
         },
         //HÄNDLER PRODUKTE
         async getVendorsProduct(store) {
-            const response = await axios.get("/api/products" );
+            const response = await axios.get("/api/products");
             store.commit("getVendorsProduct", response.data)
         },
         async addVendorsProduct(store, payload) {
-            console.log(payload.venId);
-            await axios.post("/api/products/"+payload.venId, payload.product);
-            console.log('asdf');
+            // console.log(payload.venId);
+            await axios.post("/api/products/" + payload.venId, payload.product);
+            // console.log('asdf');
             await store.dispatch('getVendorsProduct');
         },
         async delVendorsProduct(store, product) {
             await axios.delete("/api/products/" + product.proId)
             store.commit('deleteVendorsProduct', product.proId);
         },
+        async editVendorsProduct(store, item) {
+            console.log(this.products)
+            await axios.put("/api/products", item)
+            await store.dispatch('getVendorsProduct');
 
+        }
     }
 
 }
