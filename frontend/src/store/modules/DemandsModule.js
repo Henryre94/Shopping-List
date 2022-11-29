@@ -1,16 +1,7 @@
+import axios from "axios";
 export const DemandsModule = {
     state: {
-        // TODO: cart zu demands umbenennen
-        demands: [
-            /*
-            {
-                demandId: 0,
-                productName: 'Äpfel',
-                pubId: 1,
-                quantity: ''
-            },
-            */
-        ]
+        demands: []
     },
     mutations: {
         addToDemands(state, productId) {
@@ -30,13 +21,35 @@ export const DemandsModule = {
                 product.quantity--
             }
         }
-
-        /*if(!(product in state.demands)) {
-            Vue.set(state.demands, product);
-            product.quantity = 1;
-            console.log(product);
-      } else {
-           Vue.set(state.demands, product,state.demands[product.quantity]+1);
-       }*/
     },
+    actions: {
+        async addToDemands(store, proId) {
+            console.log(proId)
+            await axios.put('/api/demands/' + proId, {
+
+                pubId: this.pubId,
+                quantity: this.quantity
+            })
+                .then(response => {
+                    console.log(response.data);
+                })
+                .catch(error => {
+                    console.log(error.response.status);
+                });
+            store.commit('addToDemands')
+        },
+        async subFromDemands(store, proId) {
+            await axios.put('/api/demands/' + proId, {
+                pubId: this.pubId,
+                quantity: this.quantity
+            })
+                .then(response => {
+                    console.log(response.data);
+                })
+                .catch(error => {
+                    console.log(error.response.status);
+                });
+            store.commit('subFromDemands')
+        },
+    }
 }
