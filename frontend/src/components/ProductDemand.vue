@@ -2,13 +2,14 @@
     <div>
         {{ product.name }}
 
-        <v-btn class="mx-2" fab dark small color="primary" type="button" @click="addToDemands">
+
+        <v-btn color="red darken-3" dark class="mb-2 mt-5" type="button" @click="addToDemands">
             <v-icon dark>
                 +
             </v-icon>
         </v-btn>
-        <!--  button zum subtrahieren -->
-        <v-btn class="mx-2" fab dark small color="primary" type="button" @click="subFromDemands">
+
+        <v-btn color="red darken-3" dark class="mb-2 mt-5" type="button" @click="subFromDemands">
             <v-icon dark>
                 min
             </v-icon>
@@ -25,17 +26,22 @@ export default {
     },
     computed: {
         quantity() {
-            return this.$store.state.demandsModule.demands.find(demand => demand.proId === this.product.proId)?.quantity || 0
+            return this.$store.state.demandsModule.demands.find(demand => demand.proId === this.product.proId)?.quantity
         }
     },
     methods: {
         addToDemands() {
-            this.$store.commit('addToDemands', this.product.proId);
+            this.$store.dispatch('addToDemands', this.product.proId);
         },
         subFromDemands() {
-            this.$store.commit('subFromDemands', this.product.proId)
+            this.$store.dispatch('subFromDemands', this.product.proId)
         }
-    }
+    },
+    mounted() {
+        this.$store.dispatch('addToDemands', this.product.proId)
+        this.$store.dispatch('subFromDemands', this.product.proId)
+        console.log(this.product)
+    },
 }
 </script>
 
