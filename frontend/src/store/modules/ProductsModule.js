@@ -1,25 +1,28 @@
+import axios from "axios";
+
 export const ProductsModule = {
     state: {
-        products: [
-            {proId: 1, name: 'Äpfel'},
-            {proId: 2, name: 'Tomaten'},
-            {proId: 3, name: 'Orangen'},
-            {proId: 4, name: 'Bananen'},
-        ]
+        products: []
     },
     getters: {
-        // TODO: das braucht man nicht
-        // Getter verwendet man wie Variablen. Der "get"-Prefix ist somit irreführend
-        getAllProducts(state) {
-            const allProducts = state.products;
-            return allProducts;
+        products(state) {
+            const products = state.products;
+            return products;
         }
     },
     mutations: {
-        addProducts(state, payload) {
-            // TODO: payload sollten nur die vendors sein und kein "data" beinhalten
-            state.products = state.products.concat(payload.data)
+        addProducts(state, products) {
+            state.products = state.products.concat(products.data)
+        },
+        loadProducts(state, productsList) {
+            state.products = productsList
+            console.log(productsList)
+        },
+    },
+    actions: {
+        async loadProducts(store) {
+            const response = await axios.get('api/products');
+            store.commit('loadProducts', response.data)
         }
     },
-    actions: {}
 }

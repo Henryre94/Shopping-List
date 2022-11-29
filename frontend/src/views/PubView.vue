@@ -1,8 +1,8 @@
 <template>
     <v-container>
+        <TheHeader />
         <h1>Cafe Saadi 1090</h1>
-        <!-- brauch ich das ? -->
-        <router-link to="/">Home</router-link>
+
         <div>
             <input type="text" id="searchValue" placeholder="Search" v-model="searchValue"/>
         </div>
@@ -15,15 +15,17 @@
         <p>
             {{ demands }}
         </p>
+        <router-link to="/">Home</router-link>
     </v-container>
 </template>
 
 <script>
 import ProductDemand from "@/components/ProductDemand";
+import TheHeader from "@/components/TheHeader";
 
 export default {
-    name: "Pub1090View",
-    components: {ProductDemand},
+    name: "PubView",
+    components: {TheHeader, ProductDemand},
     data: () => ({
         searchValue: "",
     }),
@@ -38,15 +40,10 @@ export default {
         demands() {
             return this.$store.state.demandsModule.demands;
         },
-
-        // demands() {
-        // return this.$store.state.demands.filter(product => product.quantity > 0 );
-        //     }
-
-        //  demands() {
-        //    return this.$store.state.demands.filter(demandItem => demandItem.pubId === this.pubId);
-        //  }
     },
+    mounted() {
+        this.$store.dispatch('loadProducts')
+    }
 };
 </script>
 
