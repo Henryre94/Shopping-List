@@ -33,7 +33,10 @@
                             <v-container>
                                 <v-row>
                                     <v-col cols="12" sm="6" md="4">
-                                        <v-text-field v-model="editedItem.products" label="Produkt name"></v-text-field>
+                                        <v-text-field v-model="editedItem.name" label="Produkt name"></v-text-field>
+                                    </v-col>
+                                    <v-col cols="12" sm="6" md="4">
+                                        <v-text-field v-model="editedItem.unit" label="Einheit(kg,l,..)"></v-text-field>
                                     </v-col>
 
                                 </v-row>
@@ -43,7 +46,7 @@
                         <v-card-actions>
                             <v-spacer></v-spacer>
                             <v-btn color="blue darken-1" text @click="close">Abbrechen</v-btn>
-                            <v-btn color="blue darken-1" text @click="create" v-if="editedItem.product == ''">Anlegen</v-btn>
+                            <v-btn color="blue darken-1" text @click="create" v-if="editedItem.id == ''">Anlegen</v-btn>
                             <v-btn color="blue darken-1" text @click="update" v-else>Speichern</v-btn>
                         </v-card-actions>
                     </v-card>
@@ -62,12 +65,8 @@
             </v-toolbar>
         </template>
         <template #item.actions="{ item }">
-            <v-icon small class="mr-2" @click="editItem(item)">
-                mdi-pencil
-            </v-icon>
-            <v-icon small @click="deleteItem(item)">
-                mdi-delete
-            </v-icon>
+            <v-icon small class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
+            <v-icon small @click="deleteItem(item)">mdi-delete</v-icon>
         </template>
 
 
@@ -98,12 +97,12 @@ export default {
         products: [],
         editedIndex: -1,
         editedItem: {
-            product: '',
+            name: '',
             id: '',
             unit:''
         },
         defaultItem: {
-            product: '',
+            name: '',
             id: '',
             unit:''
 
@@ -133,6 +132,7 @@ export default {
         initialize() {
             console.log(this.$route.params.id);
             this.$store.dispatch("getVendorsProduct")
+
         },
         editItem(products) {
             this.editedIndex = this.products.indexOf(products)
@@ -174,7 +174,7 @@ export default {
         },
 
         create() {
-            this.$store.dispatch("addVendorsProduct",{product: this.editedItem.product})
+            this.$store.dispatch("addVendorsProduct",{product: this.editedItem, venId: this.$route.params.id})
             console.log(this.products)
             this.close()
         },
