@@ -13,22 +13,22 @@ public class PubController {
     PubService pubService;
 
     @PostMapping()
-    public PubDto createPub(@RequestBody PubDto pubDto) {
-       return pubService.createPub(pubDto);
+    public PubNoIdDTO createPub(@RequestBody PubNoIdDTO pubNoIdDTO) {
+       return pubService.createPub(pubNoIdDTO);
     }
 
     @GetMapping("/{pubId}")
-    public PubDto getPubById(@PathVariable int pubId) {
+    public PubDTO getPubById(@PathVariable int pubId) {
         return pubService.getPubById(pubId);
     }
 
     @GetMapping()
-    public List<PubDto> getAllPubs() {
+    public List<PubDTO> getAllPubs() {
         return pubService.getAllPubs();
 
     }
     @PutMapping("/{pubId}")
-    public PubDto updatePub(@RequestBody PubDto pubDto,@PathVariable int pubId) {
+    public PubDTO updatePub(@RequestBody PubDTO pubDto, @PathVariable int pubId) {
         return pubService.updatePub(pubDto, pubId);
     }
 

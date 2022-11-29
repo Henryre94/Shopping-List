@@ -5,7 +5,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class DemandDto {
+public class DemandDTO {
     private int quantity;
     private String name;
+    private String pubName;
 }
