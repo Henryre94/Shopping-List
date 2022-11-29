@@ -5,7 +5,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class PubDto {
+public class PubDTO {
     String name;
+    int id;
 
 }
