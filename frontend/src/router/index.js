@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import VendorsView from '../views/VendorsView.vue'
-import Pub1090View from "@/views/Pub1090View.vue";
+import PubView from "@/views/PubView.vue";
 import ProductView from "@/views/ProductView.vue";
 import VendorsProductView from "@/views/VendorsProductView";
 import VendorsAddView from "@/views/VendorsAddView";
@@ -27,9 +27,9 @@ const routes = [
         component: VendorsView
     },
     {
-        path: '/pub1090',
-        name: 'pub1090',
-        component: Pub1090View
+        path: '/pub',
+        name: 'pub',
+        component: PubView
     },
     {
         path: '/vendorProducts',
