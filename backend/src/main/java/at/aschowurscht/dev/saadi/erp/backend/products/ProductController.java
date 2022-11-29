@@ -1,6 +1,6 @@
 package at.aschowurscht.dev.saadi.erp.backend.products;
 
-import at.aschowurscht.dev.saadi.erp.backend.demands.DemandDto;
+import at.aschowurscht.dev.saadi.erp.backend.demands.DemandDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,27 +14,27 @@ public class ProductController {
     ProductService productService;
 
     @PostMapping("/{venId}")
-    public ProductDto createProduct(@RequestBody ProductDto productDto, @PathVariable int venId) {
-        return productService.createProduct(productDto, venId);
+    public ProductNoIdDTO createProduct(@RequestBody ProductNoIdDTO productNoIdDTO, @PathVariable int venId) {
+        return productService.createProduct(productNoIdDTO, venId);
     }
 
     @PostMapping("/{proId}/pubs/{pubId}")
-    public DemandDto createDemand(@PathVariable int proId, @PathVariable int pubId) {
+    public DemandDTO createDemand(@PathVariable int proId, @PathVariable int pubId) {
         return productService.createDemand(proId, pubId);
     }
 
     @GetMapping("/{proId}")
-    public ProductDto getProductById(@PathVariable int proId) {
+    public ProductDTO getProductById(@PathVariable int proId) {
         return productService.getProductById(proId);
     }
 
     @GetMapping()
-    public List<ProductDto> getAllProduct() {
+    public List<ProductDTO> getAllProduct() {
         return productService.getAllProduct();
     }
 
     @PutMapping("/{proId}")
-    public ProductDto updateProduct(@RequestBody ProductDto productDto,@PathVariable int proId) {
+    public ProductDTO updateProduct(@RequestBody ProductDTO productDto, @PathVariable int proId) {
       return  productService.updateProduct(productDto, proId);
     }
 
