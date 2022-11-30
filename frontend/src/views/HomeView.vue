@@ -6,7 +6,7 @@
         |
         <router-link to="/vendor">Lieferanten</router-link>
         |
-        <router-link to="/pub1090">Cafe 1090</router-link>
+        <router-link to="/pub">Cafe 1090</router-link>
 
 
     </v-container>

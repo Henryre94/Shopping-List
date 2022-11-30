@@ -1,7 +1,9 @@
 import axios from "axios";
+
 export const DemandsModule = {
     state: {
-        demands: []
+        demands: [],
+        pubId: 4
     },
     mutations: {
         addToDemands(state, productId) {
@@ -25,11 +27,7 @@ export const DemandsModule = {
     actions: {
         async addToDemands(store, proId) {
             console.log(proId)
-            await axios.put('/api/demands/' + proId, {
-
-                pubId: this.pubId,
-                quantity: this.quantity
-            })
+            await axios.put('/api/demands/' + proId + '/' + store.state.pubId + '/+')
                 .then(response => {
                     console.log(response.data);
                 })
@@ -51,5 +49,8 @@ export const DemandsModule = {
                 });
             store.commit('subFromDemands')
         },
+        async test() {
+            await axios.put('/api/demands/4/1/+')
+        }
     }
 }

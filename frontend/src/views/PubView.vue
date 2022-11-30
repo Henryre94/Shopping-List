@@ -4,7 +4,7 @@
         <h1>Cafe Saadi 1090</h1>
 
         <div>
-            <input type="text" id="searchValue" placeholder="Search" v-model="searchValue"/>
+            <v-text-field v-model="searchValue"  clearable label="Suche" class="mt-9"></v-text-field>
         </div>
         <div>
             <div v-for="(product, index) in filteredProducts" :key="index">
@@ -29,13 +29,17 @@ export default {
     data: () => ({
         searchValue: "",
     }),
-
     computed: {
         products() {
             return this.$store.state.productsModule.products;
         },
         filteredProducts() {
-            return this.products.filter((product) => product.name.toLowerCase().includes(this.searchValue.toLowerCase()));
+            return this.products.filter(product => {
+                if(this.searchValue && this.searchValue.length > 0){
+                    return product.name.toLowerCase().includes(this.searchValue.toLowerCase())
+                }
+                return true;
+            });
         },
         demands() {
             return this.$store.state.demandsModule.demands;

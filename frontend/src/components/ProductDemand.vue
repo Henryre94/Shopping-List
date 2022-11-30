@@ -2,7 +2,6 @@
     <div>
         {{ product.name }}
 
-
         <v-btn color="red darken-3" dark class="mb-2 mt-5" type="button" @click="addToDemands">
             <v-icon dark>
                 +
@@ -22,11 +21,15 @@
 export default {
     name: "ProductDemand",
     props: {
-        product: Object
+        product: {
+            proId: String,
+            name: String,
+            unit: String
+        }
     },
     computed: {
         quantity() {
-            return this.$store.state.demandsModule.demands.find(demand => demand.proId === this.product.proId)?.quantity
+            return this.$store.state.demandsModule.demands.find(demand => demand.proId === this.product.proId)?.quantity || 0
         }
     },
     methods: {
@@ -38,9 +41,8 @@ export default {
         }
     },
     mounted() {
-        this.$store.dispatch('addToDemands', this.product.proId)
-        this.$store.dispatch('subFromDemands', this.product.proId)
         console.log(this.product)
+        this.$store.dispatch('test')
     },
 }
 </script>
