@@ -1,22 +1,20 @@
 <template>
-    <v-container>
     <div>
         {{ product.name }}
 
-        <v-btn id='btnAdd' color="red darken-3" dark class="mb-2 mt-5 mr-2" type="button" @click="addToDemands">
+        <v-btn color="red darken-3" dark class="mb-2 mt-5 mr-2" type="button" @click="addToDemands">
             <v-icon dark>
                 +
             </v-icon>
         </v-btn>
 
-        <v-btn id='btnSub' color="red darken-3" dark class="mb-2 mt-5 mr-2" type="button" @click="subFromDemands">
+        <v-btn color="red darken-3" dark class="mb-2 mt-5 mr-2" type="button" @click="subFromDemands">
             <v-icon dark>
                 min
             </v-icon>
         </v-btn>
         <span class="quantity"> Anzahl:  {{ quantity }} </span>
     </div>
-    </v-container>
 </template>
 
 <script>
@@ -52,8 +50,5 @@ export default {
 </script>
 
 <style scoped>
-#btnAdd {
-
-}
 
 </style>

@@ -12,6 +12,9 @@
             </div>
         </div>
         <br/>
+        <p>
+            {{ demands }}
+        </p>
         <router-link to="/">Home</router-link>
     </v-container>
 </template>
