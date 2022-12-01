@@ -32,11 +32,11 @@ const routes = [
         component: Pub1090View
     },
     {
-        path: '/vendorProducts/:vendorId',
+        path: '/produktliste/:vendor/:vendorId',
         component: VendorsProductView
     },
     {
-        path: '/vendorsAdd',
+        path: '/versorger',
         component: VendorsAddView
     },
 

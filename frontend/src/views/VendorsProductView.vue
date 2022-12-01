@@ -2,7 +2,7 @@
     <div>
     <v-container>
         <h1>Produktliste</h1>
-        <router-link to="/vendorsAdd">zurück zu den Händlern</router-link>
+        <router-link to="/versorger">zurück zu den Händlern</router-link>
 
     </v-container>
     <v-data-table
@@ -134,7 +134,7 @@ export default {
 
     methods: {
         initialize() {
-            console.log(this.$route.params.id);
+            console.log(this.$route.params.vendorId);
             this.$store.dispatch("getVendorsProduct")
 
         },
