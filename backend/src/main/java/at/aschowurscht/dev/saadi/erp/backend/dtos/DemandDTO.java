@@ -7,6 +7,7 @@ import lombok.Setter;
 @Setter
 public class DemandDTO {
      int quantity;
+     int proId;
      String name;
      String pubName;
 }
