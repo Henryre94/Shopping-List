@@ -1,12 +1,13 @@
 <template>
     <div>
     <v-container>
-        <h1>Händler Produkte</h1>
+        <h1>Produktliste</h1>
+        <router-link to="/vendorsAdd">zurück zu den Händlern</router-link>
 
     </v-container>
     <v-data-table
             :headers="headers"
-            :items="$store.state.vendorsModule.products"
+            :items="$store.state.productsModule.products"
             sort-by="product"
             item-key="name"
             :search="search"
@@ -46,7 +47,7 @@
                         <v-card-actions>
                             <v-spacer></v-spacer>
                             <v-btn color="blue darken-1" text @click="close">Abbrechen</v-btn>
-                            <v-btn color="blue darken-1" text @click="create" v-if="editedItem.name == ''">Anlegen</v-btn>
+                            <v-btn color="blue darken-1" text @click="create" v-if="editedItem.name === ''">Anlegen</v-btn>
                             <v-btn color="blue darken-1" text @click="update" v-else>Speichern</v-btn>
                         </v-card-actions>
                     </v-card>
@@ -114,7 +115,7 @@ export default {
 
     computed: {
         formTitle() {
-            return this.editedIndex == -1 ? 'Neues Produkt' : 'Edit Item'
+            return this.editedIndex === -1 ? 'Neues Produkt' : 'Edit Item'
         },
     },
 
@@ -177,7 +178,7 @@ export default {
         },
 
         create() {
-            this.$store.dispatch("addVendorsProduct",{product: this.editedItem, venId: this.$route.params.id})
+            this.$store.dispatch("addVendorsProduct",{product: this.editedItem.product})
             console.log(this.products)
             this.close()
         },

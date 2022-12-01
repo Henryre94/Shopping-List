@@ -23,7 +23,7 @@
                     <v-dialog v-model="dialog" max-width="500px">
                         <template v-slot:activator="{ on, attrs }">
                             <v-btn color="red" dark class="mb-6 mt-9" v-bind="attrs" v-on="on" >
-                                +
+                                Neuer Händler
                             </v-btn>
                         </template>
                         <v-card>
@@ -48,7 +48,7 @@
                             <v-card-actions>
                                 <v-spacer></v-spacer>
                                 <v-btn color="blue darken-1" text @click="close">Abbrechen</v-btn>
-                                <v-btn color="blue darken-1" text @click="create" v-if="editedItem.venId == ''">Anlegen</v-btn>
+                                <v-btn color="blue darken-1" text @click="createVendor" v-if="editedItem.venId === ''">Anlegen</v-btn>
                                 <v-btn color="blue darken-1" text @click="update" v-else>Speichern</v-btn>
                             </v-card-actions>
                         </v-card>
@@ -113,7 +113,7 @@ export default {
 
         },
         defaultItem: {
-            vendor: '',
+            name: '',
             address:'',
             venId:'',
 
@@ -140,40 +140,42 @@ export default {
     },
     methods: {
         initialize() {
-            this.$store.dispatch("getVendors")
+            this.$store.dispatch("getVendors") // Händler vom backend laden
         },
+        //Weiterleitung auf die Händlerprodukte mit Händler ID und namen in der URL
         handleClick(value){
 
             console.log("row clicked", value.name )
-            this.$router.push("/vendorProducts/" + value.venId)
+            this.$router.push("/vendorProducts/" + value.name + "" +value.venId)
         },
-
+        // Händler können bearbeitet werden
         editItem(vendors) {
             this.editedIndex = this.vendors.indexOf(vendors)
             this.editedItem = Object.assign({}, vendors)
             this.dialog = true
             console.log(this.editedItem);
         },
+        // Bearbeitete Händler werden gespeichert
         update() {
             this.$store.dispatch("editVendor", this.editedItem)
             this.close()
         },
-
+        // Händler wird gelöscht
         deleteItem(venId) {
             this.editedIndex = this.vendors.indexOf(venId)
             this.editedItem = Object.assign({}, venId)
             this.dialogDelete = true
         },
-
+        // Bestätigung das Händler gelöscht werden soll
         deleteItemConfirm() {
             this.$store.dispatch('delVendor', this.editedItem)
             this.closeDelete()
         },
-
+        // Weiterleitung auf die Einkaufsliste
         shoppingList(demand){
             this.$router.push("/einkaufsliste", demand.venId)
         },
-
+        // Modal wird geschlossen
         close() {
             this.dialog = false
             this.$nextTick(() => {
@@ -181,7 +183,7 @@ export default {
                 this.editedIndex = -1
             })
         },
-
+        // Modal wird nach dem Löschen geschlossen
         closeDelete() {
             this.dialogDelete = false
             this.$nextTick(() => {
@@ -189,8 +191,8 @@ export default {
                 this.editedIndex = -1
             })
         },
-
-        create() {
+        // Händler wird erstellt
+        createVendor() {
             this.$store.dispatch('addVendor', {name: this.editedItem.name , address: this.editedItem.address});
             // this.vendors.push(this.editedItem)
             // this.$store.dispatch('getVendors')
