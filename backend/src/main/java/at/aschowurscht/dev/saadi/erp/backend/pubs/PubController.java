@@ -1,5 +1,7 @@
 package at.aschowurscht.dev.saadi.erp.backend.pubs;
 
+import at.aschowurscht.dev.saadi.erp.backend.dtos.PubDTO;
+import at.aschowurscht.dev.saadi.erp.backend.dtos.PubNoIdDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,13 +1,11 @@
-package at.aschowurscht.dev.saadi.erp.backend.products;
+package at.aschowurscht.dev.saadi.erp.backend.dtos;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class ProductDTO {
+public class ProductNoIdDTO {
     String name;
     String unit;
-
-    int id;
 }

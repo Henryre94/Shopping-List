@@ -12,10 +12,12 @@ public class DemandID implements Serializable {
     private int product;
     private int pub;
 
+    // This method is used to generate the hash values of objects.
     public int hashCode() {
-        return (int) (product + pub);
+        return  (product + pub);
     }
 
+    //This method returns true if this object is the same as the obj argument; false otherwise.
     public boolean equals(Object object) {
         if (object instanceof DemandID) {
             DemandID otherId = (DemandID) object;
