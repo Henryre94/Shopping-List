@@ -65,8 +65,8 @@
             </v-toolbar>
         </template>
         <template #item.actions="{ item }">
-            <v-icon small class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
-            <v-icon small @click="deleteItem(item)">mdi-delete</v-icon>
+            <v-icon class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
+            <v-icon  @click="deleteItem(item)">mdi-delete</v-icon>
         </template>
 
 
@@ -88,30 +88,33 @@ export default {
                 text: 'Produkt',
                 align: 'start',
                 sortable: true,
-                value: 'product',
+                value: 'name',
             },
 
+            {text: 'Einheit', value:'unit',sortable: true},
+            { text: '', value: 'actions', sortable: false },
 
-            { text: 'Bearbeiten', value: 'actions', sortable: false },
         ],
         products: [],
         editedIndex: -1,
         editedItem: {
-            name: '',
+            name:'',
+            unit:'',
             id: '',
-            unit:''
+
         },
         defaultItem: {
-            name: '',
+            name:'',
+            unit:'',
             id: '',
-            unit:''
+
 
         },
     }),
 
     computed: {
         formTitle() {
-            return this.editedIndex === -1 ? 'Neues Produkt' : 'Edit Item'
+            return this.editedIndex == -1 ? 'Neues Produkt' : 'Edit Item'
         },
     },
 

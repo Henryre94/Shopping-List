@@ -25,8 +25,8 @@ export const VendorsModule = {
         addVendorsProduct(state, product) {
             state.products.push(product)
         },
-        getVendorsProduct(state, ProductArray) {
-            state.products = ProductArray
+        getVendorsProduct(state, ProductList) {
+            state.products = ProductList
 
         },
         deleteVendorsProduct(state, proId) {
@@ -60,6 +60,7 @@ export const VendorsModule = {
         //HÄNDLER PRODUKTE
         async getVendorsProduct(store) {
             const response = await axios.get("/api/products");
+            console.log(response)
             store.commit("getVendorsProduct", response.data)
         },
         async addVendorsProduct(store, payload) {
