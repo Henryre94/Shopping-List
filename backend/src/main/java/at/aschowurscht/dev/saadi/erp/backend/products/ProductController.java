@@ -1,6 +1,8 @@
 package at.aschowurscht.dev.saadi.erp.backend.products;
 
-import at.aschowurscht.dev.saadi.erp.backend.demands.DemandDTO;
+import at.aschowurscht.dev.saadi.erp.backend.dtos.DemandDTO;
+import at.aschowurscht.dev.saadi.erp.backend.dtos.ProductDTO;
+import at.aschowurscht.dev.saadi.erp.backend.dtos.ProductNoIdDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

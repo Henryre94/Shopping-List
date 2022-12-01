@@ -25,15 +25,15 @@ public class Pub {
     private int pubId;
 
     @Column(nullable = false)
-    private String name;
+    private String pubName;
 
     @OneToMany(mappedBy = "pub")
     @JsonManagedReference
     @JsonIgnore
     private List<Demand> productsOnDemand = new ArrayList<>();
 
-    public Pub(String name) {
-        this.name = name;
+    public Pub(String pubName) {
+        this.pubName = pubName;
     }
     
     public void newDemand(Demand demand){

@@ -1,5 +1,7 @@
 package at.aschowurscht.dev.saadi.erp.backend.pubs;
 
+import at.aschowurscht.dev.saadi.erp.backend.dtos.PubDTO;
+import at.aschowurscht.dev.saadi.erp.backend.dtos.PubNoIdDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +16,7 @@ public class PubService {
 
     public PubNoIdDTO createPub(PubNoIdDTO pubNoIdDTO) {
         Pub pub = new Pub();
-        pub.setName(pubNoIdDTO.name);
+        pub.setPubName(pubNoIdDTO.getName());
         pubCRUDRepository.save(pub);
         return pubNoIdDTO;
     }
@@ -22,8 +24,8 @@ public class PubService {
     public PubDTO getPubById(int pubId) {
         Pub pub = pubCRUDRepository.findById(pubId).orElseThrow(() -> new IllegalStateException("Pub ID nicht gefunden: "+pubId));
         PubDTO pubDto = new PubDTO();
-        pubDto.setName(pub.getName());
-        pubDto.setId(pub.getPubId());
+        pubDto.setName(pub.getPubName());
+        pubDto.setPubId(pub.getPubId());
         return pubDto;
     }
 
@@ -36,16 +38,15 @@ public class PubService {
     }
     private PubDTO convertToDto(Pub pub){
         PubDTO pubDto = new PubDTO();
-        pubDto.setName(pub.getName());
-        pubDto.setId(pub.getPubId());
+        pubDto.setName(pub.getPubName());
+        pubDto.setPubId(pub.getPubId());
         return pubDto;
     }
 
     public PubDTO updatePub(PubDTO pubDto, int pubId) {
         Pub updatePub = pubCRUDRepository.findById(pubId).orElseThrow(() -> new IllegalStateException("Pub ID nicht gefunden: "+pubId));
-        updatePub.setName(pubDto.name);
+        updatePub.setPubName(pubDto.getName());
         pubCRUDRepository.save(updatePub);
-
         return pubDto;
     }
 

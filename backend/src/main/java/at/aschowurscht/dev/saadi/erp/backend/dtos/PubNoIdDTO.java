@@ -1,4 +1,4 @@
-package at.aschowurscht.dev.saadi.erp.backend.pubs;
+package at.aschowurscht.dev.saadi.erp.backend.dtos;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,6 +7,6 @@ import lombok.Setter;
 @Setter
 public class PubNoIdDTO {
     String name;
-    int id;
+
 
 }
