@@ -59,6 +59,7 @@ public class DemandService {
                 if (demands.getProduct().getProId() == products.getProId()) {
                     demandDto.setName(products.getName());
                     demandDto.setQuantity(demandCRUDRepository.findAmountOfQuantity(demands.getProduct().getProId()));
+                    demandDto.setPubName(demands.getPub().getPubName());
                     demandDtoList.add(demandDto);
                 }
             }
