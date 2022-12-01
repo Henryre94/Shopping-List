@@ -7,27 +7,27 @@ export const DemandsModule = {
     },
     mutations: {
         addToDemands(state, productId) {
-            const product = state.demands.find(prod => prod.proId === productId)
+            const product = state.demands.find(prod => prod.id === productId)
             if (product) {
                 product.quantity++
             } else {
                 state.demands.push({
-                    proId: productId,
+                    id: productId,
                     quantity: 1
                 })
             }
         },
         subFromDemands(state, productId) {
-            const product = state.demands.find(prod => prod.proId === productId)
+            const product = state.demands.find(prod => prod.id === productId)
             if (product && product.quantity > 0) {
                 product.quantity--
             }
         }
     },
     actions: {
-        async addToDemands(store, proId) {
-            console.log(proId)
-            await axios.put('/api/demands/' + proId + '/' + store.state.pubId + '/+')
+        async addToDemands(store, id) {
+            console.log(id)
+            await axios.put('/api/demands/' + id + '/' + store.state.pubId + '/+')
                 .then(response => {
                     console.log(response.data);
                 })
@@ -36,8 +36,8 @@ export const DemandsModule = {
                 });
             store.commit('addToDemands')
         },
-        async subFromDemands(store, proId) {
-            await axios.put('/api/demands/' + proId, {
+        async subFromDemands(store, id) {
+            await axios.put('/api/demands/' + id, {
                 pubId: this.pubId,
                 quantity: this.quantity
             })
