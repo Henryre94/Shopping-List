@@ -22,22 +22,22 @@ export default {
     name: "ProductDemand",
     props: {
         product: {
-            id: String,
+            proId: String,
             name: String,
             unit: String
         }
     },
     computed: {
         quantity() {
-            return this.$store.state.demandsModule.demands.find(demand => demand.id === this.product.id)?.quantity || 0
+            return this.$store.state.demandsModule.demands.find(demand => demand.proId === this.product.proId)?.quantity || 0
         }
     },
     methods: {
         addToDemands() {
-            this.$store.dispatch('addToDemands', this.product.id);
+            this.$store.dispatch('addToDemands', this.product.proId);
         },
         subFromDemands() {
-            this.$store.dispatch('subFromDemands', this.product.id)
+            this.$store.dispatch('subFromDemands', this.product.proId)
         }
     },
 
