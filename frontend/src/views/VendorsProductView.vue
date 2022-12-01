@@ -144,7 +144,7 @@ export default {
             console.log(this.editedItem);
         },
         update() {
-            this.$store.dispatch("editVendorsProduct")
+            this.$store.dispatch("editVendorsProduct", this.editedItem )
             console.log(this.products)
             this.close()
         },
