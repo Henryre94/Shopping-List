@@ -15,7 +15,6 @@ import java.util.List;
 public class DemandService {
     @Autowired
     DemandCRUDRepository demandCRUDRepository;
-
     @Autowired
     ProductCRUDRepository productCRUDRepository;
 
@@ -51,7 +50,6 @@ public class DemandService {
         }
         return demandDTOList;
     }
-    //TODO: demandCrudRepository.findAl() groupByProId
     //Create a List of all Products in Demand from a Vendor
     public List<DemandDTO> getAllDemandsFromVendor(int venId) {
         List<DemandDTO> demandDtoList = new ArrayList<>();

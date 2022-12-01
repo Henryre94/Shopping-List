@@ -8,6 +8,5 @@ import lombok.Setter;
 public class ProductDTO {
     String name;
     String unit;
-
     int proId;
 }

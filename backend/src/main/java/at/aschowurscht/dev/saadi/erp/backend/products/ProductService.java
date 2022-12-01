@@ -72,10 +72,11 @@ public class ProductService {
     public List<ProductDTO> getAllProduct() {
         return ( productCRUDRepository
                 .findAll())
-                .stream()
-                .map(this::convertToDto)
-                .collect(Collectors.toList());
+                .stream()//Get all the Elements as single objects from the List (findAll)
+                .map(this::convertToDto)//Apply the method convertToDto to each of the objects
+                .collect(Collectors.toList());//Collect the List with the applied method
     }
+    //Convert the objects into a DTO to return it to the frontend
     private ProductDTO convertToDto(Product product){
         ProductDTO productDto = new ProductDTO();
         productDto.setName(product.getName());

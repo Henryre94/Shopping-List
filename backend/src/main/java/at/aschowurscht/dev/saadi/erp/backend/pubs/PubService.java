@@ -16,7 +16,7 @@ public class PubService {
 
     public PubNoIdDTO createPub(PubNoIdDTO pubNoIdDTO) {
         Pub pub = new Pub();
-        pub.setPubName(pubNoIdDTO.getName());
+        pub.setPubName(pubNoIdDTO.getPubName());
         pubCRUDRepository.save(pub);
         return pubNoIdDTO;
     }
@@ -24,7 +24,7 @@ public class PubService {
     public PubDTO getPubById(int pubId) {
         Pub pub = pubCRUDRepository.findById(pubId).orElseThrow(() -> new IllegalStateException("Pub ID nicht gefunden: "+pubId));
         PubDTO pubDto = new PubDTO();
-        pubDto.setName(pub.getPubName());
+        pubDto.setPubName(pub.getPubName());
         pubDto.setPubId(pub.getPubId());
         return pubDto;
     }
@@ -38,14 +38,14 @@ public class PubService {
     }
     private PubDTO convertToDto(Pub pub){
         PubDTO pubDto = new PubDTO();
-        pubDto.setName(pub.getPubName());
+        pubDto.setPubName(pub.getPubName());
         pubDto.setPubId(pub.getPubId());
         return pubDto;
     }
 
     public PubDTO updatePub(PubDTO pubDto, int pubId) {
         Pub updatePub = pubCRUDRepository.findById(pubId).orElseThrow(() -> new IllegalStateException("Pub ID nicht gefunden: "+pubId));
-        updatePub.setPubName(pubDto.getName());
+            updatePub.setPubName(pubDto.getPubName());
         pubCRUDRepository.save(updatePub);
         return pubDto;
     }

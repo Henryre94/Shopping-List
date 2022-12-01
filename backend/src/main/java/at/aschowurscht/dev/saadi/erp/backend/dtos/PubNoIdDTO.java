@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PubNoIdDTO {
-    String name;
+    String pubName;
 
 
 }
