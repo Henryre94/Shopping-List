@@ -47,7 +47,7 @@
                         <v-card-actions>
                             <v-spacer></v-spacer>
                             <v-btn color="blue darken-1" text @click="close">Abbrechen</v-btn>
-                            <v-btn color="blue darken-1" text @click="create" v-if="editedItem.name === ''">Anlegen</v-btn>
+                            <v-btn color="blue darken-1" text @click="create" v-if="editedItem.name.length > 0">Anlegen</v-btn>
                             <v-btn color="blue darken-1" text @click="update" v-else>Speichern</v-btn>
                         </v-card-actions>
                     </v-card>
@@ -142,7 +142,7 @@ export default {
             this.editedIndex = this.products.indexOf(products)
             this.editedItem = Object.assign({}, products)
             this.dialog = true
-            console.log(this.editedItem);
+            console.log(this.products);
         },
         update() {
             this.$store.dispatch("editVendorsProduct", this.editedItem )
@@ -178,8 +178,8 @@ export default {
         },
 
         create() {
-            this.$store.dispatch("addVendorsProduct",{product: this.editedItem.product})
-            console.log(this.products)
+            this.$store.dispatch("addVendorsProduct",{product: this.editedItem, venId: this.$route.params.vendorId})
+            console.log(this.editedItem.products)
             this.close()
         },
     },

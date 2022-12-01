@@ -47,7 +47,7 @@ export const ProductsModule = {
             store.commit("getVendorsProduct", response.data)
         },
         async addVendorsProduct(store, payload) {
-            console.log(payload.venId)
+            console.log(payload)
             await axios.post("/api/products/" + payload.venId, payload.product);
             await store.dispatch('getVendorsProduct');
         },

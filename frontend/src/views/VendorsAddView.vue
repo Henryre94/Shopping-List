@@ -147,6 +147,7 @@ export default {
 
             console.log("row clicked", value.name )
             this.$router.push("/produktliste/" + value.name + "/" +value.venId)
+            console.log(this.vendors)
         },
         // Händler können bearbeitet werden
         editItem(vendors) {
