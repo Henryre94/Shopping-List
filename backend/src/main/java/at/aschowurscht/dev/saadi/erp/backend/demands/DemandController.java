@@ -1,5 +1,6 @@
 package at.aschowurscht.dev.saadi.erp.backend.demands;
 
+import at.aschowurscht.dev.saadi.erp.backend.dtos.DemandDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;

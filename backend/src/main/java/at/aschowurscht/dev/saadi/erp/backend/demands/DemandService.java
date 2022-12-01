@@ -1,5 +1,6 @@
 package at.aschowurscht.dev.saadi.erp.backend.demands;
 
+import at.aschowurscht.dev.saadi.erp.backend.dtos.DemandDTO;
 import at.aschowurscht.dev.saadi.erp.backend.products.Product;
 import at.aschowurscht.dev.saadi.erp.backend.products.ProductCRUDRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,6 @@ import java.util.List;
 public class DemandService {
     @Autowired
     DemandCRUDRepository demandCRUDRepository;
-
     @Autowired
     ProductCRUDRepository productCRUDRepository;
 
@@ -28,7 +28,7 @@ public class DemandService {
                 demandCRUDRepository.save(demands);
                 demandDTO.setQuantity(demands.getQuantity());
                 demandDTO.setName(demands.getProduct().getName());
-                demandDTO.setPubName(demands.getPub().getName());
+                demandDTO.setPubName(demands.getPub().getPubName());
                 demandDTOList.add(demandDTO);
             }
         }
@@ -44,13 +44,12 @@ public class DemandService {
                 demandCRUDRepository.save(demands);
                 demandDTO.setQuantity(demands.getQuantity());
                 demandDTO.setName(demands.getProduct().getName());
-                demandDTO.setPubName(demands.getPub().getName());
+                demandDTO.setPubName(demands.getPub().getPubName());
                 demandDTOList.add(demandDTO);
             }
         }
         return demandDTOList;
     }
-    //TODO: demandCrudRepository.findAl() groupByProId
     //Create a List of all Products in Demand from a Vendor
     public List<DemandDTO> getAllDemandsFromVendor(int venId) {
         List<DemandDTO> demandDtoList = new ArrayList<>();

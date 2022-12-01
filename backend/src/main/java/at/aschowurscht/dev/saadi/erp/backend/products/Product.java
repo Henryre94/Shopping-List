@@ -41,14 +41,11 @@ public class Product {
     public Product(String name, String unit) {
         this.name = name;
         this.unit = unit;
-
     }
-
     public Vendor getVendor(){
         return vendor;
     }
     public void setVendor(Vendor vendor){this.vendor = vendor;}
-
     public void newDemand(Demand demand){
         this.pubWithDemands.add(demand);
     }
