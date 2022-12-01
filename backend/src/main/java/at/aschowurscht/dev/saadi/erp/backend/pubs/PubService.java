@@ -2,7 +2,7 @@ package at.aschowurscht.dev.saadi.erp.backend.pubs;
 
 import at.aschowurscht.dev.saadi.erp.backend.dtos.PubDTO;
 import at.aschowurscht.dev.saadi.erp.backend.dtos.PubNoIdDTO;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 
@@ -10,9 +10,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class PubService {
-    @Autowired
-    PubCRUDRepository pubCRUDRepository;
+    final PubCRUDRepository pubCRUDRepository;
 
     public PubNoIdDTO createPub(PubNoIdDTO pubNoIdDTO) {
         Pub pub = new Pub();

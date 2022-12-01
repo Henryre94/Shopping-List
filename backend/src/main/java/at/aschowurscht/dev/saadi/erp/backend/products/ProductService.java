@@ -9,22 +9,19 @@ import at.aschowurscht.dev.saadi.erp.backend.pubs.Pub;
 import at.aschowurscht.dev.saadi.erp.backend.pubs.PubCRUDRepository;
 import at.aschowurscht.dev.saadi.erp.backend.vendors.Vendor;
 import at.aschowurscht.dev.saadi.erp.backend.vendors.VendorCRUDRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
 
 @Service
+@RequiredArgsConstructor
 public class ProductService {
-    @Autowired
-    ProductCRUDRepository productCRUDRepository;
-    @Autowired
-    VendorCRUDRepository vendorCRUDRepository;
-    @Autowired
-    PubCRUDRepository pubCRUDRepository;
-    @Autowired
-    DemandCRUDRepository demandCRUDRepository;
+    final ProductCRUDRepository productCRUDRepository;
+    final VendorCRUDRepository vendorCRUDRepository;
+    final PubCRUDRepository pubCRUDRepository;
+    final DemandCRUDRepository demandCRUDRepository;
 
     //Create a product and bind it to a vendor
     public ProductNoIdDTO createProduct(ProductNoIdDTO productNoIdDTO, int venId) {
@@ -58,6 +55,7 @@ public class ProductService {
         demandDto.setName(product.getName());
         demandDto.setQuantity(demand.getQuantity());
         demandDto.setPubName(pub.getPubName());
+        demandDto.setProId(product.getProId());
 
         return demandDto;
     }
@@ -85,12 +83,13 @@ public class ProductService {
         return productDto;
     }
 
-    public ProductDTO updateProduct(ProductDTO productDto, int proId) {
-        Product updateProduct = productCRUDRepository.findById(proId).orElseThrow(() -> new IllegalStateException("Produkt ID nicht gefunden: "+proId));
-        updateProduct.setName(productDto.getName());
-        updateProduct.setUnit(productDto.getUnit());
-        productCRUDRepository.save(updateProduct);
-
+    public ProductDTO updateProduct(Product product, int proId) {
+        product = productCRUDRepository.findById(proId).orElseThrow(() -> new IllegalStateException("Produkt ID nicht gefunden: "+proId));
+        productCRUDRepository.save(product);
+        ProductDTO productDto = new ProductDTO();
+        productDto.setName(product.getName());
+        productDto.setUnit(product.getUnit());
+        productDto.setProId(product.getProId());
         return productDto;
     }
 

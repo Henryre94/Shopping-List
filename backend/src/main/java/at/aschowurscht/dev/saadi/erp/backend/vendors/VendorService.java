@@ -2,7 +2,7 @@ package at.aschowurscht.dev.saadi.erp.backend.vendors;
 
 import at.aschowurscht.dev.saadi.erp.backend.products.Product;
 import at.aschowurscht.dev.saadi.erp.backend.products.ProductCRUDRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 
@@ -10,11 +10,10 @@ import java.util.List;
 
 
 @Service
+@RequiredArgsConstructor
 public class VendorService {
-    @Autowired
-    VendorCRUDRepository vendorCRUDRepository;
-    @Autowired
-    ProductCRUDRepository productCRUDRepository;
+    final VendorCRUDRepository vendorCRUDRepository;
+    final ProductCRUDRepository productCRUDRepository;
 
     public void createVendor(Vendor vendor) {
         vendorCRUDRepository.save(vendor);
@@ -27,7 +26,7 @@ public class VendorService {
     }
 
     public List<Product> getAllProductsFromVendor(int venId) {
-        Vendor vendor = vendorCRUDRepository.findById(venId).orElseThrow(() -> new IllegalStateException("Vendor ID nicht gefunden: "+venId));;
+        Vendor vendor = vendorCRUDRepository.findById(venId).orElseThrow(() -> new IllegalStateException("Vendor ID nicht gefunden: "+venId));
 
         return vendor.getProducts();
     }

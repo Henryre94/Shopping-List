@@ -2,7 +2,8 @@ package at.aschowurscht.dev.saadi.erp.backend.pubs;
 
 import at.aschowurscht.dev.saadi.erp.backend.dtos.PubDTO;
 import at.aschowurscht.dev.saadi.erp.backend.dtos.PubNoIdDTO;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,9 +11,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/pubs")
 @CrossOrigin
+@RequiredArgsConstructor
 public class PubController {
-    @Autowired
-    PubService pubService;
+    final PubService pubService;
 
     @PostMapping()
     public PubNoIdDTO createPub(@RequestBody PubNoIdDTO pubNoIdDTO) {

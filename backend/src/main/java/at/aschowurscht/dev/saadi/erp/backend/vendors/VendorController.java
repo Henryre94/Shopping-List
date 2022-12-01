@@ -1,16 +1,17 @@
 package at.aschowurscht.dev.saadi.erp.backend.vendors;
 
 import at.aschowurscht.dev.saadi.erp.backend.products.Product;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-//TODO VendoDto erstellen und als return value hinzufügen
+
 @RestController
 @RequestMapping("/api/vendors")
 @CrossOrigin
+@RequiredArgsConstructor
 public class VendorController {
-    @Autowired
+    final
     VendorService vendorService;
 
     @PostMapping()
