@@ -1,12 +1,13 @@
 <template>
     <div>
     <v-container>
-        <h1>Händler Produkte</h1>
+        <h1>Produktliste</h1>
+        <router-link to="/vendorsAdd">zurück zu den Händlern</router-link>
 
     </v-container>
     <v-data-table
             :headers="headers"
-            :items="products"
+            :items="$store.state.productsModule.products"
             sort-by="product"
             item-key="name"
             :search="search"
@@ -33,7 +34,10 @@
                             <v-container>
                                 <v-row>
                                     <v-col cols="12" sm="6" md="4">
-                                        <v-text-field v-model="editedItem.product" label="Produkt name"></v-text-field>
+                                        <v-text-field v-model="editedItem.name" label="Produkt name"></v-text-field>
+                                    </v-col>
+                                    <v-col cols="12" sm="6" md="4">
+                                        <v-text-field v-model="editedItem.unit" label="Einheit(kg,l,..)"></v-text-field>
                                     </v-col>
 
                                 </v-row>
@@ -42,12 +46,9 @@
 
                         <v-card-actions>
                             <v-spacer></v-spacer>
-                            <v-btn color="blue darken-1" text @click="close">
-                                Abbrechen
-                            </v-btn>
-                            <v-btn color="blue darken-1" text @click="save">
-                                Speichern
-                            </v-btn>
+                            <v-btn color="blue darken-1" text @click="close">Abbrechen</v-btn>
+                            <v-btn color="blue darken-1" text @click="create" v-if="editedItem.name === ''">Anlegen</v-btn>
+                            <v-btn color="blue darken-1" text @click="update" v-else>Speichern</v-btn>
                         </v-card-actions>
                     </v-card>
                 </v-dialog>
@@ -65,12 +66,8 @@
             </v-toolbar>
         </template>
         <template #item.actions="{ item }">
-            <v-icon small class="mr-2" @click="editItem(item)">
-                mdi-pencil
-            </v-icon>
-            <v-icon small @click="deleteItem(item)">
-                mdi-delete
-            </v-icon>
+            <v-icon class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
+            <v-icon  @click="deleteItem(item)">mdi-delete</v-icon>
         </template>
 
 
@@ -92,20 +89,26 @@ export default {
                 text: 'Produkt',
                 align: 'start',
                 sortable: true,
-                value: 'product',
+                value: 'name',
             },
 
+            {text: '', value:'unit',sortable: true},
+            { text: '', value: 'actions', sortable: false },
 
-            { text: 'Bearbeiten', value: 'actions', sortable: false },
         ],
         products: [],
         editedIndex: -1,
         editedItem: {
-            product: '',
+            name:'',
+            unit:'',
+            id: '',
 
         },
         defaultItem: {
-            product: '',
+            name:'',
+            unit:'',
+            id: '',
+
 
         },
     }),
@@ -130,29 +133,31 @@ export default {
     },
 
     methods: {
-
         initialize() {
-            this.products = [
+            console.log(this.$route.params.id);
+            this.$store.dispatch("getVendorsProduct")
 
-
-
-            ]
         },
-
-        editItem(item) {
-            this.editedIndex = this.products.indexOf(item)
-            this.editedItem = Object.assign({}, item)
+        editItem(products) {
+            this.editedIndex = this.products.indexOf(products)
+            this.editedItem = Object.assign({}, products)
             this.dialog = true
+            console.log(this.editedItem);
+        },
+        update() {
+            this.$store.dispatch("editVendorsProduct", this.editedItem )
+            console.log(this.products)
+            this.close()
         },
 
-        deleteItem(item) {
-            this.editedIndex = this.products.indexOf(item)
-            this.editedItem = Object.assign({}, item)
+        deleteItem(proId) {
+            this.editedIndex = this.products.indexOf(proId)
+            this.editedItem = Object.assign({}, proId)
             this.dialogDelete = true
         },
 
         deleteItemConfirm() {
-            this.products.splice(this.editedIndex, 1)
+           this.$store.dispatch('delVendorsProduct', this.editedItem)
             this.closeDelete()
         },
 
@@ -172,12 +177,9 @@ export default {
             })
         },
 
-        save() {
-            if (this.editedIndex > -1) {
-                Object.assign(this.products[this.editedIndex], this.editedItem)
-            } else {
-                this.products.push(this.editedItem)
-            }
+        create() {
+            this.$store.dispatch("addVendorsProduct",{product: this.editedItem.product})
+            console.log(this.products)
             this.close()
         },
     },
