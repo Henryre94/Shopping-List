@@ -5,16 +5,42 @@ export const VendorsModule = {
         vendors: []
     },
     mutations: {
-        addVendors(state, payload) {
-            // TODO: payload sollten nur die vendors sein und kein "data" beinhalten
-            state.vendors = state.vendors.concat(payload.data)
+        addVendor(state, vendor) {
+            state.vendors.push(vendor)
         },
-    },
-    actions:{
-        async getVendors(store){
+        getVendors(state, VendorArray) {
+            state.vendors = VendorArray
+        },
+        deleteVendor(state, venId) {
+            const vendorIndex = state.vendors.findIndex(vendor => vendor.id === venId)
+            state.vendors.splice(vendorIndex, 1)
+        },
+        updateVendor(state, {venId, payload}) {
+            const vendorUp = state.vendors.find(vendorUp => vendorUp.id === venId)
+            if (vendorUp) {
+                vendorUp.vendors = payload.vendors
+            }
+        },
+
+        },
+    actions: {
+        async getVendors(store) {
             const response = await axios.get("/api/vendors");
-            store.commit("setVendors", response.data)
-        }
+            store.commit("getVendors", response.data)
+        },
+        async addVendor(store, vendor) {
+            await axios.post("/api/vendors", vendor);
+            await store.dispatch('getVendors');
+        },
+        async delVendor(store, vendor) {
+            await axios.delete("api/vendors/" + vendor.venId)
+            store.commit('deleteVendor', vendor.venId);
+        },
+        async editVendor(store, item) {
+            await axios.put("/api/vendors/", item)
+            await store.dispatch('getVendors');
+        },
+
     }
 
 }

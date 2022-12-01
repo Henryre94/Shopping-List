@@ -7,7 +7,7 @@
         <v-data-table
                 @click:row="handleClick"
                 :headers="headers"
-                :items="vendors"
+                :items="$store.state.vendorsModule.vendors"
                 sort-by="vendor"
                 item-key="name"
                 :search="search"
@@ -18,11 +18,12 @@
                     <v-text-field v-model="search" clearable flat solo-inverted label="Suche" class="mt-9"></v-text-field>
 
 
-                    <v-spacer></v-spacer>
+                    <v-spacer> </v-spacer>
+
                     <v-dialog v-model="dialog" max-width="500px">
                         <template v-slot:activator="{ on, attrs }">
                             <v-btn color="red" dark class="mb-6 mt-9" v-bind="attrs" v-on="on" >
-                                +
+                                Neuer Händler
                             </v-btn>
                         </template>
                         <v-card>
@@ -34,7 +35,10 @@
                                 <v-container>
                                     <v-row>
                                         <v-col cols="12" sm="6" md="4">
-                                            <v-text-field class="newVend" v-model="editedItem.vendor" label="Händler name"></v-text-field>
+                                            <v-text-field class="newVend" v-model="editedItem.name" label="Händler name"></v-text-field>
+                                        </v-col>
+                                        <v-col cols="12" sm="6" md="4">
+                                            <v-text-field class="newVend" v-model="editedItem.address" label="Adresse"></v-text-field>
                                         </v-col>
 
                                     </v-row>
@@ -43,18 +47,15 @@
 
                             <v-card-actions>
                                 <v-spacer></v-spacer>
-                                <v-btn color="blue darken-1" text @click="close">
-                                    Abbrechen
-                                </v-btn>
-                                <v-btn color="blue darken-1" text @click="save">
-                                    Speichern
-                                </v-btn>
+                                <v-btn color="blue darken-1" text @click="close">Abbrechen</v-btn>
+                                <v-btn color="blue darken-1" text @click="createVendor" v-if="editedItem.venId === ''">Anlegen</v-btn>
+                                <v-btn color="blue darken-1" text @click="update" v-else>Speichern</v-btn>
                             </v-card-actions>
                         </v-card>
                     </v-dialog>
                     <v-dialog v-model="dialogDelete" max-width="500px">
                         <v-card>
-                            <v-card-title class="text-h5">Achtung! Der Händler wird gelöscht</v-card-title>
+                            <v-card-title class="text-h5">Achtung! Der Händler wird mit sämtlichen Produkten gelöscht !</v-card-title>
                             <v-card-actions>
                                 <v-spacer></v-spacer>
                                 <v-btn color="blue darken-1" text @click="closeDelete">Abbrechen</v-btn>
@@ -66,11 +67,14 @@
                 </v-toolbar>
             </template>
             <template #item.actions="{ item }">
-                <v-icon small class="mr-2" @click="editItem(item)">
+                <v-icon  class="mr-2" @click.stop="editItem(item)">
                     mdi-pencil
                 </v-icon>
-                <v-icon small @click="deleteItem(item)">
+                <v-icon  @click.stop="deleteItem(item)">
                     mdi-delete
+                </v-icon>
+                <v-icon  @click="shoppingList(item)">
+                    mdi-storefront
                 </v-icon>
             </template>
 
@@ -94,7 +98,7 @@ export default {
                 text: 'Händler',
                 align: 'start',
                 sortable: true,
-                value: 'vendor',
+                value: 'name',
             },
 
 
@@ -103,11 +107,15 @@ export default {
         vendors: [],
         editedIndex: -1,
         editedItem: {
-            vendor: '',
+            name: '',
+            address:'',
+            venId:'',
 
         },
         defaultItem: {
-            vendor: '',
+            name: '',
+            address:'',
+            venId:'',
 
         },
     }),
@@ -130,42 +138,44 @@ export default {
     created() {
         this.initialize()
     },
-    mounted() {
-        this.$store.dispatch("getVendors")
-    },
-
     methods: {
-
         initialize() {
-            this.vendors = [
-
-
-
-            ]
+            this.$store.dispatch("getVendors") // Händler vom backend laden
         },
+        //Weiterleitung auf die Händlerprodukte mit Händler ID und namen in der URL
         handleClick(value){
 
-            console.log("row clicked", value.vendor )
-            this.$router.push("/vendorProducts", value.vendor.venId)
+            console.log("row clicked", value.name )
+            this.$router.push("/vendorProducts/" + value.name + "" +value.venId)
         },
-
-        editItem(item) {
-            this.editedIndex = this.vendors.indexOf(item)
-            this.editedItem = Object.assign({}, item)
+        // Händler können bearbeitet werden
+        editItem(vendors) {
+            this.editedIndex = this.vendors.indexOf(vendors)
+            this.editedItem = Object.assign({}, vendors)
             this.dialog = true
+            console.log(this.editedItem);
         },
-
-        deleteItem(item) {
-            this.editedIndex = this.vendors.indexOf(item)
-            this.editedItem = Object.assign({}, item)
+        // Bearbeitete Händler werden gespeichert
+        update() {
+            this.$store.dispatch("editVendor", this.editedItem)
+            this.close()
+        },
+        // Händler wird gelöscht
+        deleteItem(venId) {
+            this.editedIndex = this.vendors.indexOf(venId)
+            this.editedItem = Object.assign({}, venId)
             this.dialogDelete = true
         },
-
+        // Bestätigung das Händler gelöscht werden soll
         deleteItemConfirm() {
-            this.vendors.splice(this.editedIndex, 1)
+            this.$store.dispatch('delVendor', this.editedItem)
             this.closeDelete()
         },
-
+        // Weiterleitung auf die Einkaufsliste
+        shoppingList(demand){
+            this.$router.push("/einkaufsliste", demand.venId)
+        },
+        // Modal wird geschlossen
         close() {
             this.dialog = false
             this.$nextTick(() => {
@@ -173,7 +183,7 @@ export default {
                 this.editedIndex = -1
             })
         },
-
+        // Modal wird nach dem Löschen geschlossen
         closeDelete() {
             this.dialogDelete = false
             this.$nextTick(() => {
@@ -181,15 +191,14 @@ export default {
                 this.editedIndex = -1
             })
         },
-
-        save() {
-            if (this.editedIndex > -1) {
-                Object.assign(this.vendors[this.editedIndex], this.editedItem)
-            } else {
-                this.vendors.push(this.editedItem)
-            }
+        // Händler wird erstellt
+        createVendor() {
+            this.$store.dispatch('addVendor', {name: this.editedItem.name , address: this.editedItem.address});
+            // this.vendors.push(this.editedItem)
+            // this.$store.dispatch('getVendors')
             this.close()
         },
+
     },
 
 }

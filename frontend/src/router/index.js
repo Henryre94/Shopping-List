@@ -32,7 +32,7 @@ const routes = [
         component: PubView
     },
     {
-        path: '/vendorProducts',
+        path: '/vendorProducts/:vendorId',
         component: VendorsProductView
     },
     {
