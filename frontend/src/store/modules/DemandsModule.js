@@ -48,8 +48,5 @@ export const DemandsModule = {
                     });
                 store.commit('subFromDemands')
             },
-            async test() {
-                await axios.put('/api/demands/4/1/+')
-            }
         }
     }
