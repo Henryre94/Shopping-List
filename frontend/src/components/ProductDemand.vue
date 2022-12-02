@@ -2,13 +2,13 @@
     <div>
         {{ product.name }}
 
-        <v-btn color="red darken-3" dark class="mb-2 mt-5 mr-2" type="button" @click="addToDemands">
+        <v-btn color="red darken-3" dark class="mb-2 mt-5 mr-2 ml-2" type="button" @click="addToDemands">
             <v-icon dark>
                 +
             </v-icon>
         </v-btn>
 
-        <v-btn color="red darken-3" dark class="mb-2 mt-5 mr-2" type="button" @click="subFromDemands">
+        <v-btn color="red darken-3" dark class="mb-2 mt-5 mr-2 ml-2" type="button" @click="subFromDemands">
             <v-icon dark>
                 min
             </v-icon>
