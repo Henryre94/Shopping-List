@@ -40,12 +40,6 @@ export default {
             this.$store.dispatch('subFromDemands', this.product.proId)
         }
     },
-
-    // Sebi Test
-    mounted() {
-        console.log(this.product)
-        this.$store.dispatch('test')
-    },
 }
 </script>
 
