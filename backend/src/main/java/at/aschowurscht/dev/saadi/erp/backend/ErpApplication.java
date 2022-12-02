@@ -1,8 +1,6 @@
 package at.aschowurscht.dev.saadi.erp.backend;
 
-
 import at.aschowurscht.dev.saadi.erp.backend.demands.DemandCRUDRepository;
-import at.aschowurscht.dev.saadi.erp.backend.products.Product;
 import at.aschowurscht.dev.saadi.erp.backend.products.ProductCRUDRepository;
 import at.aschowurscht.dev.saadi.erp.backend.pubs.Pub;
 import at.aschowurscht.dev.saadi.erp.backend.pubs.PubCRUDRepository;
