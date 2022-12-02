@@ -11,12 +11,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DemandController {
     final DemandService demandService;
-
-    @PutMapping("/{proId}/{pubId}/+")
-    public List<DemandDTO> increaseQuantity(@PathVariable int proId, @PathVariable int pubId) {
-       return demandService.increaseQuantity(proId, pubId);
-    }
-
     @PutMapping("/{proId}/{pubId}/-")
     public List<DemandDTO> decreaseQuantity(@PathVariable int proId, @PathVariable int pubId) {
       return demandService.decreaseQuantity(proId, pubId);
