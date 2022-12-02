@@ -2,25 +2,24 @@ import axios from "axios";
 
 export const DemandsModule = {
     state: {
-
         demands: [],
         pubId: 4
     },
         mutations: {
-            addToDemands(state, productId) {
-                const product = state.demands.find(prod => prod.proId === productId)
+            addToDemands(state, proId) {
+                const product = state.demands.find(prod => prod.proId === proId)
                 if (product) {
                     product.quantity++
                 } else {
                     state.demands.push({
-                        proId: productId,
+                        proId: proId,
                         pubId: 4,
                         quantity: 1
                     })
                 }
             },
-            subFromDemands(state, productId) {
-                const product = state.demands.find(prod => prod.proId === productId)
+            subFromDemands(state, proId) {
+                const product = state.demands.find(prod => prod.proId === proId)
                 if (product && product.quantity > 0) {
                     product.quantity--
                 }
