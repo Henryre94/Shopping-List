@@ -17,23 +17,6 @@ public class DemandService {
     final DemandCRUDRepository demandCRUDRepository;
     final ProductCRUDRepository productCRUDRepository;
 
-    //Increase the Quantity of the product on demand
-    public List<DemandDTO> increaseQuantity(int proId, int pubId) {
-        List<DemandDTO> demandDTOList = new ArrayList<>();
-        for (Demand demands : demandCRUDRepository.findAll()) {
-            DemandDTO demandDTO = new DemandDTO();
-            if (demands.getProduct().getProId() == proId && demands.getPub().getPubId() == pubId) {
-                demands.setQuantity(demands.getQuantity() + 1);
-                demandCRUDRepository.save(demands);
-                demandDTO.setQuantity(demands.getQuantity());
-                demandDTO.setName(demands.getProduct().getName());
-                demandDTO.setPubName(demands.getPub().getPubName());
-                demandDTO.setProId(demands.getProduct().getProId());
-                demandDTOList.add(demandDTO);
-            }
-        }
-        return demandDTOList;
-    }
     //Decrease the Quantity of the product in demand
     public List<DemandDTO> decreaseQuantity(int proId, int pubId) {
         List<DemandDTO> demandDTOList = new ArrayList<>();
