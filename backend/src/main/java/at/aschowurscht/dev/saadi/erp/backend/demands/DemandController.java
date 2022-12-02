@@ -1,23 +1,16 @@
 package at.aschowurscht.dev.saadi.erp.backend.demands;
 
 import at.aschowurscht.dev.saadi.erp.backend.dtos.DemandDTO;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
 @RequestMapping("api/demands")
 @CrossOrigin
+@RequiredArgsConstructor
 public class DemandController {
-    @Autowired
-    DemandService demandService;
-
-    @PutMapping("/{proId}/{pubId}/+")
-    public List<DemandDTO> increaseQuantity(@PathVariable int proId, @PathVariable int pubId) {
-        System.out.println(demandService.increaseQuantity(proId, pubId));
-       return demandService.increaseQuantity(proId, pubId);
-    }
-
+    final DemandService demandService;
     @PutMapping("/{proId}/{pubId}/-")
     public List<DemandDTO> decreaseQuantity(@PathVariable int proId, @PathVariable int pubId) {
       return demandService.decreaseQuantity(proId, pubId);
