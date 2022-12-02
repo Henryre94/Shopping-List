@@ -34,13 +34,10 @@ public class ErpApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         try {
-            productCRUDRepository.save(new Product("Tomaten","Kilo"));
-            productCRUDRepository.save(new Product("Pepsi","Liter"));
-            productCRUDRepository.save(new Product("Cola","Liter"));
             pubCRUDRepository.save(new Pub("Cafe SAADI 1090"));
             pubCRUDRepository.save(new Pub("Cafe SAADI 1160"));
             vendorCRUDRepository.save(new Vendor("Metro","Gurkgasse"));
-            vendorCRUDRepository.save(new Vendor("Naschmarkt","Pilgrammgasse"));
+            vendorCRUDRepository.save(new Vendor("Billa","Pilgrammgasse"));
         }catch (Exception e){
             System.err.println("Fehler beim einfügen des Datensatzes: " + e.getMessage());
         }
