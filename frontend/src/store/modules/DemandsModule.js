@@ -35,7 +35,7 @@ export const DemandsModule = {
                     .catch(error => {
                         console.log(error.response.status);
                     });
-                store.commit('addToDemands')
+                store.commit('addToDemands', proId)
             },
             async subFromDemands(store, proId) {
                 await axios.put('/api/demands/' + proId + '/' + store.state.pubId + '/-')
@@ -45,7 +45,7 @@ export const DemandsModule = {
                     .catch(error => {
                         console.log(error.response.status);
                     });
-                store.commit('subFromDemands')
+                store.commit('subFromDemands', proId)
             },
         }
     }
