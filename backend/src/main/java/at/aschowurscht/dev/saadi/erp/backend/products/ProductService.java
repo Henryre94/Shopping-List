@@ -35,29 +35,37 @@ public class ProductService {
     }
     //Create a demand from a product and bind it to a Pub
     public DemandDTO createDemand(int proId, int pubId) {
-        Pub pub = pubCRUDRepository.findById(pubId).orElseThrow(() -> new IllegalStateException("Pub ID nicht gefunden: "+pubId));
-        Product product = productCRUDRepository.findById(proId).orElseThrow(() -> new IllegalStateException("Produkt ID nicht gefunden: "+proId));
-        Demand demand = new Demand();
-        DemandDTO demandDto = new DemandDTO();
+        Pub pub = pubCRUDRepository.findById(pubId).orElseThrow(() -> new IllegalStateException("Pub ID nicht gefunden: " + pubId));
+        Product product = productCRUDRepository.findById(proId).orElseThrow(() -> new IllegalStateException("Produkt ID nicht gefunden: " + proId));
+        DemandDTO demandDTO = new DemandDTO();
+        for (Demand demands : demandCRUDRepository.findAll()) {
+            Demand demand = new Demand();
+            if (demands.getProduct().getProId() != proId || demands.getPub().getPubId() != pubId) {
+                product.newDemand(demand);//A new demand for the product is created
+                demand.setProduct(product);//A product is assign to the demand
 
-        product.newDemand(demand);//A new demand for the product is created
-        demand.setProduct(product);//A product is assign to the demand
+                pub.newDemand(demand);//A new demand for the pub is created
+                demand.setPub(pub);//A pub is assign to the demand
+                demand.setQuantity(1);//The quantity of the product is established to 1
 
-        pub.newDemand(demand);//A new demand for the pub is created
-        demand.setPub(pub);//A pub is assign to the demand
-        demand.setQuantity(1);//The quantity of the product is established to 1
+                demandCRUDRepository.save(demand);
+                pubCRUDRepository.save(pub);
+                productCRUDRepository.save(product);
 
-        demandCRUDRepository.save(demand);
-        pubCRUDRepository.save(pub);
-        productCRUDRepository.save(product);
-
-        //The DTO that is returned to the Frontend with the values of the new demand
-        demandDto.setName(product.getName());
-        demandDto.setQuantity(demand.getQuantity());
-        demandDto.setPubName(pub.getPubName());
-        demandDto.setProId(product.getProId());
-
-        return demandDto;
+                //The DTO that is returned to the Frontend with the values of the new demand
+                demandDTO.setName(product.getName());
+                demandDTO.setQuantity(demand.getQuantity());
+                demandDTO.setPubName(pub.getPubName());
+                demandDTO.setProId(product.getProId());
+            } else if (demands.getProduct().getProId() == proId && demands.getPub().getPubId() == pubId) {
+                demands.setQuantity(demands.getQuantity()+1);
+                demandDTO.setName(demands.getProduct().getName());
+                demandDTO.setQuantity(demands.getQuantity());
+                demandDTO.setPubName(demands.getPub().getPubName());
+                demandDTO.setProId(demands.getProduct().getProId());
+            }
+        }
+        return demandDTO;
     }
     public ProductDTO getProductById(int proId) {
         Product product = productCRUDRepository.findById(proId).orElseThrow(() -> new IllegalStateException("Produkt ID nicht gefunden: "+proId));
@@ -84,12 +92,14 @@ public class ProductService {
     }
 
     public ProductDTO updateProduct(Product product, int proId) {
-        product = productCRUDRepository.findById(proId).orElseThrow(() -> new IllegalStateException("Produkt ID nicht gefunden: "+proId));
-        productCRUDRepository.save(product);
+        Product updateProduct = productCRUDRepository.findById(proId).orElseThrow(() -> new IllegalStateException("Produkt ID nicht gefunden: "+proId));
         ProductDTO productDto = new ProductDTO();
+        updateProduct.setName(product.getName());
+        updateProduct.setUnit(product.getUnit());
+        productCRUDRepository.save(updateProduct);
         productDto.setName(product.getName());
         productDto.setUnit(product.getUnit());
-        productDto.setProId(product.getProId());
+        productDto.setProId(updateProduct.getProId());
         return productDto;
     }
 
