@@ -1,10 +1,10 @@
 <template>
     <v-container>
-        <TheHeader />
+        <TheHeader/>
         <h1>Cafe Saadi 1090</h1>
 
         <div>
-            <v-text-field v-model="searchValue"  clearable label="Suche" class="mt-9"></v-text-field>
+            <v-text-field v-model="searchValue" clearable label="Suche" class="mt-9"></v-text-field>
         </div>
         <div>
             <div v-for="(product, index) in filteredProducts" :key="index">
@@ -12,9 +12,6 @@
             </div>
         </div>
         <br/>
-        <p>
-            {{ demands }}
-        </p>
         <router-link to="/">Home</router-link>
     </v-container>
 </template>
@@ -35,7 +32,7 @@ export default {
         },
         filteredProducts() {
             return this.products.filter(product => {
-                if(this.searchValue && this.searchValue.length > 0){
+                if (this.searchValue && this.searchValue.length > 0) {
                     return product.name.toLowerCase().includes(this.searchValue.toLowerCase())
                 }
                 return true;
