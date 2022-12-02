@@ -1,44 +1,50 @@
 package at.aschowurscht.dev.saadi.erp.backend.products;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import at.aschowurscht.dev.saadi.erp.backend.dtos.DemandDTO;
+import at.aschowurscht.dev.saadi.erp.backend.dtos.ProductDTO;
+import at.aschowurscht.dev.saadi.erp.backend.dtos.ProductNoIdDTO;
+import lombok.RequiredArgsConstructor;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/products")
+@CrossOrigin
+@RequiredArgsConstructor
 public class ProductController {
-    @Autowired
-    ProductService productService;
-    @CrossOrigin
-    @PostMapping("/api/products/{venId}")
-    public void post(@RequestBody Product product, @PathVariable int venId){
-        productService.post(product,venId);
-    }
-    @CrossOrigin
-    @GetMapping("/api/products/{proId}")
-    public Product getById(@PathVariable int proId){
-        return productService.getById(proId);
+    final ProductService productService;
+
+    @PostMapping("/{venId}")
+    public ProductNoIdDTO createProduct(@RequestBody ProductNoIdDTO productNoIdDTO, @PathVariable int venId) {
+        return productService.createProduct(productNoIdDTO, venId);
     }
 
-    @CrossOrigin
-    @GetMapping("/api/products")
-    public List<Product> get(){
-        List<Product> productList = productService.get();
+    @PostMapping("/{proId}/pubs/{pubId}")
+    public DemandDTO createDemand(@PathVariable int proId, @PathVariable int pubId) {
+        return productService.createDemand(proId, pubId);
+    }
 
-        return productList;
+    @GetMapping("/{proId}")
+    public ProductDTO getProductById(@PathVariable int proId) {
+        return productService.getProductById(proId);
     }
-    @CrossOrigin
-    @PutMapping("/api/products")
-    public void put(@RequestBody Product product){
-        productService.put(product);
-    }
-    @CrossOrigin
-    @DeleteMapping("api/products/{proId}")
-    public void delete(@PathVariable int proId) {productService.delete(proId);}
 
-    @CrossOrigin
-    @PostMapping("/api/products/{proId}/pubs/{pubId}")
-    public void post(@PathVariable int proId, @PathVariable int pubId){
-        productService.post(proId,pubId);
+    @GetMapping()
+    public List<ProductDTO> getAllProduct() {
+        return productService.getAllProduct();
     }
+
+    @PutMapping("/{proId}")
+    public ProductDTO updateProduct(@RequestBody Product product, @PathVariable int proId) {
+      return  productService.updateProduct(product, proId);
+    }
+
+    @DeleteMapping("/{proId}")
+    public void deleteProduct(@PathVariable int proId) {
+        productService.deleteProduct(proId);
+    }
+
+
 }

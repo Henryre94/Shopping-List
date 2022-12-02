@@ -2,36 +2,44 @@ package at.aschowurscht.dev.saadi.erp.backend.vendors;
 
 import at.aschowurscht.dev.saadi.erp.backend.products.Product;
 import at.aschowurscht.dev.saadi.erp.backend.products.ProductCRUDRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
 
 import java.util.List;
 
-@Service
-public class VendorService {
-    @Autowired
-    VendorCRUDRepository vendorCRUDRepository;
-    @Autowired
-    ProductCRUDRepository productCRUDRepository;
 
-    public void post(Vendor vendor) {
+@Service
+@RequiredArgsConstructor
+public class VendorService {
+    final VendorCRUDRepository vendorCRUDRepository;
+    final ProductCRUDRepository productCRUDRepository;
+
+    public void createVendor(Vendor vendor) {
         vendorCRUDRepository.save(vendor);
     }
-    public Vendor getById(int venId) {
-        Vendor vendor = vendorCRUDRepository.findById(venId).get();
+
+    public Vendor getVendorById(int venId) {
+        Vendor vendor = vendorCRUDRepository.findById(venId).orElseThrow(() -> new IllegalStateException("Vendor ID nicht gefunden: "+venId));
+
         return vendor;
     }
-    public List<Product> productsFromVendor(int venId) {
-        Vendor vendor = vendorCRUDRepository.findById(venId).get();
-        return vendor.getProductsList();
+
+    public List<Product> getAllProductsFromVendor(int venId) {
+        Vendor vendor = vendorCRUDRepository.findById(venId).orElseThrow(() -> new IllegalStateException("Vendor ID nicht gefunden: "+venId));
+
+        return vendor.getProducts();
     }
-    public List<Vendor> get() {
+
+    public List<Vendor> getAllVendors() {
         return ((List<Vendor>) vendorCRUDRepository.findAll());
     }
-    public void put(Vendor vendor) {
+
+    public void updateVendor(Vendor vendor) {
         vendorCRUDRepository.save(vendor);
     }
-    public void delete(int venId) {
+
+    public void deleteVendor(int venId) {
         vendorCRUDRepository.deleteById(venId);
     }
 }

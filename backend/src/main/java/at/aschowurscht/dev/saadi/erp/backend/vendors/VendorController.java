@@ -1,44 +1,46 @@
 package at.aschowurscht.dev.saadi.erp.backend.vendors;
 
 import at.aschowurscht.dev.saadi.erp.backend.products.Product;
-import at.aschowurscht.dev.saadi.erp.backend.pubs.Pub;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/vendors")
+@CrossOrigin
+@RequiredArgsConstructor
 public class VendorController {
-    @Autowired
+    final
     VendorService vendorService;
-    @CrossOrigin
-    @PostMapping("/api/vendors")
-    public void postProduct(@RequestBody Vendor vendor){
-        vendorService.post(vendor);
+
+    @PostMapping()
+    public void createVendor(@RequestBody Vendor vendor) {
+        vendorService.createVendor(vendor);
     }
-    @CrossOrigin
-    @GetMapping("/api/vendors/{venId}")
-    public Vendor getById(@PathVariable int venId){
-        return vendorService.getById(venId);
+
+    @GetMapping("/{venId}")
+    public Vendor getVendorById(@PathVariable int venId) {
+        return vendorService.getVendorById(venId);
     }
-    @CrossOrigin
-    @GetMapping("/api/vendors/{venId}/products")
-    public List<Product> productsFromVendor(@PathVariable int venId){
-        List<Product> productList = vendorService.productsFromVendor(venId);
-        return productList;
+
+    @GetMapping("/{venId}/products")
+    public List<Product> getAllProductsFromVendor(@PathVariable int venId) {
+        return vendorService.getAllProductsFromVendor(venId);
     }
-    @CrossOrigin
-    @GetMapping("/api/vendors")
-    public List<Vendor> get(){
-        List<Vendor> pubList = vendorService.get();
-        return pubList;
+
+    @GetMapping()
+    public List<Vendor> getAllVendors() {
+        return vendorService.getAllVendors();
     }
-    @CrossOrigin
-    @PutMapping("/api/vendors")
-    public void put(@RequestBody Vendor vendor){
-        vendorService.put(vendor);
+
+    @PutMapping()
+    public void updateVendor(@RequestBody Vendor vendor) {
+        vendorService.updateVendor(vendor);
     }
-    @CrossOrigin
-    @DeleteMapping("api/vendors/{venId}")
-    public void delete(@PathVariable int venId) {vendorService.delete(venId);}
+
+    @DeleteMapping("/{venId}")
+    public void deleteVendor(@PathVariable int venId) {
+        vendorService.deleteVendor(venId);
+    }
 }

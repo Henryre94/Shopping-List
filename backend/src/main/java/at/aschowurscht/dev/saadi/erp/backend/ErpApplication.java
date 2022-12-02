@@ -1,8 +1,6 @@
 package at.aschowurscht.dev.saadi.erp.backend;
 
-
 import at.aschowurscht.dev.saadi.erp.backend.demands.DemandCRUDRepository;
-import at.aschowurscht.dev.saadi.erp.backend.products.Product;
 import at.aschowurscht.dev.saadi.erp.backend.products.ProductCRUDRepository;
 import at.aschowurscht.dev.saadi.erp.backend.pubs.Pub;
 import at.aschowurscht.dev.saadi.erp.backend.pubs.PubCRUDRepository;
@@ -34,13 +32,10 @@ public class ErpApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         try {
-            productCRUDRepository.save(new Product("Tomaten","Kg"));
-            productCRUDRepository.save(new Product("Rindfleish","Tone"));
-            productCRUDRepository.save(new Product("Gurke","Stück"));
             pubCRUDRepository.save(new Pub("Cafe SAADI 1090"));
             pubCRUDRepository.save(new Pub("Cafe SAADI 1160"));
             vendorCRUDRepository.save(new Vendor("Metro","Gurkgasse"));
-            vendorCRUDRepository.save(new Vendor("Naschmarkt","Pilgrammgasse"));
+            vendorCRUDRepository.save(new Vendor("Billa","Pilgrammgasse"));
         }catch (Exception e){
             System.err.println("Fehler beim einfügen des Datensatzes: " + e.getMessage());
         }
