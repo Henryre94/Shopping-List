@@ -13,6 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class VendorService {
     final VendorCRUDRepository vendorCRUDRepository;
+
     final ProductCRUDRepository productCRUDRepository;
 
     public void createVendor(Vendor vendor) {
@@ -20,13 +21,13 @@ public class VendorService {
     }
 
     public Vendor getVendorById(int venId) {
-        Vendor vendor = vendorCRUDRepository.findById(venId).orElseThrow(() -> new IllegalStateException("Vendor ID nicht gefunden: "+venId));
+        Vendor vendor = vendorCRUDRepository.findById(venId).orElseThrow(() -> new IllegalStateException("Vendor ID nicht gefunden: " + venId));
 
         return vendor;
     }
 
     public List<Product> getAllProductsFromVendor(int venId) {
-        Vendor vendor = vendorCRUDRepository.findById(venId).orElseThrow(() -> new IllegalStateException("Vendor ID nicht gefunden: "+venId));
+        Vendor vendor = vendorCRUDRepository.findById(venId).orElseThrow(() -> new IllegalStateException("Vendor ID nicht gefunden: " + venId));
 
         return vendor.getProducts();
     }
