@@ -46,20 +46,24 @@ public class ProductService {
             //Extracted method to create a new demand
             createNewDemand(pub, product, demandDTO, demand);
         }if (demandList.size() > 0)
-            for (Demand demands : demandCRUDRepository.findAll()) {
-                if (demands.getProduct().getProId() != proId || demands.getPub().getPubId() != pubId) {
-                    //Extracted method to create a new demand
-                    createNewDemand(pub,product,demandDTO,demand);
-                } else if (demands.getProduct().getProId() == proId && demands.getPub().getPubId() == pubId) {
-                    demands.setQuantity(demands.getQuantity() + 1);
-                    demandCRUDRepository.save(demands);
-                    demandDTO.setName(demands.getProduct().getName());
-                    demandDTO.setQuantity(demands.getQuantity());
-                    demandDTO.setPubName(demands.getPub().getPubName());
-                    demandDTO.setProId(demands.getProduct().getProId());
-                }
-            }
+            createDemandDTOFromDemandList(proId, pubId, pub, product, demandDTO, demand);//credit to Filipp
         return demandDTO;
+    }
+
+    private void createDemandDTOFromDemandList(int proId, int pubId, Pub pub, Product product, DemandDTO demandDTO, Demand demand) {
+        for (Demand demands : demandCRUDRepository.findAll()) {
+            if (demands.getProduct().getProId() != proId || demands.getPub().getPubId() != pubId) {
+                //Extracted method to create a new demand
+                createNewDemand(pub, product, demandDTO, demand);
+            } else if (demands.getProduct().getProId() == proId && demands.getPub().getPubId() == pubId) {
+                demands.setQuantity(demands.getQuantity() + 1);
+                demandCRUDRepository.save(demands);
+                demandDTO.setName(demands.getProduct().getName());
+                demandDTO.setQuantity(demands.getQuantity());
+                demandDTO.setPubName(demands.getPub().getPubName());
+                demandDTO.setProId(demands.getProduct().getProId());
+            }
+        }
     }
 
     private void createNewDemand(Pub pub, Product product, DemandDTO demandDTO, Demand demand) {
@@ -73,11 +77,9 @@ public class ProductService {
         demand.setPub(pub);
         //The quantity of the product is established to 1
         demand.setQuantity(1);
-
         demandCRUDRepository.save(demand);
         pubCRUDRepository.save(pub);
         productCRUDRepository.save(product);
-
         //The DTO that is returned to the Frontend with the values of the new demand
         demandDTO.setName(product.getName());
         demandDTO.setQuantity(demand.getQuantity());
