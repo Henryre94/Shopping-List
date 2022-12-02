@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
 @Entity
 @Getter
 @Setter
@@ -35,10 +34,12 @@ public class Pub {
     public Pub(String pubName) {
         this.pubName = pubName;
     }
-    
-    public void newDemand(Demand demand){
+
+    public void newDemand(Demand demand) {
         this.productsOnDemand.add(demand);
     }
 
-    public void removeDemand(Demand demand){this.productsOnDemand.remove(demand);}
+    public void removeDemand(Demand demand) {
+        this.productsOnDemand.remove(demand);
+    }
 }

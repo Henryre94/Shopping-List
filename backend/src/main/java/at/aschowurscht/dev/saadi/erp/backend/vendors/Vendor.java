@@ -3,6 +3,7 @@ package at.aschowurscht.dev.saadi.erp.backend.vendors;
 import at.aschowurscht.dev.saadi.erp.backend.products.Product;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

@@ -17,7 +17,7 @@ public class PubController {
 
     @PostMapping()
     public PubNoIdDTO createPub(@RequestBody PubNoIdDTO pubNoIdDTO) {
-       return pubService.createPub(pubNoIdDTO);
+        return pubService.createPub(pubNoIdDTO);
     }
 
     @GetMapping("/{pubId}")
@@ -30,6 +30,7 @@ public class PubController {
         return pubService.getAllPubs();
 
     }
+
     @PutMapping("/{pubId}")
     public PubDTO updatePub(@RequestBody PubDTO pubDto, @PathVariable int pubId) {
         return pubService.updatePub(pubDto, pubId);

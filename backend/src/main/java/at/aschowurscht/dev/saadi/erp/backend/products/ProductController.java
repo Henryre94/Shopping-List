@@ -1,6 +1,5 @@
 package at.aschowurscht.dev.saadi.erp.backend.products;
 
-import at.aschowurscht.dev.saadi.erp.backend.dtos.DemandDTO;
 import at.aschowurscht.dev.saadi.erp.backend.dtos.ProductDTO;
 import at.aschowurscht.dev.saadi.erp.backend.dtos.ProductNoIdDTO;
 import lombok.RequiredArgsConstructor;
@@ -20,12 +19,6 @@ public class ProductController {
     public ProductNoIdDTO createProduct(@RequestBody ProductNoIdDTO productNoIdDTO, @PathVariable int venId) {
         return productService.createProduct(productNoIdDTO, venId);
     }
-
-    @PostMapping("/{proId}/pubs/{pubId}")
-    public DemandDTO createDemand(@PathVariable int proId, @PathVariable int pubId) {
-        return productService.createDemand(proId, pubId);
-    }
-
     @GetMapping("/{proId}")
     public ProductDTO getProductById(@PathVariable int proId) {
         return productService.getProductById(proId);
