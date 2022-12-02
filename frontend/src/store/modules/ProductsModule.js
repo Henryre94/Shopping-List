@@ -16,7 +16,6 @@ export const ProductsModule = {
         },
         getVendorsProduct(state, productsList) {
             state.products = productsList
-
         },
         deleteVendorsProduct(state, proId) {
             const vendorIndex = state.products.findIndex(product => product.id === proId)
@@ -61,6 +60,5 @@ export const ProductsModule = {
         console.log(this.products)
         await axios.put("/api/products", item)
         await store.dispatch('getVendorsProduct');
-
     }
 }

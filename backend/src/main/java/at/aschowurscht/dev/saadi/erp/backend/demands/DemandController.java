@@ -14,6 +14,7 @@ public class DemandController {
 
     @PutMapping("/{proId}/{pubId}/+")
     public List<DemandDTO> increaseQuantity(@PathVariable int proId, @PathVariable int pubId) {
+        System.out.println(demandService.increaseQuantity(proId, pubId));
        return demandService.increaseQuantity(proId, pubId);
     }
 
