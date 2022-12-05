@@ -135,7 +135,8 @@ export default {
     methods: {
         initialize() {
             console.log(this.$route.params.vendorId);
-            this.$store.dispatch("getVendorsProduct")
+            this.$store.commit("getVendorsProduct")
+            this.$store.dispatch("getVendorsProduct", this.$route.params.vendorId)
 
         },
         editItem(products) {
