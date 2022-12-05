@@ -18,11 +18,12 @@
                     <v-text-field v-model="search" clearable flat solo-inverted label="Suche" class="mt-9"></v-text-field>
 
 
-                    <v-spacer> </v-spacer>
+                    <v-divider class="mx-4" inset vertical></v-divider>
+                    <v-spacer></v-spacer>
 
                     <v-dialog v-model="dialog" max-width="500px">
                         <template v-slot:activator="{ on, attrs }">
-                            <v-btn color="red" dark class="mb-6 mt-9" v-bind="attrs" v-on="on" >
+                            <v-btn color="red" dark class="mb-7 mt-8" v-bind="attrs" v-on="on" >
                                 Neuer Händler
                             </v-btn>
                         </template>
