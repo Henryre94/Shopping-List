@@ -28,7 +28,7 @@ export const DemandsModule = {
         actions: {
             async addToDemands(store, proId) {
                 console.log(proId)
-                await axios.put('/api/demands/' + proId + '/' + store.state.pubId + '/+')
+                await axios.put('/api/products/' + proId + '/pubs/' + store.state.pubId)
                     .then(response => {
                         console.log(response.data);
                     })
