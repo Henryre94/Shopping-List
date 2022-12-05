@@ -1,9 +1,10 @@
 <template>
-    <div>
-        <v-container>
-            <h1>Händler</h1>
 
-        </v-container>
+    <div>
+
+            <img class="mr-3" :src="require('../assets/saadi header.jpg')" width="100%"/>
+            <v-spacer></v-spacer>
+
         <v-data-table
                 @click:row="handleClick"
                 :headers="headers"
