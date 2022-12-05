@@ -55,9 +55,9 @@ export const ProductsModule = {
             await axios.delete("/api/products/" + product.proId)
             store.commit('deleteVendorsProduct', product.proId);
         },
-        async editVendorsProduct(store, item) {
+        async editVendorsProduct(store, payload) {
             console.log(this.products)
-            await axios.put("/api/products", item)
+            await axios.put("/api/products/" + payload.proId , payload)
             await store.dispatch('getVendorsProduct');
 
         }

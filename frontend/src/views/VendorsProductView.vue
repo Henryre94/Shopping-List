@@ -47,7 +47,7 @@
                         <v-card-actions>
                             <v-spacer></v-spacer>
                             <v-btn color="blue darken-1" text @click="close">Abbrechen</v-btn>
-                            <v-btn color="blue darken-1" text @click="create" v-if="editedItem.name.length > 0">Anlegen</v-btn>
+                            <v-btn color="blue darken-1" text @click="create" v-if="editedItem.id === ''">Anlegen</v-btn>
                             <v-btn color="blue darken-1" text @click="update" v-else>Speichern</v-btn>
                         </v-card-actions>
                     </v-card>
