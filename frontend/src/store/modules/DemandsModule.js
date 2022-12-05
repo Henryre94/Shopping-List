@@ -3,7 +3,7 @@ import axios from "axios";
 export const DemandsModule = {
     state: {
         demands: [],
-        pubId: 4
+        pubId: 1
     },
         mutations: {
             addToDemands(state, proId) {
@@ -28,7 +28,7 @@ export const DemandsModule = {
         actions: {
             async addToDemands(store, proId) {
                 console.log(proId)
-                await axios.put('/api/products/' + proId + '/pubs/' + store.state.pubId)
+                await axios.post('/api/demands/' + proId + '/pubs/' + store.state.pubId)
                     .then(response => {
                         console.log(response.data);
                     })
@@ -38,7 +38,7 @@ export const DemandsModule = {
                 store.commit('addToDemands', proId)
             },
             async subFromDemands(store, proId) {
-                await axios.put('/api/demands/' + proId + '/' + store.state.pubId + '/-')
+                await axios.put('/api/demands/' + proId + '/' + store.state.pubId)
                     .then(response => {
                         console.log(response.data);
                     })
