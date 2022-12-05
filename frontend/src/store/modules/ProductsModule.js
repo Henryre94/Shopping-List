@@ -32,7 +32,6 @@ export const ProductsModule = {
         },
         loadProducts(state, productsList) {
             state.products = productsList
-            console.log(productsList)
         },
     },
     actions: {
