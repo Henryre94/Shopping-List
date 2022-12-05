@@ -1,20 +1,38 @@
 <template>
     <div>
-        {{ product.name }}
+        <v-simple-table>
+            <template v-slot:default>
+                <thead>
+                <tr>
+                    <th class="text-left">
+                        {{ product.name }}
+                    </th>
+                    <th class="text-left">
+                        <v-btn color="red darken-3" dark class="mb-2 mt-5 mr-2 ml-2" type="button" @click="addToDemands">
+                            <v-icon dark>
+                                +1
+                            </v-icon>
+                        </v-btn>
+                    </th>
+                    <th >
+                        <v-btn color="red darken-3" dark class="mb-2 mt-5 mr-2 ml-2" type="button" @click="subFromDemands">
+                            <v-icon dark>
+                                min
+                            </v-icon>
+                        </v-btn>
+                    </th>
+                    <th class="text-left">
+                        <span class="quantity"> Anzahl:  {{ quantity }} </span>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
 
-        <v-btn color="red darken-3" dark class="mb-2 mt-5 mr-2 ml-2" type="button" @click="addToDemands">
-            <v-icon dark>
-                +
-            </v-icon>
-        </v-btn>
-
-        <v-btn color="red darken-3" dark class="mb-2 mt-5 mr-2 ml-2" type="button" @click="subFromDemands">
-            <v-icon dark>
-                min
-            </v-icon>
-        </v-btn>
-        <span class="quantity"> Anzahl:  {{ quantity }} </span>
+                </tbody>
+            </template>
+        </v-simple-table>
     </div>
+
 </template>
 
 <script>
