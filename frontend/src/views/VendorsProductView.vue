@@ -146,7 +146,7 @@ export default {
             console.log(this.products);
         },
         update() {
-            this.$store.dispatch("editVendorsProduct", this.editedItem )
+            this.$store.dispatch("editVendorsProduct", {product: this.editedItem, venId: this.$route.params.vendorId} )
             console.log(this.products)
             this.close()
         },

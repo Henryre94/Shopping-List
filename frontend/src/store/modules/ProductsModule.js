@@ -57,8 +57,9 @@ export const ProductsModule = {
         },
         async editVendorsProduct(store, payload) {
             console.log(this.products)
-            await axios.put("/api/products/" + payload.proId , payload)
-            await store.dispatch('getVendorsProduct');
+            await axios.put("/api/products/" + payload.product.proId , payload.product)
+            console.log(payload);
+            await store.dispatch('getVendorsProduct', payload.venId);
 
         }
     }
