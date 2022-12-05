@@ -13,7 +13,7 @@ export const DemandsModule = {
                 } else {
                     state.demands.push({
                         proId: proId,
-                        pubId: 4,
+                        pubId: 1,
                         quantity: 1
                     })
                 }
@@ -38,7 +38,7 @@ export const DemandsModule = {
                 store.commit('addToDemands', proId)
             },
             async subFromDemands(store, proId) {
-                await axios.put('/api/demands/' + proId + '/' + store.state.pubId)
+                await axios.put('/api/demands/' + proId + '/pubs/' + store.state.pubId)
                     .then(response => {
                         console.log(response.data);
                     })
