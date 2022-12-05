@@ -2,7 +2,6 @@
     <v-container>
         <TheHeader/>
         <h1>Cafe Saadi 1090</h1>
-
         <div>
             <v-text-field v-model="searchValue" clearable label="Suche" class="mt-9"></v-text-field>
         </div>
@@ -27,9 +26,11 @@ export default {
         searchValue: "",
     }),
     computed: {
+        // get all products
         products() {
             return this.$store.state.productsModule.products;
         },
+        // search for product
         filteredProducts() {
             return this.products.filter(product => {
                 if (this.searchValue && this.searchValue.length > 0) {
@@ -37,9 +38,6 @@ export default {
                 }
                 return true;
             });
-        },
-        demands() {
-            return this.$store.state.demandsModule.demands;
         },
     },
     mounted() {
