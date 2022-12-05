@@ -8,14 +8,14 @@
                         {{ product.name }}
                     </th>
                     <th class="text-left">
-                        <v-btn color="red darken-3" dark class="mb-2 mt-5 mr-2 ml-2" type="button" @click="addToDemands">
+                        <v-btn color="red darken-3" dark class="mb-2 mt-5 mr-2 ml-2" type="button" @click="increaseDemands">
                             <v-icon dark>
                                 +1
                             </v-icon>
                         </v-btn>
                     </th>
                     <th >
-                        <v-btn color="red darken-3" dark class="mb-2 mt-5 mr-2 ml-2" type="button" @click="subFromDemands">
+                        <v-btn color="red darken-3" dark class="mb-2 mt-5 mr-2 ml-2" type="button" @click="decreaseDemands">
                             <v-icon dark>
                                 min
                             </v-icon>
@@ -51,11 +51,11 @@ export default {
         }
     },
     methods: {
-        addToDemands() {
-            this.$store.dispatch('addToDemands', this.product.proId);
+        increaseDemands() {
+            this.$store.dispatch('increaseDemands', this.product.proId);
         },
-        subFromDemands() {
-            this.$store.dispatch('subFromDemands', this.product.proId)
+        decreaseDemands() {
+            this.$store.dispatch('decreaseDemands', this.product.proId)
         }
     },
 }
