@@ -6,7 +6,7 @@ export const DemandsModule = {
         pubId: 1
     },
         mutations: {
-            addToDemands(state, proId) {
+            increaseDemands(state, proId) {
                 const product = state.demands.find(prod => prod.proId === proId)
                 if (product) {
                     product.quantity++
@@ -18,7 +18,7 @@ export const DemandsModule = {
                     })
                 }
             },
-            subFromDemands(state, proId) {
+            decreaseDemands(state, proId) {
                 const product = state.demands.find(prod => prod.proId === proId)
                 if (product && product.quantity > 0) {
                     product.quantity--
@@ -26,7 +26,7 @@ export const DemandsModule = {
             }
         },
         actions: {
-            async addToDemands(store, proId) {
+            async increaseDemands(store, proId) {
                 console.log(proId)
                 await axios.post('/api/demands/' + proId + '/pubs/' + store.state.pubId)
                     .then(response => {
@@ -35,9 +35,9 @@ export const DemandsModule = {
                     .catch(error => {
                         console.log(error.response.status);
                     });
-                store.commit('addToDemands', proId)
+                store.commit('increaseDemands', proId)
             },
-            async subFromDemands(store, proId) {
+            async decreaseDemands(store, proId) {
                 await axios.put('/api/demands/' + proId + '/pubs/' + store.state.pubId)
                     .then(response => {
                         console.log(response.data);
@@ -45,7 +45,7 @@ export const DemandsModule = {
                     .catch(error => {
                         console.log(error.response.status);
                     });
-                store.commit('subFromDemands', proId)
+                store.commit('decreaseDemands', proId)
             },
         }
     }
