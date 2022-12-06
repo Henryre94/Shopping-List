@@ -2,9 +2,11 @@
 
     <div>
 
-            <img class="mr-3" :src="require('../assets/saadi header.jpg')" width="100%"/>
-            <v-spacer></v-spacer>
-
+            <img class="mr-3" :src="require('../assets/saadiheadernew.jpg')" width="100%" />
+        <v-spacer></v-spacer>
+        <v-container>
+            <router-link to="/"><v-icon >mdi-home-outline</v-icon></router-link>
+        </v-container>
         <v-data-table
                 @click:row="handleClick"
                 :headers="headers"
@@ -68,7 +70,7 @@
                     </v-dialog>
                 </v-toolbar>
             </template>
-            <template #item.actions="{ item }">
+            <template #item.actions="{ item }" >
                 <v-icon  class="mr-2" @click.stop="editItem(item)">
                     mdi-pencil
                 </v-icon>
@@ -206,3 +208,4 @@ export default {
 
 }
 </script>
+

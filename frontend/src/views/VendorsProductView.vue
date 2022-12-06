@@ -1,10 +1,9 @@
 <template>
     <div>
-        <img class="mr-3" :src="require('../assets/saadi header.jpg')" width="100%"/>
+        <img class="mr-3" :src="require('../assets/saadiheadernew.jpg')" width="100%"/>
         <v-spacer></v-spacer>
     <v-container>
         <router-link to="/haendler"><v-icon >mdi-arrow-left-bold</v-icon></router-link>
-
     </v-container>
     <v-data-table
             :headers="headers"
