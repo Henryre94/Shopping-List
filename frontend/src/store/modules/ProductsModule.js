@@ -18,13 +18,13 @@ export const ProductsModule = {
         // }
     },
     mutations: {
-        addProducts(state, payload) {
+       //addProducts(state, payload) {
             // TODO: payload sollten nur die vendors sein und kein "data" beinhalten
-            state.products = state.products.concat(payload.data)
-        },
-        addVendorsProduct(state, product) {
-            state.products.push(product)
-        },
+       //     state.products = state.products.concat(payload.data)
+        //},
+        // addVendorsProduct(state, product) {
+        //     state.products.push(product)
+        // },
         getVendorsProduct(state, productsList) {
             state.products = productsList
 
@@ -33,12 +33,12 @@ export const ProductsModule = {
             const vendorIndex = state.products.findIndex(product => product.id === proId)
             state.products.splice(vendorIndex, 1)
         },
-        updateVendorsProduct(state, {id, payload}) {
-            const vendorUp = state.products.find(vendorUp => vendorUp.id === id)
-            if (vendorUp) {
-                vendorUp.products = payload.products
-            }
-        },
+        // updateVendorsProduct(state, {id, payload}) {
+        //     const vendorUp = state.products.find(vendorUp => vendorUp.id === id)
+        //     if (vendorUp) {
+        //         vendorUp.products = payload.products
+        //     }
+        // },
     },
     actions: {
         async getVendorsProduct(store,venId) {
