@@ -10,14 +10,14 @@
                     <th class="text-left">
                         <v-btn color="red darken-3" dark class="mb-2 mt-5 mr-2 ml-2" type="button" @click="increaseDemands">
                             <v-icon dark>
-                                +1
+                                mdi-plus
                             </v-icon>
                         </v-btn>
                     </th>
                     <th >
                         <v-btn color="red darken-3" dark class="mb-2 mt-5 mr-2 ml-2" type="button" @click="decreaseDemands">
                             <v-icon dark>
-                                min
+                                mdi-minus
                             </v-icon>
                         </v-btn>
                     </th>
