@@ -1,12 +1,14 @@
 <template>
     <div>
+        <img class="mr-3" :src="require('../assets/saadi header.jpg')" width="100%"/>
+        <v-spacer></v-spacer>
         <v-container>
             <h1>Einkaufsliste</h1>
 
         </v-container>
         <v-data-table
                 :headers="headers"
-                :items="products"
+                :items="$store.state.demandsModule.demands"
                 multi-sort
                 item-key="name"
                 :search="search"
@@ -62,7 +64,7 @@
                     </v-dialog>
                     <v-dialog v-model="dialogDelete" max-width="500px">
                         <v-card>
-                            <v-card-title class="text-h5">Achtung! Das Produkt wird gelöscht</v-card-title>
+                            <v-card-title class="text-h5">Achtung! Das Produkt wird aus der Einkaufsliste gelöscht</v-card-title>
                             <v-card-actions>
                                 <v-spacer></v-spacer>
                                 <v-btn color="blue darken-1" text @click="closeDelete">Abbrechen</v-btn>
@@ -110,7 +112,7 @@ export default {
 
             { text: 'Bearbeiten', value: 'actions', sortable: false},
         ],
-        products: [],
+        demands: [],
         editedIndex: -1,
         editedItem: {
             product: '',
@@ -119,12 +121,14 @@ export default {
             vendor: '',
 
 
+
         },
         defaultItem: {
             product: '',
             pub: '',
             quantity: '',
             vendor: '',
+
 
         },
     }),
@@ -151,27 +155,32 @@ export default {
     methods: {
 
         initialize() {
-            this.products = [
+            console.log(this.$route.params.vendorId);
+            this.$store.commit("getVendorsDemand")
+            this.$store.dispatch("getVendorsDemand", this.$route.params.vendorId)
 
-
-
-            ]
         },
 
-        editItem(item) {
-            this.editedIndex = this.products.indexOf(item)
-            this.editedItem = Object.assign({}, item)
+        editItem(demands) {
+            this.editedIndex = this.demands.indexOf(demands)
+            this.editedItem = Object.assign({}, demands)
             this.dialog = true
+            console.log(this.demands)
+        },
+        update() {
+            this.$store.dispatch("editVendorsDemand", {demands: this.editedItem, venId: this.$route.params.vendorId} )
+            console.log(this.demands)
+            this.close()
         },
 
         deleteItem(item) {
-            this.editedIndex = this.products.indexOf(item)
+            this.editedIndex = this.demands.indexOf(item)
             this.editedItem = Object.assign({}, item)
             this.dialogDelete = true
         },
 
         deleteItemConfirm() {
-            this.products.splice(this.editedIndex, 1)
+            this.$store.dispatch('delVendorsDemand', this.editedItem)
             this.closeDelete()
         },
 
@@ -193,9 +202,9 @@ export default {
 
         save() {
             if (this.editedIndex > -1) {
-                Object.assign(this.products[this.editedIndex], this.editedItem)
+                Object.assign(this.demands[this.editedIndex], this.editedItem)
             } else {
-                this.products.push(this.editedItem)
+                this.demands.push(this.editedItem)
             }
             this.close()
         },
