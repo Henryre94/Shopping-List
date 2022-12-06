@@ -1,7 +1,7 @@
 package at.aschowurscht.dev.saadi.erp.backend.security;
 
 import lombok.RequiredArgsConstructor;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
@@ -34,4 +34,4 @@ public class TokenService {
     }
 }
 
-}
+

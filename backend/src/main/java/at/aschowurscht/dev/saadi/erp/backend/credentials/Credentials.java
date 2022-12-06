@@ -20,8 +20,5 @@ public class Credentials {
 
     Boolean isAdmin;
 
-    @JsonIgnore
-    @OneToOne(mappedBy = "credentials")
-    Account account;
 }
 

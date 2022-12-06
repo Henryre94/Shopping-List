@@ -1,5 +1,6 @@
 package at.aschowurscht.dev.saadi.erp.backend;
 
+import at.aschowurscht.dev.saadi.erp.backend.config.RSAKeyPair;
 import at.aschowurscht.dev.saadi.erp.backend.demands.DemandCRUDRepository;
 import at.aschowurscht.dev.saadi.erp.backend.products.ProductCRUDRepository;
 import at.aschowurscht.dev.saadi.erp.backend.pubs.Pub;
@@ -10,8 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 @SpringBootApplication
+@EnableConfigurationProperties(RSAKeyPair.class)
 public class ErpApplication implements CommandLineRunner {
 
     @Autowired

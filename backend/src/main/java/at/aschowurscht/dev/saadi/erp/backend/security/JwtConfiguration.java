@@ -1,6 +1,7 @@
 package at.aschowurscht.dev.saadi.erp.backend.security;
 
-import at.aschowurscht.dev.saadi.erp.backend.config.RSAKeyPais;
+
+import at.aschowurscht.dev.saadi.erp.backend.config.RSAKeyPair;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
@@ -19,7 +20,7 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtGra
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class JwtConfiguration {
-    private final RSAKeyPais.RSAKeyPair rsaKeys;
+    private final RSAKeyPair rsaKeys;
 
     @Bean
     JwtDecoder jwtDecoder() {
