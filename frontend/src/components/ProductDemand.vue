@@ -22,7 +22,7 @@
                         </v-btn>
                     </td>
                     <td data-label>
-                        <span class="quantity"> Anzahl:  {{ quantity }} </span>
+                        <span class="quantity"> Gesamt:  {{ quantity }} </span>
                     </td>
                 </tr>
                 </tbody>
