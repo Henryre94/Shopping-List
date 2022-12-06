@@ -1,8 +1,9 @@
 <template>
     <div>
+        <img class="mr-3" :src="require('../assets/saadi header.jpg')" width="100%"/>
+        <v-spacer></v-spacer>
     <v-container>
-        <h1>Produktliste</h1>
-        <router-link to="/haendler">zurück zu den Händlern</router-link>
+        <router-link to="/haendler"><v-icon >mdi-arrow-left-bold</v-icon></router-link>
 
     </v-container>
     <v-data-table
