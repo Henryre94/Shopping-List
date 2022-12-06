@@ -2,32 +2,29 @@
     <div>
         <v-simple-table>
             <template v-slot:default>
-                <thead>
+                <tbody>
                 <tr>
-                    <th class="text-left">
+                    <td data-label>
                         {{ product.name }}
-                    </th>
-                    <th class="text-left">
-                        <v-btn color="red darken-3" dark class="mb-2 mt-5 mr-2 ml-2" type="button" @click="increaseDemands">
+                    </td>
+                    <td data-label>
+                        <v-btn color="red darken-3" dark class="mb-2 mt-2 " type="button" @click="increaseDemands">
                             <v-icon dark>
                                 mdi-plus
                             </v-icon>
                         </v-btn>
-                    </th>
-                    <th >
-                        <v-btn color="red darken-3" dark class="mb-2 mt-5 mr-2 ml-2" type="button" @click="decreaseDemands">
+                    </td>
+                    <td data-label>
+                        <v-btn color="red darken-3" dark class="mb-2 mt-2" type="button" @click="decreaseDemands">
                             <v-icon dark>
                                 mdi-minus
                             </v-icon>
                         </v-btn>
-                    </th>
-                    <th class="text-left">
+                    </td>
+                    <td data-label>
                         <span class="quantity"> Anzahl:  {{ quantity }} </span>
-                    </th>
+                    </td>
                 </tr>
-                </thead>
-                <tbody>
-
                 </tbody>
             </template>
         </v-simple-table>
@@ -62,5 +59,35 @@ export default {
 </script>
 
 <style scoped>
+td {
+    width: 25%;
+    border-bottom: 1px solid black;
+}
+tr {
+    width: 100%;
+    overflow: scroll;
+}
+v-simple-table {
+    width: 100%;
+}
+v-simple-table, tr, td {
+    border-collapse: collapse;
+}
+@media screen and (max-width: 700px) {
+    tr {
+        float: left;
+        width: 100%;
+    }
+    td {
+        float: left;
 
+        width: 100%;
+    }
+    td::before {
+        content: attr(data-label);
+        word-wrap: break-word;
+        width: 20%;
+        float:left;
+    }
+}
 </style>
