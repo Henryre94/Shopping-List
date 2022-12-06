@@ -36,7 +36,7 @@ const routes = [
         component: VendorsProductView
     },
     {
-        path: '/versorger',
+        path: '/haendler',
         component: VendorsAddView
     },
 

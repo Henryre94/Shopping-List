@@ -2,7 +2,7 @@
     <div>
     <v-container>
         <h1>Produktliste</h1>
-        <router-link to="/versorger">zurück zu den Händlern</router-link>
+        <router-link to="/haendler">zurück zu den Händlern</router-link>
 
     </v-container>
     <v-data-table
