@@ -17,6 +17,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 
 import static at.aschowurscht.dev.saadi.erp.backend.security.Role.ADMIN;
+import static at.aschowurscht.dev.saadi.erp.backend.security.Role.PUB;
 import static org.springframework.http.HttpMethod.*;
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -46,7 +47,11 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authz -> authz
                         .antMatchers("/h2-console/**").permitAll()
                         .antMatchers("api/vendors/**").hasAuthority(ADMIN.getRole())
-                        .anyRequest().denyAll()
+                        .antMatchers(GET,"api/products").hasAnyAuthority(ADMIN.getRole(),PUB.getRole())
+                        .antMatchers("api/products/**").hasAuthority(ADMIN.getRole())
+                        .antMatchers("api/pubs/**").hasAuthority(ADMIN.getRole())
+                        .antMatchers("api/demands/**").hasAnyAuthority(ADMIN.getRole(),PUB.getRole())
+                        .anyRequest().permitAll()
                 )
                 .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
