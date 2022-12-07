@@ -9,5 +9,6 @@ public class DemandDTO {
     int quantity;
     int proId;
     String name;
+    int pubId;
     String pubName;
 }
