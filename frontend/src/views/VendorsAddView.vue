@@ -78,7 +78,7 @@
                     mdi-delete
                 </v-icon>
                 <v-icon  @click="shoppingList(item)">
-                    mdi-storefront
+                    mdi-cart-plus
                 </v-icon>
             </template>
 
