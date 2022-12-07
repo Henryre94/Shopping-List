@@ -1,18 +1,17 @@
 <template>
-    <v-container>
-        <TheHeader/>
-        <h1>Cafe Saadi 1090</h1>
-        <div>
+    <div>
+        <TheHeader />
+        <h1>1090</h1>
+        <v-container>
             <v-text-field v-model="searchValue" clearable label="Suche" class="mt-9"></v-text-field>
-        </div>
-        <div>
+
             <div v-for="(product, index) in filteredProducts" :key="index">
                 <ProductDemand :product="product"/>
             </div>
-        </div>
+        </v-container>
         <br/>
         <router-link to="/">Home</router-link>
-    </v-container>
+    </div>
 </template>
 
 <script>
