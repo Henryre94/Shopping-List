@@ -67,9 +67,9 @@ export const DemandsModule = {
                 await store.dispatch('getVendorsDemand', payload.pubId);
 
             },
-            async delVendorsDemand(store, product) {
-                await axios.delete("/api/demands/" + product.proId)
-                store.commit('deleteVendorsDemand', product.proId);
+            async delVendorsDemand(store, payload) {
+                await axios.delete("/api/demands/" + payload.proId + "/pubs/" + payload.pubId)
+                store.commit('deleteVendorsDemand', payload.pubId);
             },
         }
     }
