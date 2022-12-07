@@ -31,11 +31,11 @@ const routes = [
         component: PubView
     },
     {
-        path: '/vendorProducts/:vendorId',
+        path: '/produktliste/:vendor/:vendorId',
         component: VendorsProductView
     },
     {
-        path: '/vendorsAdd',
+        path: '/haendler',
         component: VendorsAddView
     },
 

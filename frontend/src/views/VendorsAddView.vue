@@ -1,8 +1,11 @@
 <template>
-    <div>
-        <v-container>
-            <h1>Händler</h1>
 
+    <div>
+
+            <img class="mr-3" :src="require('../assets/saadiheadernew.jpg')" alt="Logo Cafe Saadi" width="100%" />
+        <v-spacer></v-spacer>
+        <v-container>
+            <router-link to="/"><v-icon >mdi-home-outline</v-icon></router-link>
         </v-container>
         <v-data-table
                 @click:row="handleClick"
@@ -18,11 +21,12 @@
                     <v-text-field v-model="search" clearable flat solo-inverted label="Suche" class="mt-9"></v-text-field>
 
 
-                    <v-spacer> </v-spacer>
+                    <v-divider class="mx-4" inset vertical></v-divider>
+                    <v-spacer></v-spacer>
 
                     <v-dialog v-model="dialog" max-width="500px">
                         <template v-slot:activator="{ on, attrs }">
-                            <v-btn color="red" dark class="mb-6 mt-9" v-bind="attrs" v-on="on" >
+                            <v-btn color="red" dark class="mb-7 mt-8" v-bind="attrs" v-on="on" >
                                 Neuer Händler
                             </v-btn>
                         </template>
@@ -66,7 +70,7 @@
                     </v-dialog>
                 </v-toolbar>
             </template>
-            <template #item.actions="{ item }">
+            <template #item.actions="{ item }" >
                 <v-icon  class="mr-2" @click.stop="editItem(item)">
                     mdi-pencil
                 </v-icon>
@@ -74,7 +78,7 @@
                     mdi-delete
                 </v-icon>
                 <v-icon  @click="shoppingList(item)">
-                    mdi-storefront
+                    mdi-cart-plus
                 </v-icon>
             </template>
 
@@ -146,7 +150,8 @@ export default {
         handleClick(value){
 
             console.log("row clicked", value.name )
-            this.$router.push("/vendorProducts/" + value.name + "" +value.venId)
+            this.$router.push("/produktliste/" + value.name + "/" +value.venId)
+            console.log(this.vendors)
         },
         // Händler können bearbeitet werden
         editItem(vendors) {
@@ -203,3 +208,4 @@ export default {
 
 }
 </script>
+

@@ -11,9 +11,7 @@ export const ProductsModule = {
         }
     },
     mutations: {
-        addVendorsProduct(state, product) {
-            state.products.push(product)
-        },
+
         getVendorsProduct(state, productsList) {
             state.products = productsList
         },
@@ -21,12 +19,7 @@ export const ProductsModule = {
             const vendorIndex = state.products.findIndex(product => product.id === proId)
             state.products.splice(vendorIndex, 1)
         },
-        updateVendorsProduct(state, {id, payload}) {
-            const vendorUp = state.products.find(vendorUp => vendorUp.id === id)
-            if (vendorUp) {
-                vendorUp.products = payload.products
-            }
-        },
+
         addProducts(state, products) {
             state.products = state.products.concat(products.data)
         },
@@ -38,26 +31,29 @@ export const ProductsModule = {
         async loadProducts(store) {
             const response = await axios.get('api/products');
             store.commit('loadProducts', response.data)
-        }
-    },
+        },
 
-    async getVendorsProduct(store) {
-        const response = await axios.get("/api/products");
-        console.log(response)
-        store.commit("getVendorsProduct", response.data)
-    },
-    async addVendorsProduct(store, payload) {
-        console.log(payload.venId)
-        await axios.post("/api/products/" + payload.venId, payload.product);
-        await store.dispatch('getVendorsProduct');
-    },
-    async delVendorsProduct(store, product) {
-        await axios.delete("/api/products/" + product.proId)
-        store.commit('deleteVendorsProduct', product.proId);
-    },
-    async editVendorsProduct(store, item) {
-        console.log(this.products)
-        await axios.put("/api/products", item)
-        await store.dispatch('getVendorsProduct');
+
+        async getVendorsProduct(store,venId) {
+            const response = await axios.get("/api/vendors/" + venId + "/products");
+            console.log(response)
+            store.commit("getVendorsProduct", response.data)
+        },
+        async addVendorsProduct(store, payload) {
+            console.log(payload)
+            await axios.post("/api/products/" + payload.venId, payload.product);
+            await store.dispatch('getVendorsProduct', payload.venId);
+        },
+        async delVendorsProduct(store, product) {
+            await axios.delete("/api/products/" + product.proId)
+            store.commit('deleteVendorsProduct', product.proId);
+        },
+        async editVendorsProduct(store, payload) {
+            console.log(this.products)
+            await axios.put("/api/products/" + payload.product.proId , payload.product)
+            console.log(payload);
+            await store.dispatch('getVendorsProduct', payload.venId);
+
+        }
     }
 }

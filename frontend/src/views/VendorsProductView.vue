@@ -1,9 +1,10 @@
 <template>
     <div>
+        <img class="mr-3" :src="require('../assets/saadiheadernew.jpg')" alt="Logo Cafe Saadi" width="100%"/>
+        <v-spacer></v-spacer>
     <v-container>
-        <h1>Produktliste</h1>
-        <router-link to="/vendorsAdd">zurück zu den Händlern</router-link>
-
+        <router-link to="/haendler"><v-icon >mdi-arrow-left-bold</v-icon></router-link>
+        <router-link to="/"><v-icon >mdi-home-outline</v-icon></router-link>
     </v-container>
     <v-data-table
             :headers="headers"
@@ -21,7 +22,7 @@
                 <v-spacer></v-spacer>
                 <v-dialog v-model="dialog" max-width="500px">
                     <template v-slot:activator="{ on, attrs }">
-                        <v-btn color="red" dark class="mb-6 mt-9" v-bind="attrs" v-on="on">
+                        <v-btn color="red" dark class="mb-7 mt-8" v-bind="attrs" v-on="on">
                             Neues Produkt
                         </v-btn>
                     </template>
@@ -47,7 +48,7 @@
                         <v-card-actions>
                             <v-spacer></v-spacer>
                             <v-btn color="blue darken-1" text @click="close">Abbrechen</v-btn>
-                            <v-btn color="blue darken-1" text @click="create" v-if="editedItem.name === ''">Anlegen</v-btn>
+                            <v-btn color="blue darken-1" text @click="create" v-if="editedItem.id === ''">Anlegen</v-btn>
                             <v-btn color="blue darken-1" text @click="update" v-else>Speichern</v-btn>
                         </v-card-actions>
                     </v-card>
@@ -92,7 +93,7 @@ export default {
                 value: 'name',
             },
 
-            {text: '', value:'unit',sortable: true},
+            {text: '', value:'unit',sortable: false},
             { text: '', value: 'actions', sortable: false },
 
         ],
@@ -134,18 +135,19 @@ export default {
 
     methods: {
         initialize() {
-            console.log(this.$route.params.id);
-            this.$store.dispatch("getVendorsProduct")
+            console.log(this.$route.params.vendorId);
+            this.$store.commit("getVendorsProduct")
+            this.$store.dispatch("getVendorsProduct", this.$route.params.vendorId)
 
         },
         editItem(products) {
             this.editedIndex = this.products.indexOf(products)
             this.editedItem = Object.assign({}, products)
             this.dialog = true
-            console.log(this.editedItem);
+            console.log(this.products);
         },
         update() {
-            this.$store.dispatch("editVendorsProduct", this.editedItem )
+            this.$store.dispatch("editVendorsProduct", {product: this.editedItem, venId: this.$route.params.vendorId} )
             console.log(this.products)
             this.close()
         },
@@ -178,8 +180,8 @@ export default {
         },
 
         create() {
-            this.$store.dispatch("addVendorsProduct",{product: this.editedItem.product})
-            console.log(this.products)
+            this.$store.dispatch("addVendorsProduct",{product: this.editedItem, venId: this.$route.params.vendorId})
+            console.log(this.editedItem.products)
             this.close()
         },
     },

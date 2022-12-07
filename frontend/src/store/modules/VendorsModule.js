@@ -5,9 +5,9 @@ export const VendorsModule = {
         vendors: []
     },
     mutations: {
-        addVendor(state, vendor) {
-            state.vendors.push(vendor)
-        },
+        // addVendor(state, vendor) {
+        //     state.vendors.push(vendor)
+        // },
         getVendors(state, VendorArray) {
             state.vendors = VendorArray
         },
@@ -15,12 +15,12 @@ export const VendorsModule = {
             const vendorIndex = state.vendors.findIndex(vendor => vendor.id === venId)
             state.vendors.splice(vendorIndex, 1)
         },
-        updateVendor(state, {venId, payload}) {
-            const vendorUp = state.vendors.find(vendorUp => vendorUp.id === venId)
-            if (vendorUp) {
-                vendorUp.vendors = payload.vendors
-            }
-        },
+        // updateVendor(state, {venId, payload}) {
+        //     const vendorUp = state.vendors.find(vendorUp => vendorUp.id === venId)
+        //     if (vendorUp) {
+        //         vendorUp.vendors = payload.vendors
+        //     }
+        // },
 
         },
     actions: {
