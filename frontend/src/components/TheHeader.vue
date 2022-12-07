@@ -1,8 +1,8 @@
 <template>
     <v-container>
-        <img src="@/assets/saadi header.jpg" alt="Logo Cafe Saadi" width="1000" height="200"
+        <img src="@/assets/1.jpg" alt="Logo Cafe Saadi" width="300" height="150"
              class="d-inline-block alingn-text-top"/>
-        <h1>Projekt Cafe Saadi </h1>
+
     </v-container>
 </template>
 
@@ -11,3 +11,6 @@ export default {
     name: 'TheHeader'
 }
 </script>
+<style>
+
+</style>
