@@ -1,5 +1,6 @@
 package at.aschowurscht.dev.saadi.erp.backend.vendors;
 
+import at.aschowurscht.dev.saadi.erp.backend.dtos.VendorDTO;
 import at.aschowurscht.dev.saadi.erp.backend.products.Product;
 import at.aschowurscht.dev.saadi.erp.backend.products.ProductCRUDRepository;
 import lombok.RequiredArgsConstructor;
@@ -36,8 +37,16 @@ public class VendorService {
         return ((List<Vendor>) vendorCRUDRepository.findAll());
     }
 
-    public void updateVendor(Vendor vendor) {
-        vendorCRUDRepository.save(vendor);
+    public VendorDTO updateVendor(Vendor vendor, int venId) {
+        Vendor updateVendor = vendorCRUDRepository.findById(venId).orElseThrow(()->new IllegalStateException("Vendor ID nicht gefunden: "+venId));
+        updateVendor.setName(vendor.getName());
+        updateVendor.setAddress(vendor.getAddress());
+        vendorCRUDRepository.save(updateVendor);
+        VendorDTO vendorDTO = new VendorDTO();
+        vendorDTO.setName(vendor.getName());
+        vendorDTO.setAddress(vendor.getAddress());
+        vendorDTO.setVenId(venId);
+        return vendorDTO;
     }
 
     public void deleteVendor(int venId) {
