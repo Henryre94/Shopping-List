@@ -3,20 +3,21 @@
         <v-main>
             <form @submit.prevent="addVendors">
                 <h2>Händler hinzufügen</h2>
-                <input type="text" id="vendor" v-model="vendor" required />
+                <input type="text" id="vendor" v-model="vendor" required/>
                 <v-btn class="mx-2" fab dark color="indigo" type="submit">
-                 <v-icon dark>
-                     add
-                </v-icon>
-                 </v-btn>
+                    <v-icon dark>
+                        add
+                    </v-icon>
+                </v-btn>
             </form>
-            <VendorsList />
+            <VendorsList/>
         </v-main>
     </v-container>
 </template>
 
 <script>
 import VendorsList from "@/components/VendorsList.vue";
+
 export default {
     name: 'VendorsAdd',
     components: {
@@ -29,11 +30,11 @@ export default {
     },
     methods: {
         addVendors() {
-            this.$store.commit("addVendors",  {
+            this.$store.commit("addVendors", {
                 data: {
                     vendor: this.vendor
                 },
-            }); 
+            });
             this.vendor = '';
         }
     }
@@ -42,6 +43,6 @@ export default {
 
 <style>
 #vendor {
-    border: 0.5px solid black;
+    border: 1px solid black;
 }
 </style>

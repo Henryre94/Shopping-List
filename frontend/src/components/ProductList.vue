@@ -2,17 +2,10 @@
     <v-container>
 
         <h2>Produktliste</h2>
-        {{cart}}
         <ul>
-           <li v-for="(product, index) in products" :key="index">
-               <span>{{ index }} - {{ product.product }} </span>
-               <v-btn class="mx-2" fab dark color="indigo" @click="addToCart(product.product)" type="button" >
-                   <v-icon dark>
-                       add
-                   </v-icon>
-               </v-btn>
-               <!--    <span>{{ cart }}</span>
-              <button @click="counterAdd()" type="button">: Anzahl: {{ counter }} </button> -->
+            <li v-for="(product, index) in products" :key="index">
+                <span>{{ index }} - {{ product.product }} </span>
+
             </li>
         </ul>
     </v-container>
@@ -22,7 +15,7 @@
 export default {
     name: 'ProductList',
     data: () => ({
-        counter: 0
+
     }),
     methods: {
         addToCart(product) {

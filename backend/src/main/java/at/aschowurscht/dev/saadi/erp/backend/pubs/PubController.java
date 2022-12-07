@@ -1,38 +1,43 @@
 package at.aschowurscht.dev.saadi.erp.backend.pubs;
 
-import at.aschowurscht.dev.saadi.erp.backend.products.Product;
-import at.aschowurscht.dev.saadi.erp.backend.vendors.Vendor;
-import org.springframework.beans.factory.annotation.Autowired;
+import at.aschowurscht.dev.saadi.erp.backend.dtos.PubDTO;
+import at.aschowurscht.dev.saadi.erp.backend.dtos.PubNoIdDTO;
+import lombok.RequiredArgsConstructor;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/pubs")
+@CrossOrigin
+@RequiredArgsConstructor
 public class PubController {
-    @Autowired
-    PubService pubService;
-    @CrossOrigin
-    @PostMapping("/api/pubs")
-    public void postProduct(@RequestBody Pub pub){
-        pubService.post(pub);
+    final PubService pubService;
+
+    @PostMapping()
+    public PubNoIdDTO createPub(@RequestBody PubNoIdDTO pubNoIdDTO) {
+        return pubService.createPub(pubNoIdDTO);
     }
-    @CrossOrigin
-    @GetMapping("/api/pubs/{pubId}")
-    public Pub getById(@PathVariable int pubId){
-        return pubService.getById(pubId);
+
+    @GetMapping("/{pubId}")
+    public PubDTO getPubById(@PathVariable int pubId) {
+        return pubService.getPubById(pubId);
     }
-    @CrossOrigin
-    @GetMapping("/api/pubs")
-    public List<Pub> get(){
-        List<Pub> pubList = pubService.get();
-        return pubList;
+
+    @GetMapping()
+    public List<PubDTO> getAllPubs() {
+        return pubService.getAllPubs();
+
     }
-    @CrossOrigin
-    @PutMapping("/api/pubs")
-    public void put(@RequestBody Pub pub){
-        pubService.put(pub);
+
+    @PutMapping("/{pubId}")
+    public PubDTO updatePub(@RequestBody PubDTO pubDto, @PathVariable int pubId) {
+        return pubService.updatePub(pubDto, pubId);
     }
-    @CrossOrigin
-    @DeleteMapping("api/pubs/{pubId}")
-    public void delete(@PathVariable int pubId) {pubService.delete(pubId);}
+
+    @DeleteMapping("/{pubId}")
+    public void deletePub(@PathVariable int pubId) {
+        pubService.deletePub(pubId);
+    }
 }
