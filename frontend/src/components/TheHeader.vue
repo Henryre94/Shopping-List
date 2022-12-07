@@ -1,7 +1,7 @@
 <template>
-    <div>
-        <img src="@/assets/saadiheadernew.jpg" alt="Logo Cafe Saadi" width="100%"/>
-    </div>
+
+        <img class="mr-3" :src="require('../assets/saadiheadernew.jpg')" width="100%"/>
+
 </template>
 
 <script>
@@ -9,9 +9,6 @@ export default {
     name: 'TheHeader'
 }
 </script>
-
 <style>
-#logo {
 
-}
 </style>

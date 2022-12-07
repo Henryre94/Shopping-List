@@ -1,6 +1,6 @@
 <template>
     <div>
-        <img class="mr-3" :src="require('../assets/saadiheadernew.jpg')" alt="Logo Cafe Saadi" width="100%"/>
+        <TheHeader></TheHeader>
         <v-spacer></v-spacer>
     <v-container>
         <router-link to="/haendler"><v-icon >mdi-arrow-left-bold</v-icon></router-link>
@@ -76,7 +76,9 @@
 </template>
 
 <script>
+import TheHeader from "@/components/TheHeader";
 export default {
+    components: {TheHeader},
     data: () => ({
         search: "",
         dialog: false,
