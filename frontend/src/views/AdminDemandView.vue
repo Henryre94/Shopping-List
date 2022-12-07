@@ -45,7 +45,7 @@
                             <v-card-actions>
                                 <v-spacer></v-spacer>
                                 <v-btn color="blue darken-1" text @click="closeDelete">Abbrechen</v-btn>
-                                <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
+                                <v-btn color="blue darken-1" text @click="deleteItemConfirm()">OK</v-btn>
                                 <v-spacer></v-spacer>
                             </v-card-actions>
                         </v-card>
@@ -53,7 +53,7 @@
                 </v-toolbar>
             </template>
             <template #item.actions="{ item }">
-                <v-icon class="mr-2" @click="decreaseProductDemand()">
+                <v-icon class="mr-2" @click="decreaseProductDemand(item)">
                     mdi-minus
                 </v-icon>
                 <v-icon small @click="deleteItem(item)">
@@ -113,8 +113,10 @@ export default {
             this.$store.commit("getVendorsDemand")
             this.$store.dispatch("getVendorsDemand", this.$route.params.vendorId)
         },
-        decreaseProductDemand(){
-            this.$store.dispatch('decreaseDemands', this.demands.proId)
+        decreaseProductDemand(item){
+            console.log(item)
+            this.$store.dispatch('decreaseDemands', item.proId)
+
         },
         update() {
             this.$store.dispatch("editVendorsDemand", {demands: this.editedItem,} )
