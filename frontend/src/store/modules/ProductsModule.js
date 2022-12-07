@@ -2,45 +2,38 @@ import axios from "axios";
 
 export const ProductsModule = {
     state: {
-        products: [
-            // {proId: 1, name: 'Äpfel'},
-            // {proId: 2, name: 'Tomaten'},
-            // {proId: 3, name: 'Orangen'},
-            // {proId: 4, name: 'Bananen'},
-        ]
+        products: []
     },
     getters: {
-        // TODO: das braucht man nicht
-        // Getter verwendet man wie Variablen. Der "get"-Prefix ist somit irreführend
-        // getAllProducts(state) {
-        //     const allProducts = state.products;
-        //     return allProducts;
-        // }
+        products(state) {
+            const products = state.products;
+            return products;
+        }
     },
     mutations: {
-       //addProducts(state, payload) {
-            // TODO: payload sollten nur die vendors sein und kein "data" beinhalten
-       //     state.products = state.products.concat(payload.data)
-        //},
-        // addVendorsProduct(state, product) {
-        //     state.products.push(product)
-        // },
+
         getVendorsProduct(state, productsList) {
             state.products = productsList
-
         },
         deleteVendorsProduct(state, proId) {
             const vendorIndex = state.products.findIndex(product => product.id === proId)
             state.products.splice(vendorIndex, 1)
         },
-        // updateVendorsProduct(state, {id, payload}) {
-        //     const vendorUp = state.products.find(vendorUp => vendorUp.id === id)
-        //     if (vendorUp) {
-        //         vendorUp.products = payload.products
-        //     }
-        // },
+
+        addProducts(state, products) {
+            state.products = state.products.concat(products.data)
+        },
+        loadProducts(state, productsList) {
+            state.products = productsList
+        },
     },
     actions: {
+        async loadProducts(store) {
+            const response = await axios.get('api/products');
+            store.commit('loadProducts', response.data)
+        },
+
+
         async getVendorsProduct(store,venId) {
             const response = await axios.get("/api/vendors/" + venId + "/products");
             console.log(response)
