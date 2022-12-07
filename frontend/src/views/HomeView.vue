@@ -1,15 +1,15 @@
 <template>
-    <v-container>
+    <div>
 
         <TheHeader/>
-        <router-link to="/product">Produkte</router-link>
+
         |
         <router-link to="/haendler">Händler</router-link>
         |
         <router-link to="/pub">Cafe 1090</router-link>
 
 
-    </v-container>
+    </div>
 </template>
 
 <script>

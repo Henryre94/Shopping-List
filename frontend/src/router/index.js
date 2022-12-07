@@ -6,6 +6,7 @@ import PubView from "@/views/PubView.vue";
 import VendorsProductView from "@/views/VendorsProductView";
 import VendorsAddView from "@/views/VendorsAddView";
 import LoginView from "@/views/LoginView";
+import AdminDemandView from "@/views/AdminDemandView"
 
 Vue.use(VueRouter)
 
@@ -38,7 +39,11 @@ const routes = [
         path: '/haendler',
         component: VendorsAddView
     },
-
+    {
+        path: '/einkaufsliste/:vendor/:vendorId',
+        name: 'shopping',
+        component: AdminDemandView
+    },
     {
         path: '/login',
         name: 'login',

@@ -1,18 +1,18 @@
 <template>
-    <v-container>
+    <div>
         <TheHeader/>
-        <h1>Cafe Saadi 1090</h1>
-        <div>
-            <v-text-field v-model="searchValue" clearable label="Suche" class="mt-9"></v-text-field>
-        </div>
-        <div>
+        <h1>1090</h1>
+        <v-container>
+            <div class="search-wrapper">
+                <v-text-field v-model="searchValue" clearable label="Suche" class="mt-9"></v-text-field>
+            </div>
             <div v-for="(product, index) in filteredProducts" :key="index">
                 <ProductDemand :product="product"/>
             </div>
-        </div>
+        </v-container>
         <br/>
         <router-link to="/">Home</router-link>
-    </v-container>
+    </div>
 </template>
 
 <script>
@@ -47,7 +47,5 @@ export default {
 </script>
 
 <style>
-#searchValue {
-    border: 0.5px solid black;
-}
+
 </style>

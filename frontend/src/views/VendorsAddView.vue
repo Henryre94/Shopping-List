@@ -1,8 +1,7 @@
 <template>
 
     <div>
-
-            <img class="mr-3" :src="require('../assets/saadiheadernew.jpg')" alt="Logo Cafe Saadi" width="100%" />
+            <TheHeader/>
         <v-spacer></v-spacer>
         <v-container>
             <router-link to="/"><v-icon >mdi-home-outline</v-icon></router-link>
@@ -72,7 +71,9 @@
 
 <script>
 
+import TheHeader from "@/components/TheHeader";
 export default {
+    components: {TheHeader},
     data: () => ({
 
         search: "",
@@ -141,7 +142,7 @@ export default {
         },
         // Weiterleitung auf die Einkaufsliste
         shoppingList(demand){
-            this.$router.push("/einkaufsliste", demand.venId)
+            this.$router.push("/einkaufsliste/" + demand.name +"/"+ demand.venId )
         },
         // Modal wird geschlossen
         close() {
