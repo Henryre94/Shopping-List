@@ -15,13 +15,9 @@
                 class="elevation-1">
             <template v-slot:top>
                 <v-toolbar flat>
-
                     <v-text-field v-model="search" clearable flat solo-inverted label="Suche" class="mt-9"></v-text-field>
-
-
                     <v-spacer></v-spacer>
                     <v-dialog v-model="dialog" max-width="500px">
-
                         <v-card>
                             <v-card-title>
                                 <span class="text-h5">{{ formTitle }}</span>
@@ -31,17 +27,11 @@
                                 <v-container>
                                     <v-row>
                                         <v-col cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem.name" label="Produkt name"></v-text-field>
-                                        </v-col>
-                                        <v-col cols="12" sm="6" md="4">
                                             <v-text-field v-model="editedItem.quantity" label="Stückzahl"></v-text-field>
                                         </v-col>
-
-
                                     </v-row>
                                 </v-container>
                             </v-card-text>
-
                             <v-card-actions>
                                 <v-spacer></v-spacer>
                                 <v-btn color="blue darken-1" text @click="close">Abbrechen</v-btn>
@@ -63,19 +53,16 @@
                 </v-toolbar>
             </template>
             <template #item.actions="{ item }">
-                <v-icon small class="mr-2" @click="editItem(item)">
-                    mdi-pencil
+                <v-icon class="mr-2" @click="decreaseProductDemand()">
+                    mdi-minus
                 </v-icon>
                 <v-icon small @click="deleteItem(item)">
                     mdi-delete
                 </v-icon>
             </template>
-
-
         </v-data-table>
     </div>
 </template>
-
 
 <script>
 import TheHeader from "@/components/TheHeader";
@@ -94,40 +81,20 @@ export default {
                 sortable: true,
                 value: 'name',
             },
-            {text: 'Pub', value: 'pub'},
+            {text: 'Pub', value: 'pubName'},
             {text: 'Stückzahl', value: 'quantity'},
-
-
-
-            { text: 'Bearbeiten', value: 'actions', sortable: false},
+            {text: 'Bearbeiten', value: 'actions', sortable: false},
         ],
         demands: [],
         editedIndex: -1,
-        editedItem: {
-            name: '',
-            pubName: '',
-            quantity: '',
-            id: '',
-
-
-
-        },
-        defaultItem: {
-            name: '',
-            pubName: '',
-            quantity: '',
-            id: '',
-
-
-        },
+        editedItem: {name: '',pubName: '', quantity: '', proId: '',},
+        defaultItem: {name: '', pubName: '', quantity: '', proId: '',},
     }),
-
     computed: {
         formTitle() {
             return this.editedIndex === -1 ? 'Neues Produkt' : 'Edit Item'
         },
     },
-
     watch: {
         dialog(val) {
             val || this.close()
@@ -136,43 +103,33 @@ export default {
             val || this.closeDelete()
         },
     },
-
     created() {
         this.initialize()
     },
-
     methods: {
 
         initialize() {
             console.log(this.$route.params.vendorId);
             this.$store.commit("getVendorsDemand")
             this.$store.dispatch("getVendorsDemand", this.$route.params.vendorId)
-
         },
-
-        editItem(demands) {
-            this.editedIndex = this.demands.indexOf(demands)
-            this.editedItem = Object.assign({}, demands)
-            this.dialog = true
-            console.log(this.demands)
+        decreaseProductDemand(){
+            this.$store.dispatch('decreaseDemands', this.demands.proId)
         },
         update() {
             this.$store.dispatch("editVendorsDemand", {demands: this.editedItem,} )
             console.log(this.demands)
             this.close()
         },
-
         deleteItem(item) {
             this.editedIndex = this.demands.indexOf(item)
             this.editedItem = Object.assign({}, item)
             this.dialogDelete = true
         },
-
         deleteItemConfirm() {
             this.$store.dispatch('delVendorsDemand', this.editedItem)
             this.closeDelete()
         },
-
         close() {
             this.dialog = false
             this.$nextTick(() => {
@@ -180,7 +137,6 @@ export default {
                 this.editedIndex = -1
             })
         },
-
         closeDelete() {
             this.dialogDelete = false
             this.$nextTick(() => {
@@ -188,16 +144,6 @@ export default {
                 this.editedIndex = -1
             })
         },
-
-        save() {
-            if (this.editedIndex > -1) {
-                Object.assign(this.demands[this.editedIndex], this.editedItem)
-            } else {
-                this.demands.push(this.editedItem)
-            }
-            this.close()
-        },
     },
-
 }
 </script>
