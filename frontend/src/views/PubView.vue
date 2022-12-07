@@ -3,8 +3,9 @@
         <TheHeader/>
         <h1>1090</h1>
         <v-container>
-            <v-text-field v-model="searchValue" clearable label="Suche" class="mt-9"></v-text-field>
-
+            <div class="search-wrapper">
+                <v-text-field v-model="searchValue" clearable label="Suche" class="mt-9"></v-text-field>
+            </div>
             <div v-for="(product, index) in filteredProducts" :key="index">
                 <ProductDemand :product="product"/>
             </div>
@@ -46,7 +47,5 @@ export default {
 </script>
 
 <style>
-#searchValue {
-    border: 0.5px solid black;
-}
+
 </style>
