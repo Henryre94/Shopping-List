@@ -40,7 +40,7 @@ const routes = [
         component: VendorsAddView
     },
     {
-        path: '/einkaufsliste',
+        path: '/einkaufsliste/:vendor/:vendorId',
         name: 'shopping',
         component: AdminDemandView
     },

@@ -1,10 +1,10 @@
 <template>
     <div>
-        <img class="mr-3" :src="require('../assets/saadi header.jpg')" width="100%"/>
+        <TheHeader></TheHeader>
         <v-spacer></v-spacer>
         <v-container>
-            <h1>Einkaufsliste</h1>
-
+            <router-link to="/haendler"><v-icon >mdi-arrow-left-bold</v-icon></router-link>
+            <router-link to="/"><v-icon >mdi-home-outline</v-icon></router-link>
         </v-container>
         <v-data-table
                 :headers="headers"
@@ -21,11 +21,7 @@
 
                     <v-spacer></v-spacer>
                     <v-dialog v-model="dialog" max-width="500px">
-                        <template v-slot:activator="{ on, attrs }">
-                            <v-btn color="red" dark class="mb-6 mt-9" v-bind="attrs" v-on="on">
-                                Neues Produkt
-                            </v-btn>
-                        </template>
+
                         <v-card>
                             <v-card-title>
                                 <span class="text-h5">{{ formTitle }}</span>
@@ -35,17 +31,12 @@
                                 <v-container>
                                     <v-row>
                                         <v-col cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem.pub" label="Pub"></v-text-field>
-                                        </v-col>
-                                        <v-col cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem.product" label="Produkt name"></v-text-field>
-                                        </v-col>
-                                        <v-col cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem.vendor" label="Händler"></v-text-field>
+                                            <v-text-field v-model="editedItem.name" label="Produkt name"></v-text-field>
                                         </v-col>
                                         <v-col cols="12" sm="6" md="4">
                                             <v-text-field v-model="editedItem.quantity" label="Stückzahl"></v-text-field>
                                         </v-col>
+
 
                                     </v-row>
                                 </v-container>
@@ -53,12 +44,9 @@
 
                             <v-card-actions>
                                 <v-spacer></v-spacer>
-                                <v-btn color="blue darken-1" text @click="close">
-                                    Abbrechen
-                                </v-btn>
-                                <v-btn color="blue darken-1" text @click="save">
-                                    Speichern
-                                </v-btn>
+                                <v-btn color="blue darken-1" text @click="close">Abbrechen</v-btn>
+                                <v-btn color="blue darken-1" text @click="create" v-if="editedItem.id === ''">Anlegen</v-btn>
+                                <v-btn color="blue darken-1" text @click="update" v-else>Speichern</v-btn>
                             </v-card-actions>
                         </v-card>
                     </v-dialog>
@@ -91,7 +79,9 @@
 
 
 <script>
+import TheHeader from "@/components/TheHeader";
 export default {
+    components: {TheHeader},
     data: () => ({
 
         search: "",
@@ -103,11 +93,11 @@ export default {
                 text: 'Produkt',
                 align: 'start',
                 sortable: true,
-                value: 'product',
+                value: 'name',
             },
             {text: 'Pub', value: 'pub'},
             {text: 'Stückzahl', value: 'quantity'},
-            {text: 'Händler', value: 'vendor'},
+
 
 
             { text: 'Bearbeiten', value: 'actions', sortable: false},
@@ -168,7 +158,7 @@ export default {
             console.log(this.demands)
         },
         update() {
-            this.$store.dispatch("editVendorsDemand", {demands: this.editedItem, venId: this.$route.params.vendorId} )
+            this.$store.dispatch("editVendorsDemand", {demands: this.editedItem,} )
             console.log(this.demands)
             this.close()
         },

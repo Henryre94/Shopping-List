@@ -31,12 +31,7 @@ export const DemandsModule = {
                 const demandIndex = state.demands.findIndex(demand => demand.id === proId)
                 state.demands.splice(demandIndex, 1)
             },
-            updateVendorsProduct(state, {id, payload}) {
-                const demandUp = state.demands.find(demandUp => demandUp.id === id)
-                if (demandUp) {
-                    demandUp.demands = payload.demands
-                }
-            },
+
         },
         actions: {
             async increaseDemands(store, proId) {
@@ -67,9 +62,9 @@ export const DemandsModule = {
             },
             async editVendorsDemand(store, payload) {
                 console.log(this.demands)
-                await axios.put("/api/demands/" + payload.proId + "/pubs" + payload.pubId)
+                await axios.put("/api/demands/" + payload.demands.proId + "/pubs/" + payload.demands.pubId)
                 console.log(payload);
-                await store.dispatch('getVendorsDemand', payload.venId);
+                await store.dispatch('getVendorsDemand', payload.pubId);
 
             },
             async delVendorsDemand(store, product) {
