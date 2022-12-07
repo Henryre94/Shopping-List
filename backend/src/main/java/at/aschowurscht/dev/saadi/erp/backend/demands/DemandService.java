@@ -48,6 +48,7 @@ public class DemandService {
                 demandDTO.setQuantity(demand.getQuantity());
                 demandDTO.setPubName(demand.getPub().getPubName());
                 demandDTO.setProId(demand.getProduct().getProId());
+                demandDTO.setPubId(demand.getPub().getPubId());
             }
     }
     private void createNewDemand(Pub pub, Product product, DemandDTO demandDTO) {
@@ -70,6 +71,7 @@ public class DemandService {
         demandDTO.setQuantity(demand.getQuantity());
         demandDTO.setPubName(pub.getPubName());
         demandDTO.setProId(product.getProId());
+        demandDTO.setPubId(pub.getPubId());
     }
 
     public List<DemandDTO> decreaseQuantity(int proId, int pubId) {
@@ -83,6 +85,7 @@ public class DemandService {
                 demandDTO.setName(demands.getProduct().getName());
                 demandDTO.setPubName(demands.getPub().getPubName());
                 demandDTO.setProId(demands.getProduct().getProId());
+                demandDTO.setPubId(demands.getPub().getPubId());
                 demandDTOList.add(demandDTO);
             }
         }
@@ -99,10 +102,18 @@ public class DemandService {
                     demandDto.setQuantity(demands.getQuantity());
                     demandDto.setPubName(demands.getPub().getPubName());
                     demandDto.setProId(demands.getProduct().getProId());
+                    demandDto.setPubId(demands.getPub().getPubId());
                     demandDtoList.add(demandDto);
                 }
             }
         }
         return demandDtoList;
+    }
+    public void deleteDemand(int proId, int pubId){
+        for (Demand demands : demandCRUDRepository.findAll()){
+            if (demands.getProduct().getProId()==proId && demands.getPub().getPubId()==pubId){
+                demandCRUDRepository.delete(demands);
+            }
+        }
     }
 }

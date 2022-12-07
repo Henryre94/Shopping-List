@@ -1,5 +1,6 @@
 package at.aschowurscht.dev.saadi.erp.backend.vendors;
 
+import at.aschowurscht.dev.saadi.erp.backend.dtos.VendorDTO;
 import at.aschowurscht.dev.saadi.erp.backend.products.Product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -34,13 +35,12 @@ public class VendorController {
         return vendorService.getAllVendors();
     }
 
-    @PutMapping()
-    public void updateVendor(@RequestBody Vendor vendor) {
-        vendorService.updateVendor(vendor);
+    @PutMapping("/{venId}")
+    public VendorDTO updateVendor(@RequestBody Vendor vendor,@PathVariable int venId) {
+       return vendorService.updateVendor(vendor,venId);
     }
 
     @DeleteMapping("/{venId}")
-    public void deleteVendor(@PathVariable int venId) {
-        vendorService.deleteVendor(venId);
+    public void deleteVendor(@PathVariable int venId) {vendorService.deleteVendor(venId);
     }
 }
