@@ -13,6 +13,9 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+import static at.aschowurscht.dev.saadi.erp.backend.security.Role.ADMIN;
+import static at.aschowurscht.dev.saadi.erp.backend.security.Role.PUB;
+
 @Service
 @RequiredArgsConstructor
 public class JpaUserDetailsService implements UserDetailsService {
@@ -23,12 +26,10 @@ public class JpaUserDetailsService implements UserDetailsService {
         Credentials credentials = this.credentials.findByUsername(username);
         if (credentials != null) {
             List<GrantedAuthority> authorities = new ArrayList<>();
-//            if (credentials.getAccount() instanceof Client)
-//                authorities.add(CLIENT.grant());
-//            if (credentials.getAccount() instanceof Contractor)
-//                authorities.add(CONTRACTOR.grant());
-//            if (credentials.getIsAdmin())
-//                authorities.add(ADMIN.grant());
+            if (credentials.getIsAdmin())
+                authorities.add(ADMIN.grant());
+            if (!credentials.getIsAdmin())
+                authorities.add(PUB.grant());
             return new User(credentials.getUsername(), credentials.getPassword(), authorities);
         }
         throw new UsernameNotFoundException(username);
