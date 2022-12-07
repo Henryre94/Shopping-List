@@ -29,7 +29,6 @@
             </template>
         </v-simple-table>
     </div>
-
 </template>
 
 <script>
@@ -63,31 +62,37 @@ td {
     width: 25%;
     border-bottom: 1px solid black;
 }
+
 tr {
     width: 100%;
     overflow: scroll;
 }
+
 v-simple-table {
     width: 100%;
 }
+
 v-simple-table, tr, td {
     border-collapse: collapse;
 }
+
 @media screen and (max-width: 700px) {
     tr {
         float: left;
         width: 100%;
     }
+
     td {
         float: left;
 
         width: 100%;
     }
+
     td::before {
         content: attr(data-label);
         word-wrap: break-word;
         width: 20%;
-        float:left;
+        float: left;
     }
 }
 </style>

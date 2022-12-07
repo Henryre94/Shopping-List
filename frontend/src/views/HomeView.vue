@@ -1,12 +1,9 @@
 <template>
     <div>
-
         <TheHeader />
-
         <router-link to="/haendler">Händler</router-link>
         |
         <router-link to="/pub">Cafe 1090</router-link>
-
     </div>
 </template>
 

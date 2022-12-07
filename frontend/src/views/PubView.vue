@@ -1,6 +1,6 @@
 <template>
     <div>
-        <TheHeader />
+        <TheHeader/>
         <h1>1090</h1>
         <v-container>
             <v-text-field v-model="searchValue" clearable label="Suche" class="mt-9"></v-text-field>

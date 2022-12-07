@@ -1,11 +1,11 @@
 <template>
-
     <div>
-
-            <img class="mr-3" :src="require('../assets/saadiheadernew.jpg')" alt="Logo Cafe Saadi" width="100%" />
+        <img class="mr-3" :src="require('../assets/saadiheadernew.jpg')" alt="Logo Cafe Saadi" width="100%"/>
         <v-spacer></v-spacer>
         <v-container>
-            <router-link to="/"><v-icon >mdi-home-outline</v-icon></router-link>
+            <router-link to="/">
+                <v-icon>mdi-home-outline</v-icon>
+            </router-link>
         </v-container>
         <v-data-table
                 @click:row="handleClick"
@@ -18,15 +18,15 @@
             <template v-slot:top>
                 <v-toolbar flat>
 
-                    <v-text-field v-model="search" clearable flat solo-inverted label="Suche" class="mt-9"></v-text-field>
-
+                    <v-text-field v-model="search" clearable flat solo-inverted label="Suche"
+                                  class="mt-9"></v-text-field>
 
                     <v-divider class="mx-4" inset vertical></v-divider>
                     <v-spacer></v-spacer>
 
                     <v-dialog v-model="dialog" max-width="500px">
                         <template v-slot:activator="{ on, attrs }">
-                            <v-btn color="red" dark class="mb-7 mt-8" v-bind="attrs" v-on="on" >
+                            <v-btn color="red" dark class="mb-7 mt-8" v-bind="attrs" v-on="on">
                                 Neuer Händler
                             </v-btn>
                         </template>
@@ -39,10 +39,12 @@
                                 <v-container>
                                     <v-row>
                                         <v-col cols="12" sm="6" md="4">
-                                            <v-text-field class="newVend" v-model="editedItem.name" label="Händler name"></v-text-field>
+                                            <v-text-field class="newVend" v-model="editedItem.name"
+                                                          label="Händler name"></v-text-field>
                                         </v-col>
                                         <v-col cols="12" sm="6" md="4">
-                                            <v-text-field class="newVend" v-model="editedItem.address" label="Adresse"></v-text-field>
+                                            <v-text-field class="newVend" v-model="editedItem.address"
+                                                          label="Adresse"></v-text-field>
                                         </v-col>
 
                                     </v-row>
@@ -52,14 +54,18 @@
                             <v-card-actions>
                                 <v-spacer></v-spacer>
                                 <v-btn color="blue darken-1" text @click="close">Abbrechen</v-btn>
-                                <v-btn color="blue darken-1" text @click="createVendor" v-if="editedItem.venId === ''">Anlegen</v-btn>
+                                <v-btn color="blue darken-1" text @click="createVendor" v-if="editedItem.venId === ''">
+                                    Anlegen
+                                </v-btn>
                                 <v-btn color="blue darken-1" text @click="update" v-else>Speichern</v-btn>
                             </v-card-actions>
                         </v-card>
                     </v-dialog>
                     <v-dialog v-model="dialogDelete" max-width="500px">
                         <v-card>
-                            <v-card-title class="text-h5">Achtung! Der Händler wird mit sämtlichen Produkten gelöscht !</v-card-title>
+                            <v-card-title class="text-h5">Achtung! Der Händler wird mit sämtlichen Produkten gelöscht
+                                !
+                            </v-card-title>
                             <v-card-actions>
                                 <v-spacer></v-spacer>
                                 <v-btn color="blue darken-1" text @click="closeDelete">Abbrechen</v-btn>
@@ -70,29 +76,25 @@
                     </v-dialog>
                 </v-toolbar>
             </template>
-            <template #item.actions="{ item }" >
-                <v-icon  class="mr-2" @click.stop="editItem(item)">
+            <template #item.actions="{ item }">
+                <v-icon class="mr-2" @click.stop="editItem(item)">
                     mdi-pencil
                 </v-icon>
-                <v-icon  @click.stop="deleteItem(item)">
+                <v-icon @click.stop="deleteItem(item)">
                     mdi-delete
                 </v-icon>
-                <v-icon  @click="shoppingList(item)">
+                <v-icon @click="shoppingList(item)">
                     mdi-cart-plus
                 </v-icon>
             </template>
-
-
         </v-data-table>
     </div>
 </template>
-
 
 <script>
 
 export default {
     data: () => ({
-
         search: "",
         dialog: false,
         dialogDelete: false,
@@ -105,22 +107,19 @@ export default {
                 value: 'name',
             },
 
-
-            { text: '', value: 'actions', sortable: false },
+            {text: '', value: 'actions', sortable: false},
         ],
         vendors: [],
         editedIndex: -1,
         editedItem: {
             name: '',
-            address:'',
-            venId:'',
-
+            address: '',
+            venId: '',
         },
         defaultItem: {
             name: '',
-            address:'',
-            venId:'',
-
+            address: '',
+            venId: '',
         },
     }),
 
@@ -147,10 +146,10 @@ export default {
             this.$store.dispatch("getVendors") // Händler vom backend laden
         },
         //Weiterleitung auf die Händlerprodukte mit Händler ID und namen in der URL
-        handleClick(value){
+        handleClick(value) {
 
-            console.log("row clicked", value.name )
-            this.$router.push("/produktliste/" + value.name + "/" +value.venId)
+            console.log("row clicked", value.name)
+            this.$router.push("/produktliste/" + value.name + "/" + value.venId)
             console.log(this.vendors)
         },
         // Händler können bearbeitet werden
@@ -177,7 +176,7 @@ export default {
             this.closeDelete()
         },
         // Weiterleitung auf die Einkaufsliste
-        shoppingList(demand){
+        shoppingList(demand) {
             this.$router.push("/einkaufsliste", demand.venId)
         },
         // Modal wird geschlossen
@@ -198,14 +197,12 @@ export default {
         },
         // Händler wird erstellt
         createVendor() {
-            this.$store.dispatch('addVendor', {name: this.editedItem.name , address: this.editedItem.address});
+            this.$store.dispatch('addVendor', {name: this.editedItem.name, address: this.editedItem.address});
             // this.vendors.push(this.editedItem)
             // this.$store.dispatch('getVendors')
             this.close()
         },
-
     },
-
 }
 </script>
 

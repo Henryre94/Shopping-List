@@ -71,16 +71,13 @@
             <v-icon  @click="deleteItem(item)">mdi-delete</v-icon>
         </template>
 
-
     </v-data-table>
     </div>
 </template>
 
-
 <script>
 export default {
     data: () => ({
-
         search: "",
         dialog: false,
         dialogDelete: false,
@@ -109,8 +106,6 @@ export default {
             name:'',
             unit:'',
             id: '',
-
-
         },
     }),
 
@@ -185,6 +180,5 @@ export default {
             this.close()
         },
     },
-
 }
 </script>

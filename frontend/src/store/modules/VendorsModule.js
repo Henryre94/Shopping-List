@@ -22,7 +22,7 @@ export const VendorsModule = {
         //     }
         // },
 
-        },
+    },
     actions: {
         async getVendors(store) {
             const response = await axios.get("/api/vendors");
@@ -40,7 +40,5 @@ export const VendorsModule = {
             await axios.put("/api/vendors/", item)
             await store.dispatch('getVendors');
         },
-
     }
-
 }
