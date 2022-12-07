@@ -93,7 +93,7 @@ export default {
                 value: 'name',
             },
 
-            {text: '', value:'unit',sortable: true},
+            {text: '', value:'unit',sortable: false},
             { text: '', value: 'actions', sortable: false },
 
         ],
