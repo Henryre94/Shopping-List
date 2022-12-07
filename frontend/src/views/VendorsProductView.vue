@@ -4,6 +4,7 @@
         <v-spacer></v-spacer>
     <v-container>
         <router-link to="/haendler"><v-icon >mdi-arrow-left-bold</v-icon></router-link>
+        <router-link to="/"><v-icon >mdi-home-outline</v-icon></router-link>
     </v-container>
     <v-data-table
             :headers="headers"
