@@ -2,7 +2,7 @@
 
     <div>
 
-            <img class="mr-3" :src="require('../assets/saadiheadernew.jpg')" width="100%" />
+            <img class="mr-3" :src="require('../assets/saadiheadernew.jpg')" alt="Logo Cafe Saadi" width="100%" />
         <v-spacer></v-spacer>
         <v-container>
             <router-link to="/"><v-icon >mdi-home-outline</v-icon></router-link>
