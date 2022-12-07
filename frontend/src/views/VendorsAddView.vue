@@ -17,24 +17,17 @@
                 class="elevation-1">
             <template v-slot:top>
                 <v-toolbar flat>
-
                     <v-text-field v-model="search" clearable flat solo-inverted label="Suche" class="mt-9"></v-text-field>
-
-
                     <v-divider class="mx-4" inset vertical></v-divider>
                     <v-spacer></v-spacer>
-
                     <v-dialog v-model="dialog" max-width="500px">
                         <template v-slot:activator="{ on, attrs }">
-                            <v-btn color="red" dark class="mb-7 mt-8" v-bind="attrs" v-on="on" >
-                                Neuer Händler
-                            </v-btn>
+                            <v-btn color="red" dark class="mb-7 mt-8" v-bind="attrs" v-on="on" >Neuer Händler</v-btn>
                         </template>
                         <v-card>
                             <v-card-title>
                                 <span class="text-h5">{{ formTitle }}</span>
                             </v-card-title>
-
                             <v-card-text>
                                 <v-container>
                                     <v-row>
@@ -44,11 +37,9 @@
                                         <v-col cols="12" sm="6" md="4">
                                             <v-text-field class="newVend" v-model="editedItem.address" label="Adresse"></v-text-field>
                                         </v-col>
-
                                     </v-row>
                                 </v-container>
                             </v-card-text>
-
                             <v-card-actions>
                                 <v-spacer></v-spacer>
                                 <v-btn color="blue darken-1" text @click="close">Abbrechen</v-btn>
@@ -71,22 +62,13 @@
                 </v-toolbar>
             </template>
             <template #item.actions="{ item }" >
-                <v-icon  class="mr-2" @click.stop="editItem(item)">
-                    mdi-pencil
-                </v-icon>
-                <v-icon  @click.stop="deleteItem(item)">
-                    mdi-delete
-                </v-icon>
-                <v-icon  @click="shoppingList(item)">
-                    mdi-cart-plus
-                </v-icon>
+                <v-icon  class="mr-2" @click.stop="editItem(item)">mdi-pencil</v-icon>
+                <v-icon  @click.stop="deleteItem(item)">mdi-delete</v-icon>
+                <v-icon  @click="shoppingList(item)">mdi-cart-plus</v-icon>
             </template>
-
-
         </v-data-table>
     </div>
 </template>
-
 
 <script>
 
@@ -98,38 +80,20 @@ export default {
         dialogDelete: false,
         selected: [],
         headers: [
-            {
-                text: 'Händler',
-                align: 'start',
-                sortable: true,
-                value: 'name',
-            },
 
-
+            {text: 'Händler', align: 'start', sortable: true, value: 'name',},
             { text: '', value: 'actions', sortable: false },
         ],
         vendors: [],
         editedIndex: -1,
-        editedItem: {
-            name: '',
-            address:'',
-            venId:'',
-
-        },
-        defaultItem: {
-            name: '',
-            address:'',
-            venId:'',
-
-        },
+        editedItem: {name: '', address:'', venId:'',},
+        defaultItem: {name: '', address:'', venId:'',},
     }),
-
     computed: {
         formTitle() {
             return this.editedIndex === -1 ? 'Neuer Händler' : 'Edit Item'
         },
     },
-
     watch: {
         dialog(val) {
             val || this.close()
@@ -138,7 +102,6 @@ export default {
             val || this.closeDelete()
         },
     },
-
     created() {
         this.initialize()
     },
@@ -203,9 +166,7 @@ export default {
             // this.$store.dispatch('getVendors')
             this.close()
         },
-
     },
-
 }
 </script>
 
