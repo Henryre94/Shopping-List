@@ -2,10 +2,10 @@
     <v-container>
         <h1>Sign Up</h1>
         <div class="register">
-            <input type="text" placeholder="Enter Name" />
-            <input type="text" placeholder="Enter Email" />
-            <input type="password" placeholder="Enter Password" />
-            <button> Sign Up</button>
+            <input type="text" v-model="name" placeholder="Enter Name" />
+            <input type="text" v-model="email" placeholder="Enter Email" />
+            <input type="password" v-model="password" placeholder="Enter Password" />
+            <button @click="signUp"> Sign Up</button>
         </div>
     </v-container>
     
@@ -13,7 +13,19 @@
 
 <script>
 export default {
-    name: 'SingUp'
+    name: 'SingUp',
+    data() {
+        return {
+            name: '',
+            email:'',
+            password:''
+        }
+    },
+    methods: {
+        signUp() {
+            console.warn("signup", this.name, this.email, this.password);
+        }
+    }
 }
 </script>
 
