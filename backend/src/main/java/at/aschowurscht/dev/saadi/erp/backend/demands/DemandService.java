@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
 @Service
 @RequiredArgsConstructor
 public class DemandService {
@@ -33,6 +32,7 @@ public class DemandService {
             createDemandDTOFromDemandList(proId, pubId, pub, product, demandDTO);
         return demandDTO;
     }
+
     private void createDemandDTOFromDemandList(int proId, int pubId, Pub pub, Product product, DemandDTO demandDTO) {
         List<Demand> demandList = demandCRUDRepository
                 .findAll()
@@ -40,8 +40,8 @@ public class DemandService {
                 .filter(demand -> demand.getPub().getPubId() == pubId && demand.getProduct().getProId() == proId).toList();
         if (demandList.isEmpty())
             createNewDemand(pub, product, demandDTO);
-        if (demandList.size()>0)
-            for (Demand demand : demandList){
+        if (demandList.size() > 0)
+            for (Demand demand : demandList) {
                 demand.setQuantity(demand.getQuantity() + 1);
                 demandCRUDRepository.save(demand);
                 demandDTO.setName(demand.getProduct().getName());
@@ -51,6 +51,7 @@ public class DemandService {
                 demandDTO.setPubId(demand.getPub().getPubId());
             }
     }
+
     private void createNewDemand(Pub pub, Product product, DemandDTO demandDTO) {
         Demand demand = new Demand();
         product.newDemand(demand);
@@ -79,14 +80,20 @@ public class DemandService {
         for (Demand demands : demandCRUDRepository.findAll()) {
             DemandDTO demandDTO = new DemandDTO();
             if (demands.getProduct().getProId() == proId && demands.getPub().getPubId() == pubId) {
-                demands.setQuantity(demands.getQuantity() - 1);
-                demandCRUDRepository.save(demands);
-                demandDTO.setQuantity(demands.getQuantity());
-                demandDTO.setName(demands.getProduct().getName());
-                demandDTO.setPubName(demands.getPub().getPubName());
-                demandDTO.setProId(demands.getProduct().getProId());
-                demandDTO.setPubId(demands.getPub().getPubId());
-                demandDTOList.add(demandDTO);
+                if (demands.getQuantity() >= 1) {
+                    demands.setQuantity(demands.getQuantity() - 1);
+                    if (demands.getQuantity() >= 1) {
+                        demandCRUDRepository.save(demands);
+                        demandDTO.setQuantity(demands.getQuantity());
+                        demandDTO.setName(demands.getProduct().getName());
+                        demandDTO.setPubName(demands.getPub().getPubName());
+                        demandDTO.setProId(demands.getProduct().getProId());
+                        demandDTO.setPubId(demands.getPub().getPubId());
+                        demandDTOList.add(demandDTO);
+                    } else if (demands.getQuantity() == 0) {
+                        demandCRUDRepository.delete(demands);
+                    }
+                }
             }
         }
         return demandDTOList;
@@ -109,9 +116,10 @@ public class DemandService {
         }
         return demandDtoList;
     }
-    public void deleteDemand(int proId, int pubId){
-        for (Demand demands : demandCRUDRepository.findAll()){
-            if (demands.getProduct().getProId()==proId && demands.getPub().getPubId()==pubId){
+
+    public void deleteDemand(int proId, int pubId) {
+        for (Demand demands : demandCRUDRepository.findAll()) {
+            if (demands.getProduct().getProId() == proId && demands.getPub().getPubId() == pubId) {
                 demandCRUDRepository.delete(demands);
             }
         }

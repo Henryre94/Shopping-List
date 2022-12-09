@@ -37,7 +37,7 @@ export const VendorsModule = {
             store.commit('deleteVendor', vendor.venId);
         },
         async editVendor(store, item) {
-            await axios.put("/api/vendors/", item)
+            await axios.put("/api/vendors/" + item.venId, item)
             await store.dispatch('getVendors');
         },
     }
