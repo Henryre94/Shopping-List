@@ -4,7 +4,7 @@
             <TheHeader/>
         <v-spacer></v-spacer>
         <v-container>
-            <router-link to="/"><v-icon >mdi-home-outline</v-icon></router-link>
+            <router-link to="/"><v-icon large >mdi-home-outline</v-icon></router-link>
         </v-container>
         <v-data-table
                 @click:row="handleClick"
@@ -50,9 +50,9 @@
 
                             <v-card-actions>
                                 <v-spacer></v-spacer>
-                                <v-btn color="blue darken-1" text @click="close">Abbrechen</v-btn>
-                                <v-btn color="blue darken-1" text @click="createVendor" v-if="editedItem.venId === ''">Anlegen</v-btn>
-                                <v-btn color="blue darken-1" text @click="update" v-else>Speichern</v-btn>
+                                <v-btn color="red" @click="close">Abbrechen</v-btn>
+                                <v-btn color="green" @click="createVendor" v-if="editedItem.venId === ''">Anlegen</v-btn>
+                                <v-btn color="green" @click="update" v-else>Speichern</v-btn>
                             </v-card-actions>
                         </v-card>
                     </v-dialog>
@@ -61,8 +61,8 @@
                             <v-card-title class="text-h5">Achtung! Der Händler wird mit sämtlichen Produkten gelöscht !</v-card-title>
                             <v-card-actions>
                                 <v-spacer></v-spacer>
-                                <v-btn color="blue darken-1" text @click="closeDelete">Abbrechen</v-btn>
-                                <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
+                                <v-btn color="red" @click="closeDelete">Abbrechen</v-btn>
+                                <v-btn color="green" @click="deleteItemConfirm">OK</v-btn>
                                 <v-spacer></v-spacer>
                             </v-card-actions>
                         </v-card>
@@ -70,13 +70,13 @@
                 </v-toolbar>
             </template>
             <template #item.actions="{ item }" >
-                <v-icon  class="mr-2" @click.stop="editItem(item)">
+                <v-icon large color="black" class="mr-6" @click.stop="editItem(item)">
                     mdi-pencil
                 </v-icon>
-                <v-icon  @click.stop="deleteItem(item)">
+                <v-icon large color="red" class="mr-6" @click.stop="deleteItem(item)">
                     mdi-delete
                 </v-icon>
-                <v-icon  @click="shoppingList(item)">
+                <v-icon large color="blue" class="mr-6" @click="shoppingList(item)">
                     mdi-cart-plus
                 </v-icon>
             </template>
@@ -104,10 +104,11 @@ export default {
                 align: 'start',
                 sortable: true,
                 value: 'name',
+                mobile: true,
             },
 
 
-            { text: '', value: 'actions', sortable: false },
+            { text: '', value: 'actions', sortable: false, mobile: true, },
         ],
         vendors: [],
         editedIndex: -1,
