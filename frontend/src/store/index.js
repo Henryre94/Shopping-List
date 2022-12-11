@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import {ProductsModule} from "@/store/modules/ProductsModule";
 import {VendorsModule} from "@/store/modules/VendorsModule";
 import {DemandsModule} from "@/store/modules/DemandsModule";
+import {LoginModule} from "@/store/modules/LoginModule"
 
 Vue.use(Vuex)
 
@@ -13,6 +14,7 @@ export default new Vuex.Store({
     modules: {
         productsModule: ProductsModule,
         vendorsModule: VendorsModule,
-        demandsModule: DemandsModule
+        demandsModule: DemandsModule,
+        loginModule: LoginModule
     }
 })
