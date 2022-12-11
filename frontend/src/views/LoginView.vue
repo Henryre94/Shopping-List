@@ -6,15 +6,15 @@
 
                     <v-card-text>
                         <v-form class="log">
-                            <v-text-field outlined class="username" dark color="white" name="login" label="Benutzername"
+                            <v-text-field v-model="username" outlined class="username" dark color="white" name="login" label="Benutzername"
                                           type="text" :rules="[rules.required]"></v-text-field>
-                            <v-text-field outlined dark :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
+                            <v-text-field v-model="password" outlined dark :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
                                           :rules="[rules.required, rules.min]" :type="show ? 'text' : 'password'"
                                           name="input-10-2"
                                           label="Passwort" value="" class="input-group--focused"
                                           @click:append="show = !show">
                             </v-text-field>
-                            <v-btn id="button" to="">Login</v-btn>
+                            <v-btn @click.prevent="login()" id="button" to="">Login</v-btn>
                         </v-form>
 
                     </v-card-text>
@@ -36,14 +36,24 @@ export default {
     },
     data() {
         return {
+            username: '',
+            password: '',
+            error: false,
             show: false,
-            password: 'Password',
             rules: {
                 required: value => !!value || 'Erforderlich',
                 min: v => v.length >= 8 || 'Min 8 Zeichen',
             },
         }
     },
+    methods: {
+        login() {
+            this.$store.dispatch('loginUser', {
+                username: this.username,
+                password: this.password
+            })
+        }
+    }
 };
 </script>
 
