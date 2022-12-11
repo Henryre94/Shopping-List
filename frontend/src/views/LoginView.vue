@@ -36,8 +36,10 @@ export default {
     },
     data() {
         return {
-            username: '',
-            password: '',
+           
+                username: '',
+                password: '',
+          
             error: false,
             show: false,
             rules: {
@@ -51,9 +53,14 @@ export default {
             this.$store.dispatch('loginUser', {
                 username: this.username,
                 password: this.password
-            })
+            });
         }
-    }
+    },
+    // in arbeit
+    //created() {
+    //    axios.defaults.headers.common['Authorization']= 'Bearer' + localStorage.getItem('blog_token');
+    //    this.$store.dispatch('currentUser/getUser');
+   // }
 };
 </script>
 
