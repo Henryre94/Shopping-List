@@ -1,5 +1,6 @@
 package at.aschowurscht.dev.saadi.erp.backend.pubs;
 
+import at.aschowurscht.dev.saadi.erp.backend.credentials.Credentials;
 import at.aschowurscht.dev.saadi.erp.backend.demands.Demand;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -19,6 +20,10 @@ import java.util.List;
 @Table(name = "pubs")
 public class Pub {
 
+    @OneToOne
+    @JoinColumn(name = "credentials", referencedColumnName = "username")
+    private Credentials credentials;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int pubId;
@@ -31,8 +36,9 @@ public class Pub {
     @JsonIgnore
     private List<Demand> productsOnDemand = new ArrayList<>();
 
-    public Pub(String pubName) {
+    public Pub(String pubName,Credentials credentials) {
         this.pubName = pubName;
+        this.credentials = credentials;
     }
 
     public void newDemand(Demand demand) {
