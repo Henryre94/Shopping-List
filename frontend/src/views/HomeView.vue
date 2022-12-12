@@ -2,7 +2,7 @@
     <div>
 
         <TheHeader/>
-
+        <router-link to="/login">Login</router-link>
         |
         <router-link to="/haendler">Händler</router-link>
         |
