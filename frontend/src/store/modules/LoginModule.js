@@ -12,15 +12,16 @@ axios.interceptors.request.use(config => {
 })
 */
 
-axios.defaults.headers.common["Authorization"] = "Bearer" + localStorage.getItem("blog_token");
+axios.defaults.headers.common["Authorization"] = "Bearer" + localStorage.getItem("token");
 
 export const LoginModule = {
     state: {
         user: {},
+       
     },
     getters: {},
     mutations: {
-        setCurrentUser(state, data) {
+        setUser(state, data) {
             state.user = data;
         },
     },
@@ -32,24 +33,21 @@ export const LoginModule = {
                         username: user.username,
                         password: user.password,
                     },
-                })
-                .then((response) => {
-                    console.log(response.data);
-                    if (response.data.access_token) {
-                        //save token
-                        localStorage.setItem("blog_token", response.data.access_token);
-                        // noch filtern wer was sehen darf
-                          this.$router.push('/')
-                       // window.location.replace("/");
-                    }
                 });
+                localStorage.setItem("token", response.data.token);
+                context.commit('setCurrentUser', response.data.token);
+
+              //  .then((response) => {
+              //      console.log(response.data);
+              //      if (response.data.access_token) {
+                        //save token
+               //         localStorage.setItem("blog_token", response.data.access_token);
+                        // noch filtern wer was sehen darf
+                        //  this.$router.push('/')
+                       // window.location.replace("/");
+              //      }
+              //  });
              // context.commit('setCurrentUser', response.data);
         },
-        // async getUser({ commit }) {
-        //     await axios.get('/api/token') // backend nachschauen wenn fertig
-        //     .then(response => {
-        //         commit('setCurrentUser', response.data);
-        //     })
-        // }
     },
 };
