@@ -16,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 
+
 import static at.aschowurscht.dev.saadi.erp.backend.security.Role.ADMIN;
 import static at.aschowurscht.dev.saadi.erp.backend.security.Role.PUB;
 import static org.springframework.http.HttpMethod.*;
@@ -63,6 +64,5 @@ public class SecurityConfiguration {
                 .build();
 
     }
-
-
 }
+
