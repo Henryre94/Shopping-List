@@ -1,5 +1,7 @@
 package at.aschowurscht.dev.saadi.erp.backend.vendors;
 
+import at.aschowurscht.dev.saadi.erp.backend.demands.DemandService;
+import at.aschowurscht.dev.saadi.erp.backend.dtos.DemandDTO;
 import at.aschowurscht.dev.saadi.erp.backend.dtos.VendorDTO;
 import at.aschowurscht.dev.saadi.erp.backend.products.Product;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +16,7 @@ import java.util.List;
 public class VendorController {
     final
     VendorService vendorService;
+    final DemandService demandService;
 
     @PostMapping()
     public void createVendor(@RequestBody Vendor vendor) {
@@ -28,6 +31,10 @@ public class VendorController {
     @GetMapping("/{venId}/products")
     public List<Product> getAllProductsFromVendor(@PathVariable int venId) {
         return vendorService.getAllProductsFromVendor(venId);
+    }
+    @GetMapping("/{venId}/demands")
+    public List<DemandDTO> getAllDemandsFromVendor(@PathVariable int venId) {
+        return demandService.getAllDemandsFromVendor(venId);
     }
 
     @GetMapping()
