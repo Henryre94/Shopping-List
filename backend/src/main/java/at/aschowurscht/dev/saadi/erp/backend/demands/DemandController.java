@@ -23,11 +23,6 @@ public class DemandController {
         return demandService.decreaseQuantity(proId, pubId);
     }
 
-    @GetMapping("/vendors/{venId}")
-    @ResponseBody
-    public List<DemandDTO> getAllDemandsFromVendor(@PathVariable int venId) {
-        return demandService.getAllDemandsFromVendor(venId);
-    }
     @DeleteMapping("/{proId}/pubs/{pubId}")
     public void deleteDemand(@PathVariable int proId,@PathVariable int pubId){
         demandService.deleteDemand(proId,pubId);
