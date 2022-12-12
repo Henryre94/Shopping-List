@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 
 /*  Sebi 
 axios.interceptors.request.use(config => {
@@ -12,37 +12,38 @@ axios.interceptors.request.use(config => {
 })
 */
 
-axios.defaults.headers.common['Authorization'] = 'Bearer' + localStorage.getItem('blog_token');
+axios.defaults.headers.common["Authorization"] = "Bearer" + localStorage.getItem("blog_token");
 
 export const LoginModule = {
     state: {
-        user: {}
+        user: {},
     },
     getters: {},
     mutations: {
         setCurrentUser(state, data) {
             state.user = data;
-        }
+        },
     },
     actions: {
         async loginUser(context, user) {
-            await axios.get('/api/token', {
-                auth: {
-                    username: user.username,
-                    password: user.password
-                }
-            })
-                .then(response => {
-                    console.log(response.data)
+            const response = await axios
+                .get("/api/token", {
+                    auth: {
+                        username: user.username,
+                        password: user.password,
+                    },
+                })
+                .then((response) => {
+                    console.log(response.data);
                     if (response.data.access_token) {
                         //save token
-                        localStorage.setItem('blog_token', response.data.access_token)
+                        localStorage.setItem("blog_token", response.data.access_token);
                         // noch filtern wer was sehen darf
-                        this.$router.push('/home')
-                      //  window.location.replace('/home')
+                          this.$router.push('/')
+                       // window.location.replace("/");
                     }
-                })
-           //  context.commit('setCurrentUser', response.data.user);
+                });
+             // context.commit('setCurrentUser', response.data);
         },
         // async getUser({ commit }) {
         //     await axios.get('/api/token') // backend nachschauen wenn fertig
@@ -50,6 +51,5 @@ export const LoginModule = {
         //         commit('setCurrentUser', response.data);
         //     })
         // }
-
-    }
-}
+    },
+};
