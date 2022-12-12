@@ -36,15 +36,13 @@ export default {
     },
     data() {
         return {
-           
-                username: '',
-                password: '',
-          
+            username: '',
+            password: '',
             error: false,
             show: false,
             rules: {
                 required: value => !!value || 'Erforderlich',
-                min: v => v.length >= 8 || 'Min 8 Zeichen',
+                min: v => v.length >= 4 || 'Min 4 Zeichen',
             },
         }
     },
