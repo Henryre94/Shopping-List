@@ -37,11 +37,11 @@ public class ErpApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         try {
-            credentials.save("admin","admin",true);
-            credentials.save("1090","1090",false);
-            credentials.save("1160","1160",false);
             pubCRUDRepository.save(new Pub("Cafe SAADI 1090"));
             pubCRUDRepository.save(new Pub("Cafe SAADI 1160"));
+            credentials.save("admin","admin",true,null);
+            credentials.save("1090","1090",false,pubCRUDRepository.findPubByPubName("Cafe SAADI 1090"));
+            credentials.save("1160","1160",false,pubCRUDRepository.findPubByPubName("Cafe SAADI 1160"));
         }catch (Exception e){
             System.err.println("Fehler beim einfügen des Datensatzes: " + e.getMessage());
         }

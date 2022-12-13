@@ -47,6 +47,8 @@ public class SecurityConfiguration {
                 .csrf().disable()
                 .authorizeHttpRequests(authz -> authz
                         .antMatchers("/h2-console/**").permitAll()
+                        .antMatchers("/api/token").permitAll()
+                        .antMatchers("/api/credentials").permitAll()
                         .antMatchers(GET,"/api/products").hasAnyAuthority(ADMIN.getRole(), PUB.getRole())
                         .antMatchers(GET,"/api/products/**").hasAnyAuthority(ADMIN.getRole(), PUB.getRole())
                         .antMatchers("/api/products/**").hasAuthority(ADMIN.getRole())
@@ -55,7 +57,6 @@ public class SecurityConfiguration {
                         .antMatchers(GET,"/api/demands/**").hasAuthority(ADMIN.getRole())
                         .antMatchers("/api/vendors/**").hasAuthority(ADMIN.getRole())
                         .antMatchers("/api/pubs/**").hasAuthority(ADMIN.getRole())
-                        .antMatchers("/api/token").permitAll()
                         .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
