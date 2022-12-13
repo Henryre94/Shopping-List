@@ -13,7 +13,8 @@ export const LoginModule = {
     actions: {
         async loginUser(context, user) {
             const response = await axios
-                .get("/api/token", {
+               .get("/api/token", {
+              //  .get("/api/credentials", {
                     auth: {
                         username: user.username,
                         password: user.password,
