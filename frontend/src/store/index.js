@@ -4,8 +4,11 @@ import {ProductsModule} from "@/store/modules/ProductsModule";
 import {VendorsModule} from "@/store/modules/VendorsModule";
 import {DemandsModule} from "@/store/modules/DemandsModule";
 import {LoginModule} from "@/store/modules/LoginModule"
+import axios from "axios";
 
 Vue.use(Vuex)
+
+axios.defaults.headers.common["Authorization"] = "Bearer " + localStorage.getItem("token");
 
 export default new Vuex.Store({
     state: {},
