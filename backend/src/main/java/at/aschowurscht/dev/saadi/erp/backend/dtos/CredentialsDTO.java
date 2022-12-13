@@ -5,12 +5,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 public class CredentialsDTO {
-    int pubId;
-    String username;
-    boolean isAdmin;
+    private Integer pubId;
+    private String username;
+    private boolean isAdmin;
 }
