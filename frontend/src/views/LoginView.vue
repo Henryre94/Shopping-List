@@ -73,11 +73,6 @@ export default {
             }
         },
     },
-    // in arbeit
-    //created() {
-    //    axios.defaults.headers.common['Authorization']= 'Bearer' + localStorage.getItem('blog_token');
-    //    this.$store.dispatch('currentUser/getUser');
-    // }
 };
 </script>
 
