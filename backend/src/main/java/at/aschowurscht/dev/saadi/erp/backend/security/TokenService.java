@@ -1,5 +1,9 @@
 package at.aschowurscht.dev.saadi.erp.backend.security;
 
+import at.aschowurscht.dev.saadi.erp.backend.credentials.CredentialRepository;
+import at.aschowurscht.dev.saadi.erp.backend.credentials.Credentials;
+import at.aschowurscht.dev.saadi.erp.backend.dtos.AuthorizationDTO;
+import at.aschowurscht.dev.saadi.erp.backend.dtos.CredentialsDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -18,8 +22,9 @@ import static java.time.temporal.ChronoUnit.HOURS;
 @RequiredArgsConstructor
 public class TokenService {
     private final JwtEncoder encoder;
+    private final CredentialRepository credentials;
 
-    public String generate(Authentication authentication) {
+    public AuthorizationDTO generate(Authentication authentication) {
         Instant now = Instant.now();
         String scope = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
@@ -31,8 +36,18 @@ public class TokenService {
                 .subject(authentication.getName())
                 .claim("scope", scope)
                 .build();
-        return encoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
+        Credentials credentials1 = credentials.findByUsername(authentication.getName());
+        Integer pubId;
+        if (credentials1.getPub() != null){
+            pubId = credentials1.getPub().getPubId();
+        }else{
+            pubId = null;
+        }
+        CredentialsDTO credentialsDTO = new CredentialsDTO(pubId,credentials1.getUsername(),credentials1.getIsAdmin());
+        String tokenValue = encoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
+        return new AuthorizationDTO(tokenValue,credentialsDTO);
     }
 }
+
 
 

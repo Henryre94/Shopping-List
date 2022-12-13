@@ -1,5 +1,7 @@
 package at.aschowurscht.dev.saadi.erp.backend.controller;
 
+
+import at.aschowurscht.dev.saadi.erp.backend.dtos.AuthorizationDTO;
 import at.aschowurscht.dev.saadi.erp.backend.security.TokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -14,7 +16,7 @@ public class AuthController {
     private final TokenService tokens;
 
     @GetMapping
-    public String generate(Authentication authentication) {
+    public AuthorizationDTO generate(Authentication authentication) {
         return tokens.generate(authentication);
     }
 
