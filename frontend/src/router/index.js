@@ -15,7 +15,7 @@ const adminGuard = (to, from, next) => {
     if (store.state.loginModule.currentUser?.admin) {
         next();
     } else {
-        next('/')
+       next('/')
     }
 };
 
