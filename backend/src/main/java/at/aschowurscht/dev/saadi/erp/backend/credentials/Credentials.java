@@ -2,17 +2,17 @@ package at.aschowurscht.dev.saadi.erp.backend.credentials;
 
 import at.aschowurscht.dev.saadi.erp.backend.pubs.Pub;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Entity
-@NoArgsConstructor @AllArgsConstructor @Builder @Getter
+@NoArgsConstructor @Builder @Getter
 public class Credentials {
 
     @Id
@@ -23,8 +23,15 @@ public class Credentials {
     Boolean isAdmin;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "credentials")
+    @OneToOne
+    @JoinColumn(name = "pubId", referencedColumnName = "pubId")
     Pub pub;
 
+    public Credentials(String username, String password, Boolean isAdmin, Pub pub) {
+        this.username = username;
+        this.password = password;
+        this.isAdmin = isAdmin;
+        this.pub = pub;
+    }
 }
 

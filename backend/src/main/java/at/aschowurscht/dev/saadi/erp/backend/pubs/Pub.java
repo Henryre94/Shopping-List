@@ -20,8 +20,7 @@ import java.util.List;
 @Table(name = "pubs")
 public class Pub {
 
-    @OneToOne
-    @JoinColumn(name = "credentials", referencedColumnName = "username")
+    @OneToOne(mappedBy = "pub")
     private Credentials credentials;
 
     @Id
@@ -36,9 +35,9 @@ public class Pub {
     @JsonIgnore
     private List<Demand> productsOnDemand = new ArrayList<>();
 
-    public Pub(String pubName,Credentials credentials) {
+    public Pub(String pubName) {
         this.pubName = pubName;
-        this.credentials = credentials;
+
     }
 
     public void newDemand(Demand demand) {
