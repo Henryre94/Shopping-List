@@ -23,5 +23,9 @@ export const LoginModule = {
                 localStorage.setItem("token", response.data.token);
                 context.commit('setCurrentUser', response.data.credentials);
         },
+        logoutCurrentUser(context) {
+            localStorage.removeItem('token');
+           context.commit('setCurrentUser', null);
+        }
     },
 };
