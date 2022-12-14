@@ -1,7 +1,9 @@
 package at.aschowurscht.dev.saadi.erp.backend.demands;
 
 import at.aschowurscht.dev.saadi.erp.backend.dtos.DemandDTO;
+import at.aschowurscht.dev.saadi.erp.backend.pubs.Pub;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,9 +15,10 @@ import java.util.List;
 public class DemandController {
     final DemandService demandService;
 
-    @PostMapping("/{proId}/pubs/{pubId}")
-    public DemandDTO createDemand(@PathVariable int proId, @PathVariable int pubId) {
-        return demandService.createDemand(proId, pubId);
+    @PostMapping("/{proId}")
+    public DemandDTO createDemand(@PathVariable int proId, Authentication authentication) {
+        Pub pub = (Pub) authentication.getCredentials();
+        return demandService.createDemand(proId, pub);
     }
 
     @PutMapping("/{proId}/pubs/{pubId}")
