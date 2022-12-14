@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class CredentialService {
+public class CredentialsService {
     final CredentialRepository credentials;
     final PasswordEncoder passwordEncoder;
 

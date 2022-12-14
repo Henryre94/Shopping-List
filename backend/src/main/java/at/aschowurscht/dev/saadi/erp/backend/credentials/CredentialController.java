@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin
 @RequiredArgsConstructor
 public class CredentialController {
-    final CredentialService credentialService;
+    final CredentialsService credentialsService;
 
     @GetMapping
     public CredentialsDTO getCredentials(Authentication authentication){
-        return credentialService.getCredentials(authentication);
+        return credentialsService.getCredentials(authentication);
     }
 }
