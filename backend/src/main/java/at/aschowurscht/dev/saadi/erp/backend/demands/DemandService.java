@@ -45,7 +45,7 @@ public class DemandService {
                 demand.setQuantity(demand.getQuantity() + 1);
                 demandCRUDRepository.save(demand);
                 demandDTO.setName(demand.getProduct().getName());
-                demandDTO.setQuantity(demand.getQuantity());
+                demandDTO.setQuantity(demandCRUDRepository.findAmountOfQuantity(pubId));
                 demandDTO.setPubName(demand.getPub().getPubName());
                 demandDTO.setProId(demand.getProduct().getProId());
                 demandDTO.setPubId(demand.getPub().getPubId());
@@ -84,7 +84,7 @@ public class DemandService {
                     demands.setQuantity(demands.getQuantity() - 1);
                     if (demands.getQuantity() >= 1) {
                         demandCRUDRepository.save(demands);
-                        demandDTO.setQuantity(demands.getQuantity());
+                        demandDTO.setQuantity(demandCRUDRepository.findAmountOfQuantity(pubId));
                         demandDTO.setName(demands.getProduct().getName());
                         demandDTO.setPubName(demands.getPub().getPubName());
                         demandDTO.setProId(demands.getProduct().getProId());
