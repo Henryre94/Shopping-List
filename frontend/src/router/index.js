@@ -34,13 +34,13 @@ const routes = [
         path: '/product',
         name: 'product',
         component: VendorsProductView,
-       // beforeEnter: adminGuard
+        beforeEnter: adminGuard
     },
     {
         path: '/vendor',
         name: 'vendor',
         component: VendorsView,
-       // beforeEnter: adminGuard
+        beforeEnter: adminGuard
     },
     {
         path: '/pub',
@@ -50,18 +50,18 @@ const routes = [
     {
         path: '/produktliste/:vendor/:vendorId',
         component: VendorsProductView,
-       // beforeEnter: adminGuard
+        beforeEnter: adminGuard
     },
     {
         path: '/haendler',
         component: VendorsAddView,
-        //beforeEnter: adminGuard
+        beforeEnter: adminGuard
     },
     {
         path: '/einkaufsliste/:vendor/:vendorId',
         name: 'shopping',
         component: AdminDemandView,
-       // beforeEnter: adminGuard
+        beforeEnter: adminGuard
     },
 ]
 const router = new VueRouter({
