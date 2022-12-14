@@ -67,7 +67,7 @@ export default {
                     username: this.username,
                     password: this.password,
                 });
-                this.$router.push('/')
+               await this.$router.push('/')
             } catch (error) {
                 console.error(error);
             }
