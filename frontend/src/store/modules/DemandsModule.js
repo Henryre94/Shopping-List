@@ -13,7 +13,7 @@ export const DemandsModule = {
                 } else {
                     state.demands.push({
                         proId: proId,
-                        pubId: pubId,
+                       // pubId: pubId,
                         quantity: 1
                     })
                 }
