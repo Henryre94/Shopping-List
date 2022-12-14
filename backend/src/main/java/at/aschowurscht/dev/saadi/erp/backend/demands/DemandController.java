@@ -22,13 +22,13 @@ public class DemandController {
         return demandService.createDemand(proId);
     }
 
-    @PutMapping("/{proId}/pubs/{pubId}")
-    public List<DemandDTO> decreaseQuantity(@PathVariable int proId, @PathVariable int pubId) {
-        return demandService.decreaseQuantity(proId, pubId);
+    @PutMapping("/{proId}")
+    public List<DemandDTO> decreaseQuantity(@PathVariable int proId) {
+        return demandService.decreaseQuantity(proId);
     }
 
-    @DeleteMapping("/{proId}/pubs/{pubId}")
-    public void deleteDemand(@PathVariable int proId,@PathVariable int pubId){
-        demandService.deleteDemand(proId,pubId);
+    @DeleteMapping("/{proId}")
+    public void deleteDemand(@PathVariable int proId){
+        demandService.deleteDemand(proId);
     }
 }

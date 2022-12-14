@@ -86,7 +86,9 @@ public class DemandService {
         demandDTO.setPubId(pub.getPubId());
     }
 
-    public List<DemandDTO> decreaseQuantity(int proId, int pubId) {
+    public List<DemandDTO> decreaseQuantity(int proId) {
+        Pub pub = (Pub) getPub();
+        int pubId = pub.getPubId();
         List<DemandDTO> demandDTOList = new ArrayList<>();
         for (Demand demands : demandRepository.findAll()) {
             DemandDTO demandDTO = new DemandDTO();
@@ -128,7 +130,9 @@ public class DemandService {
         return demandDtoList;
     }
 
-    public void deleteDemand(int proId, int pubId) {
+    public void deleteDemand(int proId) {
+        Pub pub = (Pub) getPub();
+        int pubId = pub.getPubId();
         for (Demand demands : demandRepository.findAll()) {
             if (demands.getProduct().getProId() == proId && demands.getPub().getPubId() == pubId) {
                 demandRepository.delete(demands);
