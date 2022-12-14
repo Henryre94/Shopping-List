@@ -21,8 +21,13 @@ export const LoginModule = {
                     },
                 });
                 localStorage.setItem("token", response.data.token);
-                context.commit('setCurrentUser', response.data.credentials);
+                context.commit('setCurrentUser', response.data.credentialsDTO);
         },
+         async currentUser(context) {
+            const response = await axios.get('/api/credentials')
+            context.commit('setCurrentUser', response.data)
+         },
+
         logoutCurrentUser(context) {
             localStorage.removeItem('token');
            context.commit('setCurrentUser', null);
