@@ -1,12 +1,12 @@
 package at.aschowurscht.dev.saadi.erp.backend.products;
 
 
-import at.aschowurscht.dev.saadi.erp.backend.demands.DemandCRUDRepository;
+import at.aschowurscht.dev.saadi.erp.backend.demands.DemandRepository;
 import at.aschowurscht.dev.saadi.erp.backend.dtos.ProductDTO;
 import at.aschowurscht.dev.saadi.erp.backend.dtos.ProductNoIdDTO;
-import at.aschowurscht.dev.saadi.erp.backend.pubs.PubCRUDRepository;
+import at.aschowurscht.dev.saadi.erp.backend.pubs.PubRepository;
 import at.aschowurscht.dev.saadi.erp.backend.vendors.Vendor;
-import at.aschowurscht.dev.saadi.erp.backend.vendors.VendorCRUDRepository;
+import at.aschowurscht.dev.saadi.erp.backend.vendors.VendorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,23 +17,23 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class ProductService {
-    final ProductCRUDRepository productCRUDRepository;
-    final VendorCRUDRepository vendorCRUDRepository;
-    final PubCRUDRepository pubCRUDRepository;
-    final DemandCRUDRepository demandCRUDRepository;
+    final ProductRepository productRepository;
+    final VendorRepository vendorRepository;
+    final PubRepository pubRepository;
+    final DemandRepository demandRepository;
 
     public ProductNoIdDTO createProduct(ProductNoIdDTO productNoIdDTO, int venId) {
         Product product = new Product();
-        Vendor vendor = vendorCRUDRepository.findById(venId).orElseThrow(RuntimeException::new);
+        Vendor vendor = vendorRepository.findById(venId).orElseThrow(RuntimeException::new);
         product.setName(productNoIdDTO.getName());
         product.setUnit(productNoIdDTO.getUnit());
         product.setVendor(vendor);
-        productCRUDRepository.save(product);
+        productRepository.save(product);
         return productNoIdDTO;
     }
 
     public ProductDTO getProductById(int proId) {
-        Product product = productCRUDRepository.findById(proId).orElseThrow(() -> new IllegalStateException("Produkt ID nicht gefunden: " + proId));
+        Product product = productRepository.findById(proId).orElseThrow(() -> new IllegalStateException("Produkt ID nicht gefunden: " + proId));
         ProductDTO productDto = new ProductDTO();
         productDto.setName(product.getName());
         productDto.setUnit(product.getUnit());
@@ -42,7 +42,7 @@ public class ProductService {
     }
 
     public List<ProductDTO> getAllProduct() {
-        return (productCRUDRepository
+        return (productRepository
                 .findAll())
                 .stream()
                 .map(this::convertToDto)
@@ -58,11 +58,11 @@ public class ProductService {
     }
 
     public ProductDTO updateProduct(Product product, int proId) {
-        Product updateProduct = productCRUDRepository.findById(proId).orElseThrow(() -> new IllegalStateException("Produkt ID nicht gefunden: " + proId));
+        Product updateProduct = productRepository.findById(proId).orElseThrow(() -> new IllegalStateException("Produkt ID nicht gefunden: " + proId));
         ProductDTO productDto = new ProductDTO();
         updateProduct.setName(product.getName());
         updateProduct.setUnit(product.getUnit());
-        productCRUDRepository.save(updateProduct);
+        productRepository.save(updateProduct);
         productDto.setName(product.getName());
         productDto.setUnit(product.getUnit());
         productDto.setProId(updateProduct.getProId());
@@ -70,7 +70,7 @@ public class ProductService {
     }
 
     public void deleteProduct(int proId) {
-        productCRUDRepository.deleteById(proId);
+        productRepository.deleteById(proId);
     }
 
 }

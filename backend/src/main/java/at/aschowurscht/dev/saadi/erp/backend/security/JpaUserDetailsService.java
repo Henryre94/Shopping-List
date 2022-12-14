@@ -1,7 +1,7 @@
 package at.aschowurscht.dev.saadi.erp.backend.security;
 
 import at.aschowurscht.dev.saadi.erp.backend.credentials.CredentialRepository;
-import at.aschowurscht.dev.saadi.erp.backend.credentials.Credentials;
+import at.aschowurscht.dev.saadi.erp.backend.credentials.Credential;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -23,14 +23,14 @@ public class JpaUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Credentials credentials = this.credentials.findByUsername(username);
-        if (credentials != null) {
+        Credential credential = this.credentials.findByUsername(username);
+        if (credential != null) {
             List<GrantedAuthority> authorities = new ArrayList<>();
-            if (credentials.getIsAdmin())
+            if (credential.getIsAdmin())
                 authorities.add(ADMIN.grant());
-            if (!credentials.getIsAdmin())
+            if (!credential.getIsAdmin())
                 authorities.add(PUB.grant());
-            return new User(credentials.getUsername(), credentials.getPassword(), authorities);
+            return new User(credential.getUsername(), credential.getPassword(), authorities);
         }
         throw new UsernameNotFoundException(username);
     }

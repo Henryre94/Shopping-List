@@ -13,7 +13,7 @@ import javax.persistence.OneToOne;
 
 @Entity
 @NoArgsConstructor @Builder @Getter
-public class Credentials {
+public class Credential {
 
     @Id
     String username;
@@ -27,7 +27,7 @@ public class Credentials {
     @JoinColumn(name = "pubId", referencedColumnName = "pubId")
     Pub pub;
 
-    public Credentials(String username, String password, Boolean isAdmin, Pub pub) {
+    public Credential(String username, String password, Boolean isAdmin, Pub pub) {
         this.username = username;
         this.password = password;
         this.isAdmin = isAdmin;

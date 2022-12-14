@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/credentials")
 @CrossOrigin
 @RequiredArgsConstructor
-public class CredentialsController {
+public class CredentialController {
     final CredentialService credentialService;
 
     @GetMapping
