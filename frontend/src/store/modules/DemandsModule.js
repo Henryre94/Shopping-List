@@ -3,7 +3,7 @@ import axios from "axios";
 export const DemandsModule = {
     state: {
         demands: [],
-        pubId: 1
+        pubId: ''
     },
         mutations: {
             increaseDemands(state, proId) {
@@ -13,7 +13,7 @@ export const DemandsModule = {
                 } else {
                     state.demands.push({
                         proId: proId,
-                        pubId: 1,
+                        pubId: pubId,
                         quantity: 1
                     })
                 }
