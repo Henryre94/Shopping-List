@@ -39,11 +39,11 @@ public class DemandService {
             createNewDemand(pubId, product, demandDTO);
         }
         if (demandList.size() > 0)
-            createDemandDTOFromDemandList(proId, pubId, product, demandDTO);
+            checkExistenceOfDemand(proId, pubId, product, demandDTO);
         return demandDTO;
     }
 
-    private void createDemandDTOFromDemandList(int proId, int pubId, Product product, DemandDTO demandDTO) {
+    private void checkExistenceOfDemand(int proId, int pubId, Product product, DemandDTO demandDTO) {
         List<Demand> demandList = demandRepository
                 .findAll()
                 .stream()
@@ -55,7 +55,7 @@ public class DemandService {
                 demand.setQuantity(demand.getQuantity() + 1);
                 demandRepository.save(demand);
                 demandDTO.setName(demand.getProduct().getName());
-                demandDTO.setQuantity(demand.getQuantity());
+                demandDTO.setQuantity(demandRepository.findAmountOfQuantity(pubId));
                 demandDTO.setPubName(demand.getPub().getPubName());
                 demandDTO.setProId(demand.getProduct().getProId());
                 demandDTO.setPubId(demand.getPub().getPubId());
@@ -80,7 +80,7 @@ public class DemandService {
         productRepository.save(product);
 
         demandDTO.setName(product.getName());
-        demandDTO.setQuantity(demand.getQuantity());
+        demandDTO.setQuantity(demandRepository.findAmountOfQuantity(pubId));
         demandDTO.setPubName(pub.getPubName());
         demandDTO.setProId(product.getProId());
         demandDTO.setPubId(pub.getPubId());
@@ -97,7 +97,7 @@ public class DemandService {
                     demands.setQuantity(demands.getQuantity() - 1);
                     if (demands.getQuantity() >= 1) {
                         demandRepository.save(demands);
-                        demandDTO.setQuantity(demands.getQuantity());
+                        demandDTO.setQuantity(demandRepository.findAmountOfQuantity(pubId));
                         demandDTO.setName(demands.getProduct().getName());
                         demandDTO.setPubName(demands.getPub().getPubName());
                         demandDTO.setProId(demands.getProduct().getProId());
