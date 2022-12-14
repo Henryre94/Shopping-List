@@ -1,7 +1,7 @@
 package at.aschowurscht.dev.saadi.erp.backend;
 
 import at.aschowurscht.dev.saadi.erp.backend.config.RSAKeyPair;
-import at.aschowurscht.dev.saadi.erp.backend.credentials.CredentialService;
+import at.aschowurscht.dev.saadi.erp.backend.credentials.CredentialsService;
 import at.aschowurscht.dev.saadi.erp.backend.demands.DemandRepository;
 import at.aschowurscht.dev.saadi.erp.backend.products.ProductRepository;
 import at.aschowurscht.dev.saadi.erp.backend.pubs.Pub;
@@ -26,7 +26,7 @@ public class ErpApplication implements CommandLineRunner {
     final DemandRepository demandRepository;
 
     final VendorRepository vendorRepository;
-    final CredentialService credentials;
+    final CredentialsService credentials;
 
 
 	public static void main(String[] args) {
