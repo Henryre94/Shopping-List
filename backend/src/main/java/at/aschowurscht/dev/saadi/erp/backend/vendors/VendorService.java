@@ -21,8 +21,9 @@ public class VendorService {
         return new VendorDTO(vendor.getName(), vendor.getAddress(), vendor.getVenId());
     }
 
-    public Vendor getVendorById(int venId) {
-        return vendorRepository.findById(venId).orElseThrow(() -> new IllegalStateException("Vendor ID nicht gefunden: " + venId));
+    public VendorDTO getVendorById(int venId) {
+      Vendor vendor =  vendorRepository.findById(venId).orElseThrow(() -> new IllegalStateException("Vendor ID nicht gefunden: " + venId));
+      return  new VendorDTO(vendor.getName(), vendor.getAddress(), venId);
     }
 
     public List<ProductDTO> getAllProductsFromVendor(int venId) {

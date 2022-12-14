@@ -4,7 +4,6 @@ import at.aschowurscht.dev.saadi.erp.backend.demands.DemandService;
 import at.aschowurscht.dev.saadi.erp.backend.dtos.DemandDTO;
 import at.aschowurscht.dev.saadi.erp.backend.dtos.ProductDTO;
 import at.aschowurscht.dev.saadi.erp.backend.dtos.VendorDTO;
-import at.aschowurscht.dev.saadi.erp.backend.products.Product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,7 +24,7 @@ public class VendorController {
     }
 
     @GetMapping("/{venId}")
-    public Vendor getVendorById(@PathVariable int venId) {
+    public VendorDTO getVendorById(@PathVariable int venId) {
         return vendorService.getVendorById(venId);
     }
 
