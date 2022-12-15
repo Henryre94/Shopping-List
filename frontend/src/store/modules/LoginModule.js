@@ -25,7 +25,7 @@ export const LoginModule = {
         },
          async currentUser(context) {
             const response = await axios.get('/api/credentials')
-            context.commit('setCurrentUser', response.data)
+            context.commit('setCurrentUser', response.data.credentialsDTO)
          },
 
         logoutCurrentUser(context) {
