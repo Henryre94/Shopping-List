@@ -2,12 +2,13 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import VendorsView from '../views/VendorsView.vue'
-import PubView from "@/views/PubView.vue";
-import VendorsProductView from "@/views/VendorsProductView";
-import VendorsAddView from "@/views/VendorsAddView";
-import LoginView from "@/views/LoginView";
+import PubView from "@/views/PubView.vue"
+import VendorsProductView from "@/views/VendorsProductView"
+import VendorsAddView from "@/views/VendorsAddView"
+import LoginView from "@/views/LoginView"
 import AdminDemandView from "@/views/AdminDemandView"
 import store from '@/store'
+
 
 Vue.use(VueRouter)
 
