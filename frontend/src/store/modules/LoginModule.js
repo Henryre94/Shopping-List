@@ -4,7 +4,6 @@ export const LoginModule = {
     state: {
         currentUser: null
     },
-    getters: {},
     mutations: {
         setCurrentUser(state, user) {
             state.currentUser = user;
@@ -14,7 +13,6 @@ export const LoginModule = {
         async loginUser(context, user) {
             const response = await axios
                .get("/api/token", {
-              //  .get("/api/credentials", {
                     auth: {
                         username: user.username,
                         password: user.password,
