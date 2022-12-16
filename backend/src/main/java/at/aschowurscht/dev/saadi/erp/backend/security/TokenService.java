@@ -1,7 +1,7 @@
 package at.aschowurscht.dev.saadi.erp.backend.security;
 
 import at.aschowurscht.dev.saadi.erp.backend.credentials.CredentialRepository;
-import at.aschowurscht.dev.saadi.erp.backend.credentials.Credentials;
+import at.aschowurscht.dev.saadi.erp.backend.credentials.Credential;
 import at.aschowurscht.dev.saadi.erp.backend.dtos.AuthorizationDTO;
 import at.aschowurscht.dev.saadi.erp.backend.dtos.CredentialsDTO;
 import lombok.RequiredArgsConstructor;
@@ -36,14 +36,14 @@ public class TokenService {
                 .subject(authentication.getName())
                 .claim("scope", scope)
                 .build();
-        Credentials credentials1 = credentials.findByUsername(authentication.getName());
+        Credential credential1 = credentials.findByUsername(authentication.getName());
         Integer pubId;
-        if (credentials1.getPub() != null){
-            pubId = credentials1.getPub().getPubId();
+        if (credential1.getPub() != null){
+            pubId = credential1.getPub().getPubId();
         }else{
             pubId = null;
         }
-        CredentialsDTO credentialsDTO = new CredentialsDTO(pubId,credentials1.getUsername(),credentials1.getIsAdmin());
+        CredentialsDTO credentialsDTO = new CredentialsDTO(pubId, credential1.getUsername(), credential1.getIsAdmin());
         String tokenValue = encoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
         return new AuthorizationDTO(tokenValue,credentialsDTO);
     }

@@ -2,8 +2,8 @@ package at.aschowurscht.dev.saadi.erp.backend.vendors;
 
 import at.aschowurscht.dev.saadi.erp.backend.demands.DemandService;
 import at.aschowurscht.dev.saadi.erp.backend.dtos.DemandDTO;
+import at.aschowurscht.dev.saadi.erp.backend.dtos.ProductDTO;
 import at.aschowurscht.dev.saadi.erp.backend.dtos.VendorDTO;
-import at.aschowurscht.dev.saadi.erp.backend.products.Product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,17 +19,17 @@ public class VendorController {
     final DemandService demandService;
 
     @PostMapping()
-    public void createVendor(@RequestBody Vendor vendor) {
-        vendorService.createVendor(vendor);
+    public VendorDTO createVendor(@RequestBody Vendor vendor) {
+       return vendorService.createVendor(vendor);
     }
 
     @GetMapping("/{venId}")
-    public Vendor getVendorById(@PathVariable int venId) {
+    public VendorDTO getVendorById(@PathVariable int venId) {
         return vendorService.getVendorById(venId);
     }
 
     @GetMapping("/{venId}/products")
-    public List<Product> getAllProductsFromVendor(@PathVariable int venId) {
+    public List<ProductDTO> getAllProductsFromVendor(@PathVariable int venId) {
         return vendorService.getAllProductsFromVendor(venId);
     }
     @GetMapping("/{venId}/demands")
@@ -38,7 +38,7 @@ public class VendorController {
     }
 
     @GetMapping()
-    public List<Vendor> getAllVendors() {
+    public List<VendorDTO> getAllVendors() {
         return vendorService.getAllVendors();
     }
 

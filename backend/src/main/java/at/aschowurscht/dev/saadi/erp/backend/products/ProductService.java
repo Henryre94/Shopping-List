@@ -1,12 +1,8 @@
 package at.aschowurscht.dev.saadi.erp.backend.products;
 
-
-import at.aschowurscht.dev.saadi.erp.backend.demands.DemandCRUDRepository;
 import at.aschowurscht.dev.saadi.erp.backend.dtos.ProductDTO;
-import at.aschowurscht.dev.saadi.erp.backend.dtos.ProductNoIdDTO;
-import at.aschowurscht.dev.saadi.erp.backend.pubs.PubCRUDRepository;
 import at.aschowurscht.dev.saadi.erp.backend.vendors.Vendor;
-import at.aschowurscht.dev.saadi.erp.backend.vendors.VendorCRUDRepository;
+import at.aschowurscht.dev.saadi.erp.backend.vendors.VendorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,32 +13,23 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class ProductService {
-    final ProductCRUDRepository productCRUDRepository;
-    final VendorCRUDRepository vendorCRUDRepository;
-    final PubCRUDRepository pubCRUDRepository;
-    final DemandCRUDRepository demandCRUDRepository;
+    final ProductRepository productRepository;
+    final VendorRepository vendorRepository;
 
-    public ProductNoIdDTO createProduct(ProductNoIdDTO productNoIdDTO, int venId) {
-        Product product = new Product();
-        Vendor vendor = vendorCRUDRepository.findById(venId).orElseThrow(RuntimeException::new);
-        product.setName(productNoIdDTO.getName());
-        product.setUnit(productNoIdDTO.getUnit());
+    public ProductDTO createProduct(Product product, int venId) {
+        Vendor vendor = vendorRepository.findById(venId).orElseThrow(RuntimeException::new);
         product.setVendor(vendor);
-        productCRUDRepository.save(product);
-        return productNoIdDTO;
+        productRepository.save(product);
+        return new ProductDTO(product.getName(), product.getUnit(), product.getProId());
     }
 
     public ProductDTO getProductById(int proId) {
-        Product product = productCRUDRepository.findById(proId).orElseThrow(() -> new IllegalStateException("Produkt ID nicht gefunden: " + proId));
-        ProductDTO productDto = new ProductDTO();
-        productDto.setName(product.getName());
-        productDto.setUnit(product.getUnit());
-        productDto.setProId(product.getProId());
-        return productDto;
+        Product product = productRepository.findById(proId).orElseThrow(() -> new IllegalStateException("Produkt ID nicht gefunden: " + proId));
+        return new ProductDTO(product.getName(), product.getUnit(), product.getProId());
     }
 
     public List<ProductDTO> getAllProduct() {
-        return (productCRUDRepository
+        return (productRepository
                 .findAll())
                 .stream()
                 .map(this::convertToDto)
@@ -50,27 +37,19 @@ public class ProductService {
     }
 
     private ProductDTO convertToDto(Product product) {
-        ProductDTO productDto = new ProductDTO();
-        productDto.setName(product.getName());
-        productDto.setUnit(product.getUnit());
-        productDto.setProId(product.getProId());
-        return productDto;
+        return new ProductDTO(product.getName(), product.getUnit(), product.getProId());
     }
 
     public ProductDTO updateProduct(Product product, int proId) {
-        Product updateProduct = productCRUDRepository.findById(proId).orElseThrow(() -> new IllegalStateException("Produkt ID nicht gefunden: " + proId));
-        ProductDTO productDto = new ProductDTO();
+        Product updateProduct = productRepository.findById(proId).orElseThrow(() -> new IllegalStateException("Produkt ID nicht gefunden: " + proId));
         updateProduct.setName(product.getName());
         updateProduct.setUnit(product.getUnit());
-        productCRUDRepository.save(updateProduct);
-        productDto.setName(product.getName());
-        productDto.setUnit(product.getUnit());
-        productDto.setProId(updateProduct.getProId());
-        return productDto;
+        productRepository.save(updateProduct);
+        return new ProductDTO(product.getName(), product.getUnit(), product.getProId());
     }
 
     public void deleteProduct(int proId) {
-        productCRUDRepository.deleteById(proId);
+        productRepository.deleteById(proId);
     }
 
 }

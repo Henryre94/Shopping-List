@@ -1,6 +1,6 @@
 package at.aschowurscht.dev.saadi.erp.backend.pubs;
 
-import at.aschowurscht.dev.saadi.erp.backend.credentials.Credentials;
+import at.aschowurscht.dev.saadi.erp.backend.credentials.Credential;
 import at.aschowurscht.dev.saadi.erp.backend.demands.Demand;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -21,7 +21,7 @@ import java.util.List;
 public class Pub {
 
     @OneToOne(mappedBy = "pub")
-    private Credentials credentials;
+    private Credential credential;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

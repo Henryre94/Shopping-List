@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/credentials")
 @CrossOrigin
 @RequiredArgsConstructor
-public class CredentialsController {
-    final CredentialService credentialService;
+public class CredentialController {
+    final CredentialsService credentialsService;
 
     @GetMapping
     public CredentialsDTO getCredentials(Authentication authentication){
-        return credentialService.getCredentials(authentication);
+        return credentialsService.getCredentials(authentication);
     }
 }
