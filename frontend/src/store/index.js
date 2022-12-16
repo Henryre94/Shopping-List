@@ -8,7 +8,14 @@ import axios from "axios";
 
 Vue.use(Vuex)
 
-axios.defaults.headers.common["Authorization"] = "Bearer " + localStorage.getItem("token");
+axios.interceptors.request.use(request => {
+
+    if(!request.headers.Authorization && localStorage.getItem('token')) {
+
+        request.headers.Authorization = 'Bearer ' + localStorage.getItem('token');
+    }
+return request
+});
 
 export default new Vuex.Store({
     state: {},
