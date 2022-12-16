@@ -3,8 +3,8 @@ import axios from "axios";
 export const DemandsModule = {
     state: {
         demands: [],
-        //pubId: 2
-         pubId: ''
+
+
     },
     mutations: {
         increaseDemands(state, proId) {
@@ -14,7 +14,6 @@ export const DemandsModule = {
             } else {
                 state.demands.push({
                     proId: proId,
-                    //pubId: 2,
                     pubId: '',
                     quantity: 1
                    })
@@ -36,8 +35,8 @@ export const DemandsModule = {
     },
     actions: {
         async increaseDemands(store, proId) {
-            console.log(proId)
-          await axios.post('/api/demands/' + proId + '/pubs/' + store.state.pubId)
+            console.log(store)
+          await axios.post('/api/demands/' + proId + '/pubs/' + store.rootState.loginModule.currentUser.pubId)
                 .then(response => {
                     console.log(response.data);
                 })
@@ -47,7 +46,7 @@ export const DemandsModule = {
             store.commit('increaseDemands', proId)
         },
         async decreaseDemands(store, proId) {
-            await axios.put('/api/demands/' + proId + '/pubs/' + store.state.pubId)
+            await axios.put('/api/demands/' + proId + '/pubs/' + store.rootState.loginModule.currentUser.pubId)
                 .then(response => {
                     console.log(response.data);
                 })
