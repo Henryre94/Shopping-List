@@ -2,6 +2,7 @@
     <div>
 
         <TheHeader/>
+
         <router-link to="/login">Login</router-link>
         |
         <router-link to="/haendler">Händler</router-link>
@@ -9,6 +10,8 @@
         <router-link to="/pub">Cafe 1090</router-link>
         |
         <LogoutButton />
+
+
 
     </div>
 </template>
@@ -18,11 +21,15 @@
 import TheHeader from '@/components/TheHeader.vue';
 import LogoutButton from '@/components/LogoutButton.vue';
 
+
+
 export default {
     name: 'HomeView',
     components: {
         TheHeader,
-        LogoutButton
+        LogoutButton,
+
+
     }
 }
 </script>
