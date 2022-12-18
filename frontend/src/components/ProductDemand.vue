@@ -8,14 +8,23 @@
                         {{ product.name }}
                     </td>
                     <td data-label>
-                        <v-btn color="#d2bcad" dark class="mb-2 mt-2 " type="button" @click="increaseDemands">
+                        <v-btn color="#d2bcad" 
+                        dark
+                         class="mb-2 mt-2 " 
+                        type="button" 
+                        @click="increaseDemands"
+                        >
                             <v-icon dark>
                                 mdi-plus
                             </v-icon>
                         </v-btn>
                     </td>
                     <td data-label>
-                        <v-btn color="#d2bcad" dark class="mb-2 mt-2" type="button" @click="decreaseDemands">
+                        <v-btn color="#d2bcad" 
+                        dark 
+                        class="mb-2 mt-2" 
+                        type="button" 
+                        @click="decreaseDemands">
                             <v-icon dark>
                                 mdi-minus
                             </v-icon>
@@ -44,8 +53,11 @@ export default {
     computed: {
         quantity() {
             return this.$store.state.demandsModule.demands.find(demand => demand.proId === this.product.proId)?.quantity || 0
-        }
+        },
+        username() {
+            return this.$store.state.loginModule.currentUser.username;
     },
+},
     methods: {
         increaseDemands() {
             this.$store.dispatch('increaseDemands', this.product.proId);
