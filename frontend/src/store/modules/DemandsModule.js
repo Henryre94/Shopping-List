@@ -24,6 +24,7 @@ export const DemandsModule = {
             }
         },
         getVendorsDemand(state,demandList){
+            console.log(demandList)
             state.demands = demandList
         },
         deleteVendorsDemand(state, proId) {
@@ -53,9 +54,9 @@ export const DemandsModule = {
                 });
             store.commit('decreaseDemands', proId)
         },
-        async getVendorsDemand(store,venId) {
-            console.log('test')
-            const response = await axios.get("/api/vendors/" + venId + '/demands');
+        async getVendorsDemand(store,payload) {
+            
+            const response = await axios.get("/api/vendors/" + payload.venId + "/demands");
             console.log(response)
             store.commit("getVendorsDemand", response.data)
         },
