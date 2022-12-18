@@ -4,6 +4,11 @@ export const LoginModule = {
     state: {
         currentUser: null
     },
+    getters: {
+        username(state) {
+            return state.currentUser.username;
+        }
+    },
     mutations: {
         setCurrentUser(state, user) {
             state.currentUser = user;
