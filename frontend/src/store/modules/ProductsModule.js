@@ -19,16 +19,17 @@ export const ProductsModule = {
             state.products.splice(vendorIndex, 1)
         },
         addProducts(state, products) {
-            state.products = state.products.concat(products.data)
+           // state.products = state.products.concat(products.data)
+            state.products = products
         },
-        loadProducts(state, productsList) {
-            state.products = productsList
-        },
+      //  loadProducts(state, productsList) {
+      //      state.products = productsList
+     //   },
     },
     actions: {
         async loadProducts(store) {
             const response = await axios.get('api/products');
-            store.commit('loadProducts', response.data)
+            store.commit('addProducts', response.data)
         },
         async getVendorsProduct(store, venId) {
             const response = await axios.get("/api/vendors/" + venId + "/products");
