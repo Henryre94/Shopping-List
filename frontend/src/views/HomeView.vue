@@ -9,6 +9,8 @@
         |
         <router-link to="/pub">Cafe 1090</router-link>
         |
+        <router-link to="/einkaufsliste/:vendor/:vendorId">Einkaufsliste</router-link>
+        |
         <LogoutButton />
 
 
@@ -20,8 +22,6 @@
 // @ is an alias to /src
 import TheHeader from '@/components/TheHeader.vue';
 import LogoutButton from '@/components/LogoutButton.vue';
-
-
 
 export default {
     name: 'HomeView',
