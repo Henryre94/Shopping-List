@@ -3,6 +3,7 @@ package at.aschowurscht.dev.saadi.erp.backend.vendors;
 import at.aschowurscht.dev.saadi.erp.backend.dtos.ProductDTO;
 import at.aschowurscht.dev.saadi.erp.backend.dtos.VendorDTO;
 import at.aschowurscht.dev.saadi.erp.backend.products.Product;
+import at.aschowurscht.dev.saadi.erp.backend.products.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class VendorService {
     final VendorRepository vendorRepository;
+    final ProductRepository productRepository;
 
     public VendorDTO createVendor(Vendor vendor) {
         vendorRepository.save(vendor);
@@ -57,6 +59,11 @@ public class VendorService {
     }
 
     public void deleteVendor(int venId) {
+        List<Product> products = productRepository
+                .findAll()
+                .stream()
+                .filter(product -> product.getVendor().getVenId() == venId).toList();
+        productRepository.deleteAll(products);
         vendorRepository.deleteById(venId);
     }
 }
