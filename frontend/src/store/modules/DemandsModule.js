@@ -65,13 +65,13 @@ export const DemandsModule = {
         async editVendorsDemand(store, payload) {
             console.log(this.demands)
            // await axios.put("/api/demands/" + payload.demands.proId + "/pubs/" + payload.demands.pubId)
-            await axios.put("/api/demands/" + payload.demands.proId)
+            await axios.put("/api/demands/" + payload.demands.proId +'/' + payload.pubId)
             console.log(payload);
             await store.dispatch('getVendorsDemand', payload.pubId);
         },
         async delVendorsDemand(store, payload) {
           //  await axios.delete("/api/demands/" + payload.proId + "/pubs/" + payload.pubId)
-            await axios.delete("/api/demands/" + payload.proId)
+            await axios.delete("/api/demands/" + payload.proId + '/' + payload.pubId)
              store.commit('deleteVendorsDemand', payload.pubId);
         },
     }
