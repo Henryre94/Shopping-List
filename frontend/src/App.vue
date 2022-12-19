@@ -4,7 +4,13 @@
     </v-app>
 </template>
 
-
+<script>
+export default {
+created() {
+    this.$store.dispatch('currentUser')
+}
+}
+</script>
 
 <style lang="scss">
 #app {

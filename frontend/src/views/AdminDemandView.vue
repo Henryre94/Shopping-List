@@ -1,6 +1,6 @@
 <template>
     <div>
-        <TheHeader></TheHeader>
+       
         <v-spacer></v-spacer>
         <v-container>
             <router-link to="/haendler"><v-icon large rot class="mr-6" >mdi-arrow-left-bold</v-icon></router-link>
@@ -65,9 +65,9 @@
 </template>
 
 <script>
-import TheHeader from "@/components/TheHeader";
+
 export default {
-    components: {TheHeader},
+
     data: () => ({
 
         search: "",
