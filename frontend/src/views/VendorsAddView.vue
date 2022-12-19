@@ -95,9 +95,8 @@ export default {
                 mobile: true,
             },
 
-
             { text: '', value: 'actions', sortable: false, mobile: true, },
-            {text: 'Händler', align: 'start', sortable: true, value: 'name',},
+
 
         ],
         vendors: [],
