@@ -35,7 +35,8 @@ export const DemandsModule = {
     actions: {
         async increaseDemands(store, proId) {
             console.log(store)
-          await axios.post('/api/demands/' + proId + '/pubs/' + store.rootState.loginModule.currentUser.pubId)
+        //  await axios.post('/api/demands/' + proId + '/pubs/' + store.rootState.loginModule.currentUser.pubId)
+            await axios.post('/api/demands/' + proId)
                 .then(response => {
                     console.log(response.data);
                 })
@@ -45,7 +46,8 @@ export const DemandsModule = {
             store.commit('increaseDemands', proId)
         },
         async decreaseDemands(store, proId) {
-            await axios.put('/api/demands/' + proId + '/pubs/' + store.rootState.loginModule.currentUser.pubId)
+          //  await axios.put('/api/demands/' + proId + '/pubs/' + store.rootState.loginModule.currentUser.pubId)
+            await axios.put('/api/demands/' + proId)
                 .then(response => {
                     console.log(response.data);
                 })
@@ -54,20 +56,22 @@ export const DemandsModule = {
                 });
             store.commit('decreaseDemands', proId)
         },
-        async getVendorsDemand(store,payload) {
+        async getVendorsDemand(store) {
             
-            const response = await axios.get("/api/vendors/" + payload.venId + "/demands");
+            const response = await axios.get("/api/vendors/3/demands");
             console.log(response)
             store.commit("getVendorsDemand", response.data)
         },
         async editVendorsDemand(store, payload) {
             console.log(this.demands)
-            await axios.put("/api/demands/" + payload.demands.proId + "/pubs/" + payload.demands.pubId)
+           // await axios.put("/api/demands/" + payload.demands.proId + "/pubs/" + payload.demands.pubId)
+            await axios.put("/api/demands/" + payload.demands.proId)
             console.log(payload);
             await store.dispatch('getVendorsDemand', payload.pubId);
         },
         async delVendorsDemand(store, payload) {
-            await axios.delete("/api/demands/" + payload.proId + "/pubs/" + payload.pubId)
+          //  await axios.delete("/api/demands/" + payload.proId + "/pubs/" + payload.pubId)
+            await axios.delete("/api/demands/" + payload.proId)
              store.commit('deleteVendorsDemand', payload.pubId);
         },
     }

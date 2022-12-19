@@ -11,8 +11,10 @@
                         <v-btn color="#d2bcad" 
                         dark
                          class="mb-2 mt-2 " 
-                        type="button" 
+                        type="button"
+
                         @click="increaseDemands"
+
                         >
                             <v-icon dark>
                                 mdi-plus
