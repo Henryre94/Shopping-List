@@ -1,10 +1,9 @@
 <template>
     <div>
-       
+            <TheHeader></TheHeader>
         <v-spacer></v-spacer>
         <v-container>
-            <router-link to="/haendler"><v-icon >mdi-arrow-left-bold</v-icon></router-link>
-            <router-link to="/"><v-icon >mdi-home-outline</v-icon></router-link>
+            <router-link to="/haendler"><v-icon large rot class="mr-6" >mdi-arrow-left-bold</v-icon></router-link>
         </v-container>
         <v-data-table
                 :headers="headers"
@@ -34,8 +33,8 @@
                             </v-card-text>
                             <v-card-actions>
                                 <v-spacer></v-spacer>
-                                <v-btn color="blue darken-1" text @click="close">Abbrechen</v-btn>
-                                <v-btn color="blue darken-1" text @click="update" >Speichern</v-btn>
+                                <v-btn color="red" @click="close">Abbrechen</v-btn>
+                                <v-btn color="green" @click="update" >Speichern</v-btn>
                             </v-card-actions>
                         </v-card>
                     </v-dialog>
@@ -44,8 +43,8 @@
                             <v-card-title class="text-h5">Achtung! Das Produkt wird aus der Einkaufsliste gelöscht</v-card-title>
                             <v-card-actions>
                                 <v-spacer></v-spacer>
-                                <v-btn color="blue darken-1" text @click="closeDelete">Abbrechen</v-btn>
-                                <v-btn color="blue darken-1" text @click="deleteItemConfirm()">OK</v-btn>
+                                <v-btn color="red" @click="closeDelete">Abbrechen</v-btn>
+                                <v-btn color="green" @click="deleteItemConfirm()">OK</v-btn>
                                 <v-spacer></v-spacer>
                             </v-card-actions>
                         </v-card>
@@ -53,21 +52,24 @@
                 </v-toolbar>
             </template>
             <template #item.actions="{ item }">
-                <v-icon class="mr-2" @click="decreaseProductDemand(item)">
+                <v-icon large color="blue" class="mr-6" @click="decreaseProductDemand(item)">
                     mdi-minus
                 </v-icon>
-                <v-icon small @click="deleteItem(item)">
+                <v-icon large color="red" class="mr-6" @click="deleteItem(item)">
                     mdi-delete
                 </v-icon>
             </template>
         </v-data-table>
+        <BottomBar></BottomBar>
     </div>
 </template>
 
 <script>
 
+import TheHeader from "@/components/TheHeader";
+import BottomBar from "@/components/BottomBar";
 export default {
-
+    components: {BottomBar, TheHeader},
     data: () => ({
 
         search: "",
@@ -80,6 +82,7 @@ export default {
                 align: 'start',
                 sortable: true,
                 value: 'name',
+                mobile: true,
             },
             {text: 'Pub', value: 'pubName'},
             {text: 'Stückzahl', value: 'quantity'},

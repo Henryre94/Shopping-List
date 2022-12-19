@@ -56,9 +56,9 @@ export const DemandsModule = {
                 });
             store.commit('decreaseDemands', proId)
         },
-        async getVendorsDemand(store) {
-            
-            const response = await axios.get("/api/vendors/3/demands");
+        async getVendorsDemand(store, venId) {
+
+            const response = await axios.get("/api/vendors/" + venId + "/demands");
             console.log(response)
             store.commit("getVendorsDemand", response.data)
         },
