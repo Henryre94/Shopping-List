@@ -2,10 +2,6 @@
     <div>
         <TheHeader></TheHeader>
         <v-spacer></v-spacer>
-    <v-container>
-        <router-link to="/haendler"><v-icon large class="mr-6">mdi-arrow-left-bold</v-icon></router-link>
-        <router-link to="/"><v-icon large>mdi-home-outline</v-icon></router-link>
-    </v-container>
     <v-data-table
             :headers="headers"
             :items="$store.state.productsModule.products"
@@ -72,13 +68,15 @@
         </template>
 
     </v-data-table>
+        <BottomBar></BottomBar>
     </div>
 </template>
 
 <script>
 import TheHeader from "@/components/TheHeader";
+import BottomBar from "@/components/BottomBar";
 export default {
-    components: {TheHeader},
+    components: {BottomBar, TheHeader},
     data: () => ({
         search: "",
         dialog: false,
