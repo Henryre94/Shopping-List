@@ -1,6 +1,6 @@
 <template>
 
-        <img class="mr-3" :src="require('../assets/home.png')" width="100%"/>
+        <img  :src="require('../assets/home.png')" width="100%"/>
 
 </template>
 
