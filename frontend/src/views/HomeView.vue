@@ -9,8 +9,6 @@
         |
         <router-link to="/pub">Cafe 1090</router-link>
         |
-        <router-link to="/einkaufsliste/:vendor/:vendorId">Einkaufsliste</router-link>
-        |
         <LogoutButton />
 
 
