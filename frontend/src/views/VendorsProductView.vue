@@ -3,8 +3,8 @@
         <TheHeader></TheHeader>
         <v-spacer></v-spacer>
     <v-container>
-        <router-link to="/haendler"><v-icon >mdi-arrow-left-bold</v-icon></router-link>
-        <router-link to="/"><v-icon >mdi-home-outline</v-icon></router-link>
+        <router-link to="/haendler"><v-icon large class="mr-6">mdi-arrow-left-bold</v-icon></router-link>
+        <router-link to="/"><v-icon large>mdi-home-outline</v-icon></router-link>
     </v-container>
     <v-data-table
             :headers="headers"
@@ -47,9 +47,9 @@
 
                         <v-card-actions>
                             <v-spacer></v-spacer>
-                            <v-btn color="blue darken-1" text @click="close">Abbrechen</v-btn>
-                            <v-btn color="blue darken-1" text @click="create" v-if="editedItem.id === ''">Anlegen</v-btn>
-                            <v-btn color="blue darken-1" text @click="update" v-else>Speichern</v-btn>
+                            <v-btn color="red" @click="close">Abbrechen</v-btn>
+                            <v-btn color="green" @click="create" v-if="editedItem.id === ''">Anlegen</v-btn>
+                            <v-btn color="green" @click="update" v-else>Speichern</v-btn>
                         </v-card-actions>
                     </v-card>
                 </v-dialog>
@@ -67,8 +67,8 @@
             </v-toolbar>
         </template>
         <template #item.actions="{ item }">
-            <v-icon class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
-            <v-icon  @click="deleteItem(item)">mdi-delete</v-icon>
+            <v-icon large color="black" class="mr-6" @click="editItem(item)">mdi-pencil</v-icon>
+            <v-icon large color="red" @click="deleteItem(item)">mdi-delete</v-icon>
         </template>
 
     </v-data-table>
