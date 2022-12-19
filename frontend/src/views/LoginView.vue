@@ -1,5 +1,5 @@
 <template>
-    <v-content>
+    <v-main>
         <v-container fluid fill-height class="back">
             <v-layout align-end justify-center>
                 <v-flex xs12 sm8 md3 pt6>
@@ -39,7 +39,7 @@
                 </v-flex>
             </v-layout>
         </v-container>
-    </v-content>
+    </v-main>
 </template>
 
 <script>
