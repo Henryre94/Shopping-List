@@ -1,6 +1,8 @@
 package at.aschowurscht.dev.saadi.erp.backend.demands;
 
+import at.aschowurscht.dev.saadi.erp.backend.credentials.CredentialRepository;
 import at.aschowurscht.dev.saadi.erp.backend.dtos.DemandDTO;
+import at.aschowurscht.dev.saadi.erp.backend.security.AuthenticationFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,24 +14,21 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DemandController {
     final DemandService demandService;
+    final AuthenticationFacade authenticationFacade;
+    final CredentialRepository credentialRepository;
 
-    @PostMapping("/{proId}/pubs/{pubId}")
-    public DemandDTO createDemand(@PathVariable int proId, @PathVariable int pubId) {
-        return demandService.createDemand(proId, pubId);
+    @PostMapping("/{proId}")
+    public DemandDTO createDemand(@PathVariable int proId) {
+        return demandService.createDemand(proId);
     }
 
-    @PutMapping("/{proId}/pubs/{pubId}")
-    public List<DemandDTO> decreaseQuantity(@PathVariable int proId, @PathVariable int pubId) {
-        return demandService.decreaseQuantity(proId, pubId);
+    @PutMapping("/{proId}")
+    public List<DemandDTO> decreaseQuantity(@PathVariable int proId) {
+        return demandService.decreaseQuantity(proId);
     }
 
-    @GetMapping("/vendors/{venId}")
-    @ResponseBody
-    public List<DemandDTO> getAllDemandsFromVendor(@PathVariable int venId) {
-        return demandService.getAllDemandsFromVendor(venId);
-    }
-    @DeleteMapping("/{proId}/pubs/{pubId}")
-    public void deleteDemand(@PathVariable int proId,@PathVariable int pubId){
-        demandService.deleteDemand(proId,pubId);
+    @DeleteMapping("/{proId}")
+    public void deleteDemand(@PathVariable int proId){
+        demandService.deleteDemand(proId);
     }
 }
