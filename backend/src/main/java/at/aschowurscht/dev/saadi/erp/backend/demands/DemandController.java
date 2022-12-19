@@ -24,8 +24,8 @@ public class DemandController {
         return credential.getPub();
     }
 
-    @PostMapping(value = {"api/demands/{proId}","api/demands/{proId}/{id}"})
-    public DemandDTO createDemand(@PathVariable int proId,@PathVariable(required = false,name = "id") Integer pubId ) {
+    @PostMapping(value = {"api/demands/{proId}","api/demands/{proId}/{pubId}"})
+    public DemandDTO createDemand(@PathVariable int proId,@PathVariable(required = false) Integer pubId ) {
         if (pubId == null) {
             Pub pub = getPub();
             pubId = pub.getPubId();
@@ -33,16 +33,16 @@ public class DemandController {
         return demandService.createDemand(proId,pubId);
     }
 
-    @PutMapping(value = {"api/demands/{proId}","api/demands/{proId}/{id}"})
-    public List<DemandDTO> decreaseQuantity(@PathVariable int proId,@PathVariable(required = false,name = "id") Integer pubId ) {
+    @PutMapping(value = {"api/demands/{proId}","api/demands/{proId}/{pubId}"})
+    public List<DemandDTO> decreaseQuantity(@PathVariable int proId,@PathVariable(required = false) Integer pubId ) {
         if (pubId == null) {
             Pub pub = getPub();
             pubId = pub.getPubId();
         }
         return demandService.decreaseQuantity(proId,pubId);
     }
-    @DeleteMapping(value = {"api/demands/{proId}","api/demands/{proId}/{id}"})
-    public void deleteDemand(@PathVariable int proId,@PathVariable(required = false,name = "id") Integer pubId){
+    @DeleteMapping(value = {"api/demands/{proId}","api/demands/{proId}/{pubId}"})
+    public void deleteDemand(@PathVariable int proId,@PathVariable(required = false) Integer pubId){
         if (pubId == null) {
             Pub pub = getPub();
             pubId = pub.getPubId();
