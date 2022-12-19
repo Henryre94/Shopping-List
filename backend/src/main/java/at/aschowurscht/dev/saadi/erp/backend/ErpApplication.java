@@ -1,12 +1,12 @@
 package at.aschowurscht.dev.saadi.erp.backend;
 
 import at.aschowurscht.dev.saadi.erp.backend.config.RSAKeyPair;
-import at.aschowurscht.dev.saadi.erp.backend.credentials.CredentialService;
-import at.aschowurscht.dev.saadi.erp.backend.demands.DemandCRUDRepository;
-import at.aschowurscht.dev.saadi.erp.backend.products.ProductCRUDRepository;
+import at.aschowurscht.dev.saadi.erp.backend.credentials.CredentialsService;
+import at.aschowurscht.dev.saadi.erp.backend.demands.DemandRepository;
+import at.aschowurscht.dev.saadi.erp.backend.products.ProductRepository;
 import at.aschowurscht.dev.saadi.erp.backend.pubs.Pub;
-import at.aschowurscht.dev.saadi.erp.backend.pubs.PubCRUDRepository;
-import at.aschowurscht.dev.saadi.erp.backend.vendors.VendorCRUDRepository;
+import at.aschowurscht.dev.saadi.erp.backend.pubs.PubRepository;
+import at.aschowurscht.dev.saadi.erp.backend.vendors.VendorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -19,14 +19,14 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 public class ErpApplication implements CommandLineRunner {
 
 
-    final ProductCRUDRepository productCRUDRepository;
+    final ProductRepository productRepository;
 
-    final PubCRUDRepository pubCRUDRepository;
+    final PubRepository pubRepository;
 
-    final DemandCRUDRepository demandCRUDRepository;
+    final DemandRepository demandRepository;
 
-    final VendorCRUDRepository vendorCRUDRepository;
-    final CredentialService credentials;
+    final VendorRepository vendorRepository;
+    final CredentialsService credentials;
 
 
 	public static void main(String[] args) {
@@ -37,11 +37,11 @@ public class ErpApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         try {
-            pubCRUDRepository.save(new Pub("Cafe SAADI 1090"));
-            pubCRUDRepository.save(new Pub("Cafe SAADI 1160"));
+            pubRepository.save(new Pub("Cafe SAADI 1090"));
+            pubRepository.save(new Pub("Cafe SAADI 1160"));
             credentials.save("admin","admin",true,null);
-            credentials.save("1090","1090",false,pubCRUDRepository.findPubByPubName("Cafe SAADI 1090"));
-            credentials.save("1160","1160",false,pubCRUDRepository.findPubByPubName("Cafe SAADI 1160"));
+            credentials.save("1090","1090",false, pubRepository.findPubByPubName("Cafe SAADI 1090"));
+            credentials.save("1160","1160",false, pubRepository.findPubByPubName("Cafe SAADI 1160"));
         }catch (Exception e){
             System.err.println("Fehler beim einfügen des Datensatzes: " + e.getMessage());
         }

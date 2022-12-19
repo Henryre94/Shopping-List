@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface DemandCRUDRepository extends JpaRepository<Demand,DemandID> {
+public interface DemandRepository extends JpaRepository<Demand,DemandID> {
 
     @Query("select sum(d.quantity) from Demand d where d.pub.pubId=?1")
     int findAmountOfQuantity(Integer pubId);

@@ -1,7 +1,6 @@
 package at.aschowurscht.dev.saadi.erp.backend.products;
 
 import at.aschowurscht.dev.saadi.erp.backend.dtos.ProductDTO;
-import at.aschowurscht.dev.saadi.erp.backend.dtos.ProductNoIdDTO;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.web.bind.annotation.*;
@@ -16,8 +15,8 @@ public class ProductController {
     final ProductService productService;
 
     @PostMapping("/{venId}")
-    public ProductNoIdDTO createProduct(@RequestBody ProductNoIdDTO productNoIdDTO, @PathVariable int venId) {
-        return productService.createProduct(productNoIdDTO, venId);
+    public ProductDTO createProduct(@RequestBody Product product, @PathVariable int venId) {
+        return productService.createProduct(product, venId);
     }
     @GetMapping("/{proId}")
     public ProductDTO getProductById(@PathVariable int proId) {

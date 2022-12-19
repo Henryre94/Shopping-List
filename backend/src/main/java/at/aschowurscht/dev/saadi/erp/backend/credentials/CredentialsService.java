@@ -2,7 +2,7 @@ package at.aschowurscht.dev.saadi.erp.backend.credentials;
 
 import at.aschowurscht.dev.saadi.erp.backend.dtos.CredentialsDTO;
 import at.aschowurscht.dev.saadi.erp.backend.pubs.Pub;
-import at.aschowurscht.dev.saadi.erp.backend.pubs.PubCRUDRepository;
+import at.aschowurscht.dev.saadi.erp.backend.pubs.PubRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -10,30 +10,30 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class CredentialService {
+public class CredentialsService {
     final CredentialRepository credentials;
     final PasswordEncoder passwordEncoder;
 
-    final PubCRUDRepository pubCRUDRepository;
+    final PubRepository pubRepository;
 
     public CredentialsDTO getCredentials(Authentication authentication ){
-        Credentials credentials1 = credentials.findByUsername(authentication.getName());
+        Credential credential1 = credentials.findByUsername(authentication.getName());
         Integer pubId;
-        if (credentials1.getPub() != null){
-            pubId = credentials1.getPub().getPubId();
+        if (credential1.getPub() != null){
+            pubId = credential1.getPub().getPubId();
         }else{
             pubId = null;
         }
-       return new CredentialsDTO(pubId,credentials1.getUsername(),credentials1.getIsAdmin());
+       return new CredentialsDTO(pubId, credential1.getUsername(), credential1.getIsAdmin());
     }
 
-    public Credentials byUsername(String username) {
+    public Credential byUsername(String username) {
         return credentials.findByUsername(username);
     }
 
-    public Credentials save(String username, String password, Boolean isAdmin, Pub pub) {
+    public Credential save(String username, String password, Boolean isAdmin, Pub pub) {
         return credentials.save(
-                Credentials
+                Credential
                         .builder()
                         .username(username)
                         .password(passwordEncoder.encode(password))
