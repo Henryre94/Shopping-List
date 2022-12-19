@@ -1,7 +1,6 @@
 package at.aschowurscht.dev.saadi.erp.backend.demands;
 
 import at.aschowurscht.dev.saadi.erp.backend.credentials.CredentialRepository;
-import at.aschowurscht.dev.saadi.erp.backend.credentials.Credential;
 import at.aschowurscht.dev.saadi.erp.backend.dtos.DemandDTO;
 import at.aschowurscht.dev.saadi.erp.backend.products.Product;
 import at.aschowurscht.dev.saadi.erp.backend.products.ProductRepository;
@@ -24,14 +23,7 @@ public class DemandService {
     final CredentialRepository credentialRepository;
     final AuthenticationFacade authenticationFacade;
 
-    private Pub getPub() {
-        Credential credential = credentialRepository.findByUsername(authenticationFacade.getAuthentication().getName());
-        return credential.getPub();
-    }
-
-    public DemandDTO createDemand(int proId) {
-        Pub pub = getPub();
-        int pubId = pub.getPubId();
+    public DemandDTO createDemand(int proId, int pubId) {
         Product product = productRepository.findById(proId).orElseThrow(() -> new IllegalStateException("Produkt ID nicht gefunden: " + proId));
         DemandDTO demandDTO = new DemandDTO();
         List<Demand> demandList = demandRepository.findAll();
@@ -86,9 +78,7 @@ public class DemandService {
         demandDTO.setPubId(pub.getPubId());
     }
 
-    public List<DemandDTO> decreaseQuantity(int proId) {
-        Pub pub = getPub();
-        int pubId = pub.getPubId();
+    public List<DemandDTO> decreaseQuantity(int proId, int pubId) {
         List<DemandDTO> demandDTOList = new ArrayList<>();
         for (Demand demands : demandRepository.findAll()) {
             DemandDTO demandDTO = new DemandDTO();
@@ -130,9 +120,7 @@ public class DemandService {
         return demandDtoList;
     }
 
-    public void deleteDemand(int proId) {
-        Pub pub = getPub();
-        int pubId = pub.getPubId();
+    public void deleteDemand(int proId,int pubId) {
         for (Demand demands : demandRepository.findAll()) {
             if (demands.getProduct().getProId() == proId && demands.getPub().getPubId() == pubId) {
                 demandRepository.delete(demands);
