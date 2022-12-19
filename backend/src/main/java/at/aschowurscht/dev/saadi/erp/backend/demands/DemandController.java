@@ -1,7 +1,9 @@
 package at.aschowurscht.dev.saadi.erp.backend.demands;
 
+import at.aschowurscht.dev.saadi.erp.backend.credentials.Credential;
 import at.aschowurscht.dev.saadi.erp.backend.credentials.CredentialRepository;
 import at.aschowurscht.dev.saadi.erp.backend.dtos.DemandDTO;
+import at.aschowurscht.dev.saadi.erp.backend.pubs.Pub;
 import at.aschowurscht.dev.saadi.erp.backend.security.AuthenticationFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -9,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/demands")
+
 @CrossOrigin
 @RequiredArgsConstructor
 public class DemandController {
@@ -17,18 +19,34 @@ public class DemandController {
     final AuthenticationFacade authenticationFacade;
     final CredentialRepository credentialRepository;
 
-    @PostMapping("/{proId}")
-    public DemandDTO createDemand(@PathVariable int proId) {
-        return demandService.createDemand(proId);
+    public Pub getPub() {
+        Credential credential = credentialRepository.findByUsername(authenticationFacade.getAuthentication().getName());
+        return credential.getPub();
     }
 
-    @PutMapping("/{proId}")
-    public List<DemandDTO> decreaseQuantity(@PathVariable int proId) {
-        return demandService.decreaseQuantity(proId);
+    @PostMapping(value = {"api/demands/{proId}","api/demands/{proId}/{id}"})
+    public DemandDTO createDemand(@PathVariable int proId,@PathVariable(required = false,name = "id") Integer pubId ) {
+        if (pubId == null) {
+            Pub pub = getPub();
+            pubId = pub.getPubId();
+        }
+        return demandService.createDemand(proId,pubId);
     }
 
-    @DeleteMapping("/{proId}")
-    public void deleteDemand(@PathVariable int proId){
-        demandService.deleteDemand(proId);
+    @PutMapping(value = {"api/demands/{proId}","api/demands/{proId}/{id}"})
+    public List<DemandDTO> decreaseQuantity(@PathVariable int proId,@PathVariable(required = false,name = "id") Integer pubId ) {
+        if (pubId == null) {
+            Pub pub = getPub();
+            pubId = pub.getPubId();
+        }
+        return demandService.decreaseQuantity(proId,pubId);
+    }
+    @DeleteMapping(value = {"api/demands/{proId}","api/demands/{proId}/{id}"})
+    public void deleteDemand(@PathVariable int proId,@PathVariable(required = false,name = "id") Integer pubId){
+        if (pubId == null) {
+            Pub pub = getPub();
+            pubId = pub.getPubId();
+        }
+        demandService.deleteDemand(proId,pubId);
     }
 }
