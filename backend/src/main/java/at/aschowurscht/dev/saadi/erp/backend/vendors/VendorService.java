@@ -56,6 +56,7 @@ public class VendorService {
         updateVendor.setAddress(vendor.getAddress());
         vendorRepository.save(updateVendor);
         return new VendorDTO(vendor.getName(), vendor.getAddress(), venId);
+
     }
 
     public void deleteVendor(int venId) {
@@ -66,4 +67,5 @@ public class VendorService {
         productRepository.deleteAll(products);
         vendorRepository.deleteById(venId);
     }
+
 }
