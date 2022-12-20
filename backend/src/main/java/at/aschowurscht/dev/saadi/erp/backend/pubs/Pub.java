@@ -44,7 +44,4 @@ public class Pub {
         this.productsOnDemand.add(demand);
     }
 
-    public void removeDemand(Demand demand) {
-        this.productsOnDemand.remove(demand);
-    }
 }

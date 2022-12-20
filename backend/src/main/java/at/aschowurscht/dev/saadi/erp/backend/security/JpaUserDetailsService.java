@@ -1,7 +1,7 @@
 package at.aschowurscht.dev.saadi.erp.backend.security;
 
-import at.aschowurscht.dev.saadi.erp.backend.credentials.CredentialRepository;
 import at.aschowurscht.dev.saadi.erp.backend.credentials.Credential;
+import at.aschowurscht.dev.saadi.erp.backend.credentials.CredentialRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -34,5 +34,4 @@ public class JpaUserDetailsService implements UserDetailsService {
         }
         throw new UsernameNotFoundException(username);
     }
-
 }
