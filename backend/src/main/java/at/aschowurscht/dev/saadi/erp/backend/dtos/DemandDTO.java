@@ -1,5 +1,6 @@
 package at.aschowurscht.dev.saadi.erp.backend.dtos;
 
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,4 +12,5 @@ public class DemandDTO {
     String name;
     int pubId;
     String pubName;
+    int venId;
 }
