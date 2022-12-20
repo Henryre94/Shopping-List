@@ -15,9 +15,9 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class DemandService {
-    final PubRepository pubRepository;
-    final DemandRepository demandRepository;
-    final ProductRepository productRepository;
+    private final PubRepository pubRepository;
+    private final DemandRepository demandRepository;
+    private final ProductRepository productRepository;
 
     public DemandDTO createDemand(int proId, int pubId) {
         Product product = productRepository.findById(proId)
@@ -27,9 +27,9 @@ public class DemandService {
 
         if (demandList.isEmpty()) {
             createNewDemand(pubId, product, demandDTO);
-        }
-        if (demandList.size() > 0)
+        } else {
             checkExistenceOfDemand(proId, pubId, product, demandDTO);
+        }
         return demandDTO;
     }
 
@@ -43,7 +43,13 @@ public class DemandService {
             for (Demand demand : demandList) {
                 demand.setQuantity(demand.getQuantity() + 1);
                 demandRepository.save(demand);
-                fillDemandDTO(proId, demand.getProduct(), demandDTO, demand, demand.getPub());
+                fillDemandDTO(
+                        proId,
+                        demand.getProduct(),
+                        demandDTO,
+                        demand,
+                        demand.getPub()
+                );
             }
         }
     }
@@ -52,8 +58,12 @@ public class DemandService {
         return demandRepository
                 .findAll()
                 .stream()
-                .filter(demand -> demand.getPub().getPubId() == pubId && demand.getProduct().getProId() == proId)
+                .filter(demand -> demandExists(proId, pubId, demand))
                 .toList();
+    }
+
+    private boolean demandExists(int proId, int pubId, Demand demand) {
+        return demand.getPub().getPubId() == pubId && demand.getProduct().getProId() == proId;
     }
 
     private void createNewDemand(int pubId, Product product, DemandDTO demandDTO) {
@@ -71,7 +81,13 @@ public class DemandService {
         pubRepository.save(pub);
         productRepository.save(product);
 
-        fillDemandDTO(product.getProId(), product, demandDTO, demand, pub);
+        fillDemandDTO(
+                product.getProId(),
+                product,
+                demandDTO,
+                demand,
+                pub
+        );
     }
 
     private void fillDemandDTO(int proId, Product product, DemandDTO demandDTO, Demand demand, Pub pub) {
@@ -90,7 +106,13 @@ public class DemandService {
             if (demand.getQuantity() >= 1) {
                 demand.setQuantity(demand.getQuantity() - 1);
                 demandRepository.save(demand);
-                fillDemandDTO(proId, demand.getProduct(), demandDTO, demand, demand.getPub());
+                fillDemandDTO(
+                        proId,
+                        demand.getProduct(),
+                        demandDTO,
+                        demand,
+                        demand.getPub()
+                );
                 demandDTOList.add(demandDTO);
             } else {
                 demandRepository.delete(demand);
@@ -105,7 +127,13 @@ public class DemandService {
             for (Demand demand : demandRepository.findAll()) {
                 DemandDTO demandDTO = new DemandDTO();
                 if (demand.getProduct().getProId() == products.getProId()) {
-                    fillDemandDTO(demand.getProduct().getProId(), demand.getProduct(), demandDTO, demand, demand.getPub());
+                    fillDemandDTO(
+                            demand.getProduct().getProId(),
+                            demand.getProduct(),
+                            demandDTO,
+                            demand,
+                            demand.getPub()
+                    );
                     demandDtoList.add(demandDTO);
                 }
             }

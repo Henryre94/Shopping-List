@@ -7,7 +7,6 @@ import at.aschowurscht.dev.saadi.erp.backend.dtos.PubNoIdDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-
 import java.util.List;
 import java.util.stream.Collectors;
 

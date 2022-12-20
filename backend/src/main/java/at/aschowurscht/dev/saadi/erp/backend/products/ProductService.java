@@ -24,7 +24,8 @@ public class ProductService {
     }
 
     public ProductDTO getProductById(int proId) {
-        Product product = productRepository.findById(proId).orElseThrow(() -> new IllegalStateException("Produkt ID nicht gefunden: " + proId));
+        Product product = productRepository.findById(proId)
+                .orElseThrow(() -> new IllegalStateException("Produkt ID nicht gefunden: " + proId));
         return new ProductDTO(product.getName(), product.getUnit(), product.getProId());
     }
 
@@ -41,7 +42,8 @@ public class ProductService {
     }
 
     public ProductDTO updateProduct(Product product, int proId) {
-        Product updateProduct = productRepository.findById(proId).orElseThrow(() -> new IllegalStateException("Produkt ID nicht gefunden: " + proId));
+        Product updateProduct = productRepository.findById(proId)
+                .orElseThrow(() -> new IllegalStateException("Produkt ID nicht gefunden: " + proId));
         updateProduct.setName(product.getName());
         updateProduct.setUnit(product.getUnit());
         productRepository.save(updateProduct);
@@ -51,5 +53,4 @@ public class ProductService {
     public void deleteProduct(int proId) {
         productRepository.deleteById(proId);
     }
-
 }
