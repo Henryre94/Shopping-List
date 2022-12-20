@@ -10,7 +10,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-
 @Entity
 @Getter
 @Setter
@@ -19,6 +18,7 @@ import javax.persistence.*;
 @Table(name = "demands")
 @IdClass(DemandID.class)
 public class Demand {
+
     @Id
     @ManyToOne
     @JsonBackReference
@@ -33,5 +33,4 @@ public class Demand {
 
     @Column(name = "quantity")
     private int quantity;
-
 }

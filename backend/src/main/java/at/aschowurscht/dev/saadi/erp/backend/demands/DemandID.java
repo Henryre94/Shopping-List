@@ -19,13 +19,10 @@ public class DemandID implements Serializable {
 
     //This method returns true if this object is the same as the obj argument; false otherwise.
     public boolean equals(Object object) {
-        if (object instanceof DemandID) {
-            DemandID otherId = (DemandID) object;
+        if (object instanceof DemandID otherId) {
             return (otherId.product == this.product)
                     && (otherId.pub == this.pub);
         }
         return false;
     }
-
-
 }

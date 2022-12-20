@@ -16,6 +16,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "products")
 public class Product {
 
@@ -38,11 +39,6 @@ public class Product {
     @JoinColumn(name = "venId")
     private Vendor vendor;
 
-    public Product(String name, String unit) {
-        this.name = name;
-        this.unit = unit;
-    }
-
     public Vendor getVendor() {
         return vendor;
     }
@@ -54,9 +50,4 @@ public class Product {
     public void newDemand(Demand demand) {
         this.pubWithDemands.add(demand);
     }
-
-    public void removeDemand(Demand demand) {
-        this.pubWithDemands.remove(demand);
-    }
-
 }
