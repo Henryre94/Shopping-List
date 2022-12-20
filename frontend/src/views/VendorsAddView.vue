@@ -132,6 +132,7 @@ export default {
         },
         // Händler können bearbeitet werden
         editItem(vendors) {
+
             this.editedIndex = this.vendors.indexOf(vendors)
             this.editedItem = Object.assign({}, vendors)
             this.dialog = true
@@ -143,13 +144,21 @@ export default {
             this.close()
         },
         // Händler wird gelöscht
+        // deleteItem(venId) {
+        //     console.log("vendors", venId);
+        //     this.editedIndex = this.vendors.indexOf(venId)
+        //     this.editedItem = Object.assign({}, venId)
+        //     this.dialogDelete = true
+        // },
         deleteItem(venId) {
+            console.log("vendors", venId);
             this.editedIndex = this.vendors.indexOf(venId)
             this.editedItem = Object.assign({}, venId)
             this.dialogDelete = true
         },
         // Bestätigung das Händler gelöscht werden soll
         deleteItemConfirm() {
+            console.log("this.editedItem", this.editedItem);
             this.$store.dispatch('delVendor', this.editedItem)
             this.closeDelete()
         },
