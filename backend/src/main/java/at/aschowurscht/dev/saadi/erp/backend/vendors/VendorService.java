@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 
 @Service
@@ -24,13 +24,18 @@ public class VendorService {
     }
 
     public VendorDTO getVendorById(int venId) {
-      Vendor vendor =  vendorRepository.findById(venId).orElseThrow(() -> new IllegalStateException("Vendor ID nicht gefunden: " + venId));
+      Vendor vendor =  vendorRepository.findById(venId)
+              .orElseThrow(() -> new IllegalStateException("Vendor ID nicht gefunden: " + venId));
       return  new VendorDTO(vendor.getName(), vendor.getAddress(), venId);
     }
 
     public List<ProductDTO> getAllProductsFromVendor(int venId) {
-        Vendor vendor = vendorRepository.findById(venId).orElseThrow(() -> new IllegalStateException("Vendor ID nicht gefunden: " + venId));
-        return vendor.getProducts().stream().map(this::convertToProductDTO).collect(Collectors.toList());
+        Vendor vendor = vendorRepository.findById(venId)
+                .orElseThrow(() -> new IllegalStateException("Vendor ID nicht gefunden: " + venId));
+        return vendor.getProducts()
+                .stream()
+                .map(this::convertToProductDTO)
+                .toList();
     }
 
     public List<VendorDTO> getAllVendors() {
@@ -38,7 +43,7 @@ public class VendorService {
                 .findAll())
                 .stream()
                 .map(this::convertToVendorDTO)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     private ProductDTO convertToProductDTO(Product product){
@@ -49,9 +54,9 @@ public class VendorService {
         return new VendorDTO(vendor.getName(), vendor.getAddress(), vendor.getVenId());
     }
 
-
     public VendorDTO updateVendor(Vendor vendor, int venId) {
-        Vendor updateVendor = vendorRepository.findById(venId).orElseThrow(() -> new IllegalStateException("Vendor ID nicht gefunden: " + venId));
+        Vendor updateVendor = vendorRepository
+                .findById(venId).orElseThrow(() -> new IllegalStateException("Vendor ID nicht gefunden: " + venId));
         updateVendor.setName(vendor.getName());
         updateVendor.setAddress(vendor.getAddress());
         vendorRepository.save(updateVendor);
@@ -67,5 +72,4 @@ public class VendorService {
         productRepository.deleteAll(products);
         vendorRepository.deleteById(venId);
     }
-
 }

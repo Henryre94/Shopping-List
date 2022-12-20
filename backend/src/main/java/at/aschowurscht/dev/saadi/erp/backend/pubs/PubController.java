@@ -3,7 +3,6 @@ package at.aschowurscht.dev.saadi.erp.backend.pubs;
 import at.aschowurscht.dev.saadi.erp.backend.dtos.PubDTO;
 import at.aschowurscht.dev.saadi.erp.backend.dtos.PubNoIdDTO;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,7 +27,6 @@ public class PubController {
     @GetMapping()
     public List<PubDTO> getAllPubs() {
         return pubService.getAllPubs();
-
     }
 
     @PutMapping("/{pubId}")
