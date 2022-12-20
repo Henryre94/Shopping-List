@@ -35,6 +35,7 @@ export const VendorsModule = {
             await axios.delete("api/vendors/" + editedItem.venId)
             store.commit('deleteVendor', editedItem.venId);
         },
+        // ahmed
         // async delVendor(store, vendor) {
         //     await axios.delete("api/vendors/" + vendor.venId)
         //     store.commit('deleteVendor', vendor.venId);

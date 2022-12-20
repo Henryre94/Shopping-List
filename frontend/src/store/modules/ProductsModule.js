@@ -41,10 +41,10 @@ export const ProductsModule = {
             await axios.post("/api/products/" + payload.venId, payload.product);
             await store.dispatch('getVendorsProduct', payload.venId);
         },
-
-        // async delVendorsProduct(store, product) {
-        //     await axios.delete("/api/products/" + product.proId)
-        //     store.commit('deleteVendorsProduct', product.proId);
+       //  ahmed
+       //  async delVendorsProduct(store, product) {
+       //      await axios.delete("/api/products/" + product.proId)
+       //      store.commit('deleteVendorsProduct', product.proId);
        // },
         async delVendorsProduct(store, editedItem) {
             console.log('editedItem', editedItem)

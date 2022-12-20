@@ -120,8 +120,9 @@ export default {
         },
         decreaseProductDemand(item){
             console.log(item)
-         //  this.$store.dispatch('decreaseDemands', item.proId)
-         //   this.$store.dispatch('editVendorsDemand', item.proId)
+          //   ahmed bzw ich
+          // this.$store.dispatch('decreaseDemands', item.proId)
+          //  this.$store.dispatch('editVendorsDemand', item.proId)
             this.$store.dispatch('decreaseDemandsVendor', item)
 
         },

@@ -71,7 +71,6 @@ export const DemandsModule = {
         async decreaseDemandsVendor(store, item) {
 
          //  await axios.put('/api/demands/' + proId + '/1' )
-          //  console.log("store.rootState.demandsModule.demands.pubId", store.rootState.demandsModule.demands.pubId);
            await axios.put('/api/demands/' + item.proId + '/' + item.pubId )
             store.commit('decreaseDemands', item.proId)
         },
