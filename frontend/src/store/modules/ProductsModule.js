@@ -15,7 +15,7 @@ export const ProductsModule = {
             state.products = productsList
         },
         deleteVendorsProduct(state, proId) {
-            const vendorIndex = state.products.findIndex(product => product.id === proId)
+            const vendorIndex = state.products.findIndex(product => product.proId === proId);
             state.products.splice(vendorIndex, 1)
         },
         addProducts(state, products) {
@@ -41,9 +41,15 @@ export const ProductsModule = {
             await axios.post("/api/products/" + payload.venId, payload.product);
             await store.dispatch('getVendorsProduct', payload.venId);
         },
-        async delVendorsProduct(store, product) {
-            await axios.delete("/api/products/" + product.proId)
-            store.commit('deleteVendorsProduct', product.proId);
+
+        // async delVendorsProduct(store, product) {
+        //     await axios.delete("/api/products/" + product.proId)
+        //     store.commit('deleteVendorsProduct', product.proId);
+       // },
+        async delVendorsProduct(store, editedItem) {
+            console.log('editedItem', editedItem)
+            await axios.delete("/api/products/" + editedItem.proId)
+            store.commit('deleteVendorsProduct', editedItem.proId);
         },
         async editVendorsProduct(store, payload) {
             console.log(this.products)
