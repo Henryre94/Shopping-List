@@ -1,9 +1,12 @@
 <template>
     <div>
         <TheHeader />
-        <h1>Cafe Saadi 1090</h1>
+        <h1>
+            CAFE SAADI {{ username }} <br />
+            LISTE
+        </h1>
 
-        <v-btn value="logout" @click="logout">
+        <v-btn style="float: right" value="logout" @click="logout">
             <span>logout</span>
             <v-icon x-large color="red">mdi-logout</v-icon>
         </v-btn>
@@ -37,6 +40,10 @@ export default {
         },
     },
     computed: {
+        // get currentUser for Header
+        username() {
+            return this.$store.state.loginModule.currentUser.username;
+        },
         // get all products
         products() {
             return this.$store.state.productsModule.products;
@@ -57,4 +64,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+h1 {
+    color: #d2bcad;
+    font-size: 40px;
+}
+</style>
