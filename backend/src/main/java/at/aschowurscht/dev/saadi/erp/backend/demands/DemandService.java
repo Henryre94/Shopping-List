@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Service
 @RequiredArgsConstructor
 public class DemandService {
@@ -20,57 +19,64 @@ public class DemandService {
     final DemandRepository demandRepository;
     final ProductRepository productRepository;
 
-
     public DemandDTO createDemand(int proId, int pubId) {
-        Product product = productRepository.findById(proId).orElseThrow(() -> new IllegalStateException("Produkt ID nicht gefunden: " + proId));
+        Product product = productRepository.findById(proId)
+                .orElseThrow(() -> new IllegalStateException("Produkt ID nicht gefunden: " + proId));
         DemandDTO demandDTO = new DemandDTO();
         List<Demand> demandList = demandRepository.findAll();
+
         if (demandList.isEmpty()) {
-            createNewDemand(pubId, product,demandDTO);
+            createNewDemand(pubId, product, demandDTO);
         }
         if (demandList.size() > 0)
-            checkExistenceOfDemand(proId, pubId, product,demandDTO);
+            checkExistenceOfDemand(proId, pubId, product, demandDTO);
         return demandDTO;
     }
 
     private void checkExistenceOfDemand(int proId, int pubId, Product product, DemandDTO demandDTO) {
-        List<Demand> demandList = demandRepository
-                .findAll()
-                .stream()
-                .filter(demand -> demand.getPub().getPubId() == pubId && demand.getProduct().getProId() == proId).toList();
-        if (demandList.isEmpty())
-            createNewDemand(pubId, product,demandDTO);
-        if (demandList.size() > 0)
+        List<Demand> demandList = getDemands(proId, pubId);
+
+        if (demandList.isEmpty()) {
+            createNewDemand(pubId, product, demandDTO);
+        }
+        if (demandList.size() > 0) {
             for (Demand demand : demandList) {
                 demand.setQuantity(demand.getQuantity() + 1);
                 demandRepository.save(demand);
-                fillDemandDTO(pubId, demand.getProduct(), demandDTO, demand, demand.getPub());
+                fillDemandDTO(proId, demand.getProduct(), demandDTO, demand, demand.getPub());
             }
+        }
+    }
+
+    private List<Demand> getDemands(int proId, int pubId) {
+        return demandRepository
+                .findAll()
+                .stream()
+                .filter(demand -> demand.getPub().getPubId() == pubId && demand.getProduct().getProId() == proId)
+                .toList();
     }
 
     private void createNewDemand(int pubId, Product product, DemandDTO demandDTO) {
         Demand demand = new Demand();
-        Pub pub = pubRepository.findById(pubId).orElseThrow(() -> new IllegalStateException("Pub ID nicht gefunden: " + pubId));
+        Pub pub = pubRepository.findById(pubId)
+                .orElseThrow(() -> new IllegalStateException("Pub ID nicht gefunden: " + pubId));
+
         product.newDemand(demand);
-
         demand.setProduct(product);
-
         pub.newDemand(demand);
-
         demand.setPub(pub);
-
         demand.setQuantity(1);
 
         demandRepository.save(demand);
         pubRepository.save(pub);
         productRepository.save(product);
 
-        fillDemandDTO(pubId, product, demandDTO, demand, pub);
+        fillDemandDTO(product.getProId(), product, demandDTO, demand, pub);
     }
 
-    private void fillDemandDTO(int pubId, Product product, DemandDTO demandDTO, Demand demand, Pub pub) {
+    private void fillDemandDTO(int proId, Product product, DemandDTO demandDTO, Demand demand, Pub pub) {
         demandDTO.setName(product.getName());
-        demandDTO.setQuantity(demandRepository.findAmountOfQuantity(pubId));
+        demandDTO.setQuantity(demandRepository.findAmountOfQuantity(proId));
         demandDTO.setPubName(pub.getPubName());
         demandDTO.setProId(product.getProId());
         demandDTO.setPubId(pub.getPubId());
@@ -79,19 +85,15 @@ public class DemandService {
 
     public List<DemandDTO> decreaseQuantity(int proId, int pubId) {
         List<DemandDTO> demandDTOList = new ArrayList<>();
-        for (Demand demands : demandRepository.findAll()) {
+        for (Demand demand : getDemands(proId, pubId)) {
             DemandDTO demandDTO = new DemandDTO();
-            if (demands.getProduct().getProId() == proId && demands.getPub().getPubId() == pubId) {
-                if (demands.getQuantity() >= 1) {
-                    demands.setQuantity(demands.getQuantity() - 1);
-                    if (demands.getQuantity() >= 1) {
-                        demandRepository.save(demands);
-                        fillDemandDTO(pubId,demands.getProduct(),demandDTO,demands,demands.getPub());
-                        demandDTOList.add(demandDTO);
-                    } else if (demands.getQuantity() == 0) {
-                        demandRepository.delete(demands);
-                    }
-                }
+            if (demand.getQuantity() >= 1) {
+                demand.setQuantity(demand.getQuantity() - 1);
+                demandRepository.save(demand);
+                fillDemandDTO(proId, demand.getProduct(), demandDTO, demand, demand.getPub());
+                demandDTOList.add(demandDTO);
+            } else {
+                demandRepository.delete(demand);
             }
         }
         return demandDTOList;
@@ -100,10 +102,10 @@ public class DemandService {
     public List<DemandDTO> getAllDemandsFromVendor(int venId) {
         List<DemandDTO> demandDtoList = new ArrayList<>();
         for (Product products : productRepository.findProductByVendor(venId)) {
-            for (Demand demands : demandRepository.findAll()) {
+            for (Demand demand : demandRepository.findAll()) {
                 DemandDTO demandDTO = new DemandDTO();
-                if (demands.getProduct().getProId() == products.getProId()) {
-                    fillDemandDTO(demands.getPub().getPubId(),demands.getProduct(),demandDTO,demands,demands.getPub());
+                if (demand.getProduct().getProId() == products.getProId()) {
+                    fillDemandDTO(demand.getProduct().getProId(), demand.getProduct(), demandDTO, demand, demand.getPub());
                     demandDtoList.add(demandDTO);
                 }
             }
@@ -111,11 +113,7 @@ public class DemandService {
         return demandDtoList;
     }
 
-    public void deleteDemand(int proId,int pubId) {
-        for (Demand demands : demandRepository.findAll()) {
-            if (demands.getProduct().getProId() == proId && demands.getPub().getPubId() == pubId) {
-                demandRepository.delete(demands);
-            }
-        }
+    public void deleteDemand(int proId, int pubId) {
+        demandRepository.deleteAll(getDemands(proId, pubId));
     }
 }

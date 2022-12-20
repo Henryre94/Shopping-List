@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-
 @CrossOrigin
 @RequiredArgsConstructor
 public class DemandController {
@@ -24,29 +23,26 @@ public class DemandController {
         return credential.getPub();
     }
 
-    @PostMapping(value = {"api/demands/{proId}","api/demands/{proId}/{pubId}"})
-    public DemandDTO createDemand(@PathVariable int proId,@PathVariable(required = false) Integer pubId ) {
-        if (pubId == null) {
-            Pub pub = getPub();
-            pubId = pub.getPubId();
-        }
-        return demandService.createDemand(proId,pubId);
+    @PostMapping(value = {"api/demands/{proId}", "api/demands/{proId}/{pubId}"})
+    public DemandDTO createDemand(@PathVariable int proId, @PathVariable(required = false) Integer pubId) {
+        return demandService.createDemand(proId, checkAccount(pubId));
     }
 
-    @PutMapping(value = {"api/demands/{proId}","api/demands/{proId}/{pubId}"})
-    public List<DemandDTO> decreaseQuantity(@PathVariable int proId,@PathVariable(required = false) Integer pubId ) {
-        if (pubId == null) {
-            Pub pub = getPub();
-            pubId = pub.getPubId();
-        }
-        return demandService.decreaseQuantity(proId,pubId);
+    @PutMapping(value = {"api/demands/{proId}", "api/demands/{proId}/{pubId}"})
+    public List<DemandDTO> decreaseQuantity(@PathVariable int proId, @PathVariable(required = false) Integer pubId) {
+        return demandService.decreaseQuantity(proId, checkAccount(pubId));
     }
-    @DeleteMapping(value = {"api/demands/{proId}","api/demands/{proId}/{pubId}"})
-    public void deleteDemand(@PathVariable int proId,@PathVariable(required = false) Integer pubId){
+
+    @DeleteMapping(value = {"api/demands/{proId}", "api/demands/{proId}/{pubId}"})
+    public void deleteDemand(@PathVariable int proId, @PathVariable(required = false) Integer pubId) {
+        demandService.deleteDemand(proId, checkAccount(pubId));
+    }
+
+    private Integer checkAccount(Integer pubId) {
         if (pubId == null) {
             Pub pub = getPub();
             pubId = pub.getPubId();
         }
-        demandService.deleteDemand(proId,pubId);
+        return pubId;
     }
 }

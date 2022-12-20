@@ -8,5 +8,4 @@ import lombok.Setter;
 public class PubDTO {
     String pubName;
     int pubId;
-
 }
