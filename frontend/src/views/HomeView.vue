@@ -8,12 +8,16 @@
                 <v-list>
                     <v-list-item v-for="item in items" :key="item.title" link>
                         <v-list-item-icon>
+                            <!--
                             <router-link style="text-decoration: none; color: white" to="/haendler"
                                 ><v-icon x-large color="white">{{ item.iconStore }}</v-icon></router-link
                             >
-                            <router-link style="text-decoration: none; color: white" to="/pub">
-                                <v-icon x-large color="white">{{ item.icon1090 }}</v-icon></router-link
-                            >
+                            -->
+
+                            <v-icon @click="mustLogin()" x-large color="white">{{ item.iconStore }}</v-icon>
+
+                                <v-icon x-large color="white">{{ item.icon1090 }}</v-icon>
+
                             <router-link style="text-decoration: none; color: white" to="/pub"
                                 ><v-icon x-large color="white">{{ item.icon1160 }}</v-icon></router-link
                             >
@@ -40,6 +44,13 @@
                                 <v-list-item-title>{{ item.titleLogin }}</v-list-item-title></router-link
                             >
                         </v-list-item-content>
+                        <!--
+                        <v-list-item-content v-show="value2">
+                            <router-link style="text-decoration: none; color: white; font-size: large" to="/login">
+                                <v-list-item-title>{{ item.titleLogin }}</v-list-item-title></router-link
+                            >
+                        </v-list-item-content>
+                        -->
                     </v-list-item>
                 </v-list>
 
@@ -70,9 +81,12 @@ export default {
                 { title1160: "Cafe 1160", icon1160: "mdi-silverware-variant" },
                 { titleLogin: "Login", iconLogin: " mdi-lock-open" },
             ],
+            value1: false,
+            value2: true
         };
     },
     methods: {
+
         logout() {
             this.$store.dispatch("logoutCurrentUser");
         },
