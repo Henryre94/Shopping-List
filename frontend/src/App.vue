@@ -1,15 +1,15 @@
 <template>
- <v-app>
-    <router-view/>
+    <v-app>
+        <router-view />
     </v-app>
 </template>
 
 <script>
 export default {
-created() {
-    this.$store.dispatch('currentUser')
-}
-}
+    created() {
+        this.$store.dispatch("currentUser");
+    },
+};
 </script>
 
 <style lang="scss">

@@ -28,7 +28,13 @@ export const DemandsModule = {
             state.demands = demandList
         },
         deleteVendorsDemand(state, proId) {
-            const demandIndex = state.demands.findIndex(demand => demand.id === proId)
+            const demandIndex = state.demands.findIndex(demand => demand.proId === proId);
+
+            state.demands.findIndex(demand => {
+                console.log("demand", demand, proId);
+            });
+            console.log("demandIndex", demandIndex);
+
             state.demands.splice(demandIndex, 1)
         },
     },
@@ -62,17 +68,29 @@ export const DemandsModule = {
             console.log(response)
             store.commit("getVendorsDemand", response.data)
         },
+        async decreaseDemandsVendor(store, item) {
+
+         //  await axios.put('/api/demands/' + proId + '/1' )
+           await axios.put('/api/demands/' + item.proId + '/' + item.pubId )
+            store.commit('decreaseDemands', item.proId)
+        },
+
+
+
+
         async editVendorsDemand(store, payload) {
             console.log(this.demands)
            // await axios.put("/api/demands/" + payload.demands.proId + "/pubs/" + payload.demands.pubId)
-            await axios.put("/api/demands/" + payload.demands.proId)
+            await axios.put("/api/demands/" + payload.demands.proId +'/' + payload.pubId)
             console.log(payload);
             await store.dispatch('getVendorsDemand', payload.pubId);
+         //   store.commit('decreaseDemands', payload.item.proId)
+
         },
         async delVendorsDemand(store, payload) {
           //  await axios.delete("/api/demands/" + payload.proId + "/pubs/" + payload.pubId)
-            await axios.delete("/api/demands/" + payload.proId)
-             store.commit('deleteVendorsDemand', payload.pubId);
+            await axios.delete("/api/demands/" + payload.proId + '/' + payload.pubId)
+             store.commit('deleteVendorsDemand', payload.proId);
         },
     }
 }
