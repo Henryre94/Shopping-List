@@ -44,7 +44,6 @@ public class DemandService {
                 demand.setQuantity(demand.getQuantity() + 1);
                 demandRepository.save(demand);
                 fillDemandDTO(
-                        proId,
                         demand.getProduct(),
                         demandDTO,
                         demand,
@@ -82,7 +81,6 @@ public class DemandService {
         productRepository.save(product);
 
         fillDemandDTO(
-                product.getProId(),
                 product,
                 demandDTO,
                 demand,
@@ -90,9 +88,9 @@ public class DemandService {
         );
     }
 
-    private void fillDemandDTO(int proId, Product product, DemandDTO demandDTO, Demand demand, Pub pub) {
+    private void fillDemandDTO(Product product, DemandDTO demandDTO, Demand demand, Pub pub) {
         demandDTO.setName(product.getName());
-        demandDTO.setQuantity(demandRepository.findAmountOfQuantity(proId));
+        demandDTO.setQuantity(demand.getQuantity());
         demandDTO.setPubName(pub.getPubName());
         demandDTO.setProId(product.getProId());
         demandDTO.setPubId(pub.getPubId());
@@ -107,7 +105,6 @@ public class DemandService {
                 demand.setQuantity(demand.getQuantity() - 1);
                 demandRepository.save(demand);
                 fillDemandDTO(
-                        proId,
                         demand.getProduct(),
                         demandDTO,
                         demand,
@@ -128,7 +125,6 @@ public class DemandService {
                 DemandDTO demandDTO = new DemandDTO();
                 if (demand.getProduct().getProId() == products.getProId()) {
                     fillDemandDTO(
-                            demand.getProduct().getProId(),
                             demand.getProduct(),
                             demandDTO,
                             demand,
