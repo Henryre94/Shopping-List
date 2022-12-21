@@ -1,9 +1,13 @@
 <template>
     <v-content>
         <v-container fluid fill-height class="back">
-            <v-layout align-end justify-center>
+            <v-layout align-center justify-center>
                 <v-flex xs12 sm8 md3 pt6>
                     <v-card-text>
+                        <h1 style="color: white">LOGIN</h1>
+                        <br>
+                        <br>
+                        <br>
                         <v-form class="log">
                             <v-text-field
                                 v-model="username"
@@ -78,7 +82,7 @@ export default {
 
 <style scoped>
 .back {
-    background-image: url("../assets/cafelogin.jpg");
+    background-color: grey;
     background-size: cover;
     background-position: center;
     background-position-y: -178px;

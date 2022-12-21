@@ -64,9 +64,15 @@
                 <v-icon large color="red" class="mr-6" @click.stop="deleteItem(item)">
                     mdi-delete
                 </v-icon>
-                <v-icon large color="blue" class="mr-6" @click="shoppingList(item)">
+                {{item.venId}}
+                {{hasVendorDemands(item.venId)}}
+                <v-icon v-if="hasVendorDemands(item.venId)" large color="blue" class="mr-6" @click="shoppingList(item)">
                     mdi-cart-plus
                 </v-icon>
+                <v-icon v-else large color="white" class="mr-6" @click="shoppingList(item)">
+                    mdi-cart-plus
+                </v-icon>
+
             </template>
         </v-data-table>
         <BottomBar></BottomBar>
@@ -180,6 +186,9 @@ export default {
             // this.$store.dispatch('getVendors')
             this.close()
         },
+        hasVendorDemands(venId){
+            return this.$store.state.demandsModule.demands.some(vendor => vendor.venId === venId)
+        }
     },
 }
 </script>
